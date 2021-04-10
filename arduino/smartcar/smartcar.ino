@@ -8,27 +8,48 @@ unsigned long detectionTime = 0;
 unsigned long detectionTime2 = 0;
 unsigned long detectionTimeReverse = 0;
 const auto pulsesPerMeter = 600;
-String currentMode = "startUp";
+
 boolean initialTurn = true;
 int startDistance = 0;
-int startSpeed = 0;
+float startSpeed = 0;
 int startAngle = 0;
+
+enum DrivingMode {
+    STARTUP,
+    EXPLORE,
+    SLOW,
+    REVERSE,
+    AVOIDFRONT,
+    AVOIDRIGHT,
+    AVOIDLEFT,
+    UNSTUCK
+  };
+
+enum CarSensor {
+    FRONTUS,
+    FRONTIR,
+    BACKIR,
+    LEFTIR,
+    RIGHTIR
+  };
+
+DrivingMode currentMode = STARTUP;
+CarSensor sensor = FRONTUS;
 
 ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(arduinoRuntime, smartcarlib::pins::v2::rightMotorPins);
 DifferentialControl control(leftMotor, rightMotor);
 
-GP2Y0A02 frontIR(arduinoRuntime, 0);
-GP2Y0A02 leftIR(arduinoRuntime, 1);
-GP2Y0A02 rightIR(arduinoRuntime, 2);
-GP2Y0A02 backIR(arduinoRuntime, 3);
+typedef GP2Y0A02 IR;
+IR frontIR(arduinoRuntime, 0);
+IR leftIR(arduinoRuntime, 1);
+IR rightIR(arduinoRuntime, 2);
+IR backIR(arduinoRuntime, 3);
 
-SR04 frontUS(arduinoRuntime, 6, 7, 300);
+SR04 frontUS(arduinoRuntime, 6, 7, 400);
 
-GY50 gyroscope(arduinoRuntime, 37);
-
-
+GY50 gyroscope(arduinoRuntime, 37, 1);
 
 DirectionlessOdometer leftOdometer{
     arduinoRuntime,
@@ -43,16 +64,14 @@ DirectionlessOdometer rightOdometer{
 
 SmartCar car(arduinoRuntime, control, gyroscope, leftOdometer, rightOdometer);
 
-
-
 void setup()
 {
     Serial.begin(9600);
     // car.setSpeed(30); // Maintain a speed of 1.5 m/sec
 
       // Start with random speed, random angle and goes random distance before starting "explore" mode
-      startDistance = (rand() % 500) + 200;
-      startSpeed = (rand() % 40) + 20;
+      startDistance = (rand() % 100) + 50;
+      startSpeed = static_cast <float> (rand() % 40) + 20;
       startAngle = (rand() % 45) - 45;
 
       Serial.print("Start speed: ");
@@ -65,243 +84,311 @@ void setup()
 
 void loop()
 {
-    // Maintain the speed and update the heading
-    if (currentMode == "startUp") {
-      startupMove();
-    } else if (currentMode == "explore") {
-      moveForward();
-      currentMode = monitorForward();
-    } else if (currentMode == "slow") {
-      moveSlow();
-      currentMode = monitorSlowForward();
-    } else if (currentMode == "reverse") {
-      moveBackward();
-      currentMode = monitorBackward();
-    } else if (currentMode == "avoidFront") {
-      avoidFront();
-      currentMode = monitorFrontAvoidance();
-    } else if (currentMode == "avoidLeft") {
-      avoidLeft();
-      currentMode = monitorLeftAvoidance();
-    } else if (currentMode == "avoidRight") {
-      avoidRight();
-      currentMode = monitorRightAvoidance();
-    } else if (currentMode == "unstuckBack") {
-      unstuckBack();
+    switch(currentMode)
+    {
+      case STARTUP:
+        startupMove();
+        break;
+      case EXPLORE:
+        moveForward();
+        currentMode = monitorForward();
+        break;
+      case SLOW:
+        moveSlow();
+        currentMode = monitorSlowForward();
+        break;
+      case REVERSE:
+        moveBackward();
+        currentMode = monitorBackward();
+        break;
+      case AVOIDFRONT:
+        avoidFront();
+        currentMode = monitorFrontAvoidance();
+        break;
+      case AVOIDRIGHT:
+        avoidRight();
+        currentMode = monitorRightAvoidance();
+        break;
+      case AVOIDLEFT:
+        avoidLeft();
+        currentMode = monitorLeftAvoidance();
+        break;
+      case UNSTUCK:
+        unstuckBack();
+        break;
+      default:
+        moveSlow();
+        break;
     }
 
-    // Keep printing out the current heading
     unsigned long currentTime = millis();
     if (currentTime >= previousPrintout + PRINT_INTERVAL)
     {
         previousPrintout = currentTime;
-
-        Serial.print("Current mode: ");
-        Serial.println(currentMode);
-
+        
         float speed = car.getSpeed();
-        Serial.print("Current speed: ");
+        long distanceLeft = leftOdometer.getDistance();
+        long distanceRight = rightOdometer.getDistance();
+
+        Serial.print("Mode: ");
+        Serial.println(reportMode());
+        Serial.print("Speed: ");
         Serial.println(speed);
-       
+        Serial.print("Left: ");
+        Serial.println(distanceLeft);
+        Serial.print("Right: ");
+        Serial.println(distanceRight);
+        Serial.println(" ");
     }
+    
 
     if (currentTime >= detectionTime + DETECT_INTERVAL_MED)
     {
         detectionTime = currentTime;
-        if (frontUS.getDistance() == 0 && frontIR.getDistance() ==0 && currentMode == "slow") {
-            currentMode = "explore";
+        int usDistance = getSensorData(FRONTUS);
+        int irDistance = getSensorData(FRONTIR); 
+        
+        if (usDistance == 0 && irDistance == 0 && currentMode == SLOW) {
+            currentMode = EXPLORE;
         }
 
-        if (currentMode == "unstuckBack" && frontIR.getDistance() == 0 && frontUS.getDistance() > 200) {
-            currentMode = "slow";
-          } else if (currentMode == "unstuckForward" && backIR.getDistance() == 0) {
-            currentMode = "reverse";
-          }
+        if (currentMode == DrivingMode::UNSTUCK && irDistance == 0 && usDistance > 200) {
+            currentMode = SLOW;
+        }
     }
 
     if (currentTime >= detectionTime2 + DETECT_INTERVAL_SHORT)
     {
         detectionTime2 = currentTime;
-        if (car.getSpeed() >= 0 && car.getSpeed() < 0.025 && (currentMode == "explore" || currentMode == "slow" || currentMode == "reverse")) {
-            currentMode = "unstuckBack";
+        float currentSpeed = getSpeedData();
+        
+        if (currentSpeed >= 0 && currentSpeed < 0.025) {
+            currentMode = UNSTUCK;
             unstuckBack();
         }
 
-        if (car.getSpeed() >= 0 && car.getSpeed() < 0.025 && (currentMode == "avoidRight" || currentMode == "avoidLeft")) {
-            currentMode = "reverse";
-            unstuckBack();
-        }
     }
 
-    if (currentTime >= detectionTimeReverse + 5000 && currentMode == "reverse")
+    if (currentTime >= detectionTimeReverse + 5000 && currentMode == DrivingMode::REVERSE)
     {
-        currentMode = "explore";
+        currentMode = EXPLORE;
     }    
 }
 
 void startupMove() {
+
       // String currentMode = "startUp";
-      
       car.setAngle(startAngle);
       car.setSpeed(startSpeed);
-      if (car.getDistance() > startDistance) {
+      long distanceLeft = leftOdometer.getDistance();
+      long distanceRight = rightOdometer.getDistance();
+     
+      if (distanceLeft > startDistance || distanceRight > startDistance) {
         car.setAngle(0);
         initialTurn = false;
-        currentMode = "explore";        
+        currentMode = EXPLORE;
       }
 }
 
-String monitorForward() {
-    String currentMode = "explore";
-    if ((frontUS.getDistance() > 0 && frontUS.getDistance() < 300) || (frontUS.getDistance() > 0 && frontUS.getDistance() < 100 && frontIR.getDistance() < 40)) {
-        currentMode = "slow";
+DrivingMode monitorForward() {
+    currentMode = EXPLORE;
+    int usDistance = getSensorData(FRONTUS);
+    int irDistance = getSensorData(FRONTIR); 
+
+    if ((usDistance > 0 && usDistance < 250) || (usDistance > 0 && usDistance < 100 && irDistance < 40)) {
+        currentMode = SLOW;
         moveSlow();
     }
 
     return currentMode;    
 }
 
-String monitorSlowForward() {
-    delay(100);
-    String currentMode = "slow";
-    if (frontUS.getDistance()> 0 && frontUS.getDistance() < 100 && frontIR.getDistance() == 0 && leftIR.getDistance() == 0 && rightIR.getDistance() == 0) {
-      currentMode = "avoidFront";
+DrivingMode monitorSlowForward() {
+
+    int sensorFrontUS = getSensorData(FRONTUS);
+    int sensorFrontIR = getSensorData(FRONTIR);
+    int sensorLeftIR = getSensorData(LEFTIR);
+    int sensorRightIR = getSensorData(RIGHTIR);
+    int sensorBackIR = getSensorData(BACKIR);
+    
+    if (sensorFrontUS > 50 && sensorFrontUS < 250) {
+        checkAvoidDirection();
     }
 
-    if (frontUS.getDistance()> 0 && frontUS.getDistance() < 350 && frontIR.getDistance() == 0 && leftIR.getDistance() == 0 && rightIR.getDistance() > 0 && rightIR.getDistance() < 50) {
-      currentMode = "avoidLeft";
+    if (currentMode == DrivingMode::SLOW) {
+        delay(100);
+        currentMode = SLOW;    
+        
+        if (sensorFrontUS > 50 && sensorFrontUS < 100 && sensorFrontIR == 0 && sensorLeftIR == 0 && sensorRightIR == 0 && sensorBackIR == 0) {
+          currentMode = AVOIDFRONT;
+        }
+    
+        if (sensorFrontUS > 0 && sensorFrontUS < 150 && sensorFrontIR == 0 && sensorLeftIR == 0 && sensorRightIR > 0 && sensorRightIR < 50 && sensorBackIR == 0) {
+          currentMode = AVOIDLEFT;
+        } 
+        
+        if (sensorFrontUS > 0 && sensorFrontUS < 150 && sensorFrontIR == 0 && sensorRightIR == 0 && sensorLeftIR > 0 && sensorLeftIR < 50 && sensorBackIR == 0) {
+          currentMode = AVOIDRIGHT;
+        }
+        
+        if (sensorFrontUS > 0 && sensorFrontUS <= 50 && sensorFrontIR > 0 && sensorFrontIR < 50  && sensorLeftIR == 0 && sensorRightIR == 0) {
+            currentMode = REVERSE;
+        }
+    }
+    return currentMode;
+}
+
+void checkAvoidDirection() {
+    int sensorFrontUS = getSensorData(FRONTUS);
+    car.setSpeed(20);
+    car.setAngle(-30);
+    delay(1500);
+    int sensorFrontUS2 = getSensorData(FRONTUS);
+    car.setAngle(0);
+
+    if (sensorFrontUS2 > 0 && (sensorFrontUS < sensorFrontUS2)) {
+      currentMode = AVOIDLEFT;
+    } else if (sensorFrontUS2 > 0 && (sensorFrontUS > sensorFrontUS2)) {
+      currentMode = AVOIDRIGHT;
+    } else if (sensorFrontUS2 == 0) {
+      currentMode = SLOW;
+    }
+}
+
+DrivingMode monitorBackward() {
+    currentMode = REVERSE;
+    int sensorBackIR = getSensorData(BACKIR);
+    
+    if (sensorBackIR > 0 && sensorBackIR < 50) {
+        currentMode = EXPLORE;
+        moveForward();
+    }
+    return currentMode;
+}
+
+DrivingMode monitorFrontAvoidance() {
+    currentMode = AVOIDFRONT;
+    int sensorFrontUS = getSensorData(FRONTUS);
+    int sensorFrontIR = getSensorData(FRONTIR);
+    int sensorLeftIR = getSensorData(LEFTIR);
+    int sensorRightIR = getSensorData(RIGHTIR);
+    int sensorBackIR = getSensorData(BACKIR);
+    
+    if (sensorFrontUS == 0 && sensorFrontIR == 0 && sensorLeftIR == 0 && sensorRightIR == 0) {
+      delay(1200);
+      currentMode = EXPLORE;
+    }
+
+    if (sensorFrontIR > 0 && sensorFrontIR < 50) {
+        currentMode = REVERSE;
+        moveBackward();
+    }
+      
+    if (sensorFrontUS > 350 || (sensorBackIR > 0 && sensorBackIR < 50)) {
+      currentMode = SLOW;
+    }
+
+    if (sensorFrontUS > 0 && sensorFrontUS < 2500 && sensorLeftIR == 0 && sensorRightIR > 0 && sensorRightIR < 35) {
+      currentMode = AVOIDLEFT;
     } 
     
-    if (frontUS.getDistance()> 0 && frontUS.getDistance() < 350 && frontIR.getDistance() == 0 && rightIR.getDistance() == 0 && leftIR.getDistance() > 0 && leftIR.getDistance() < 50) {
-      currentMode = "avoidRight";
+    if (sensorFrontUS > 0 && sensorFrontUS < 2500 && sensorRightIR == 0 && sensorLeftIR > 0 && sensorLeftIR < 35) {
+      currentMode = AVOIDRIGHT;
     }
-    
-    if (frontIR.getDistance() > 0 && frontIR.getDistance() < 50  && leftIR.getDistance() == 0 && rightIR.getDistance() == 0) {
-        currentMode = "reverse";
-        moveBackward();
-    }
+
     return currentMode;    
 }
 
-String monitorBackward() {
-    String currentMode = "reverse";
-    if (backIR.getDistance() > 0 && backIR.getDistance() < 50) {
-        currentMode = "explore";
-        moveForward();
-    }
-    return currentMode;    
-}
-
-String monitorFrontAvoidance() {
-    String currentMode = "avoidFront";
-    if (car.getDistance() >= 100 && frontUS.getDistance() == 0 && frontIR.getDistance() == 0 && leftIR.getDistance() == 0 && leftIR.getDistance() == 0) {
-      currentMode = "explore";
+DrivingMode monitorLeftAvoidance() {
+    currentMode = AVOIDLEFT;
+    int sensorFrontUS = getSensorData(FRONTUS);
+    int sensorFrontIR = getSensorData(FRONTIR);
+    int sensorLeftIR = getSensorData(LEFTIR);
+    int sensorRightIR = getSensorData(RIGHTIR);
+    int sensorBackIR = getSensorData(BACKIR);
+    
+    if (sensorFrontUS == 0 && sensorFrontIR == 0 && sensorLeftIR == 0 && sensorRightIR == 0) {
+      delay(500);
+      currentMode = EXPLORE;
     }
 
-    if (frontIR.getDistance() > 0 && frontIR.getDistance() < 50) {
-        currentMode = "reverse";
+    if (sensorFrontIR > 0 && sensorFrontIR < 50) {
+        currentMode = REVERSE;
         moveBackward();
     }
 
-    if (car.getDistance() >= 100 && frontUS.getDistance() > 300) {
-      currentMode = "slow";
+    if (sensorFrontUS > 350 || (sensorRightIR >= 25 && sensorFrontUS > 300)) {
+      currentMode = SLOW;
     }
 
-    if (frontUS.getDistance()> 0 && frontUS.getDistance() < 2500 && leftIR.getDistance() == 0 && rightIR.getDistance() > 0 && rightIR.getDistance() < 35) {
-      currentMode = "avoidLeft";
-    } 
-    
-    if (frontUS.getDistance()> 0 && frontUS.getDistance() < 2500 && rightIR.getDistance() == 0 && leftIR.getDistance() > 0 && leftIR.getDistance() < 35) {
-      currentMode = "avoidRight";
-    }
-
-    if (backIR.getDistance() > 0 && backIR.getDistance() < 50) {
-        currentMode = "slow";
-        moveForward();
+    if (sensorBackIR > 0 && sensorBackIR < 50) {
+        currentMode = SLOW;
     }
     
     return currentMode;    
 }
 
-String monitorLeftAvoidance() {
-    String currentMode = "avoidLeft";
-    if (frontUS.getDistance() == 0 && frontIR.getDistance() == 0 && leftIR.getDistance() == 0 && leftIR.getDistance() == 0) {
-      currentMode = "explore";
+DrivingMode monitorRightAvoidance() {
+    currentMode = AVOIDRIGHT;
+    int sensorFrontUS = getSensorData(FRONTUS);
+    int sensorFrontIR = getSensorData(FRONTIR);
+    int sensorLeftIR = getSensorData(LEFTIR);
+    int sensorRightIR = getSensorData(RIGHTIR);
+    int sensorBackIR = getSensorData(BACKIR);
+    
+    if (sensorFrontUS == 0 && sensorFrontIR == 0 && sensorLeftIR == 0 && sensorRightIR == 0) {
+      delay(500);
+      currentMode = EXPLORE;
     }
 
-    if (frontIR.getDistance() > 0 && frontIR.getDistance() < 50) {
-        currentMode = "reverse";
-        moveBackward();
+    if (sensorFrontIR > 0 && sensorFrontIR < 50) {
+        currentMode = REVERSE;
     }
 
-    if ((car.getDistance() >= 100 && frontUS.getDistance() > 300) || (rightIR.getDistance() >= 25 && frontUS.getDistance() > 300)) {
-      currentMode = "slow";
+    if (sensorFrontUS > 350 || (sensorLeftIR >= 25 && sensorFrontUS > 300)) {
+      currentMode = SLOW;
     }
 
-    if (backIR.getDistance() > 0 && backIR.getDistance() < 50) {
-        currentMode = "slow";
-        moveForward();
+    if (sensorBackIR > 0 && sensorBackIR < 50) {
+        currentMode = SLOW;
     }
     
     return currentMode;    
 }
 
-String monitorRightAvoidance() {
-    String currentMode = "avoidRight";
-    if (frontUS.getDistance() == 0 && frontIR.getDistance() == 0 && leftIR.getDistance() == 0 && leftIR.getDistance() == 0) {
-      currentMode = "explore";
-    }
+void moveForward()
+{
+  car.setAngle(0);
+  car.setSpeed(50);
+  monitorForward();
+}
 
-    if (frontIR.getDistance() > 0 && frontIR.getDistance() < 50) {
-        currentMode = "reverse";
-        moveBackward();
-    }
-
-    if ((car.getDistance() >= 100 && frontUS.getDistance() > 300) || (leftIR.getDistance() >= 25 && frontUS.getDistance() > 300)) {
-      currentMode = "slow";
-    }
-
-    if (backIR.getDistance() > 0 && backIR.getDistance() < 50) {
-        currentMode = "slow";
-        moveForward();
-    }
-    
-    return currentMode;    
+void moveSlow()
+{
+  car.setAngle(0);
+  car.setSpeed(15);
+  monitorSlowForward();
 }
 
 void avoidLeft() {
   monitorLeftAvoidance();
-  car.setSpeed(-20);
-  car.setAngle(60);
+  car.setSpeed(-25);
+  car.setAngle(-45);
   
 }
 
 void avoidRight() {
   monitorRightAvoidance();
-  car.setSpeed(-20);
-  car.setAngle(-60);
+  car.setSpeed(-25);
+  car.setAngle(45);
 
 }
 
 void avoidFront() {
   monitorFrontAvoidance();
   car.setSpeed(-20);
-  car.setAngle(-45);
+  car.setAngle(45);
   
-}
-
-void moveForward()
-{
-  monitorForward();
-  car.setAngle(0);
-  car.setSpeed(50);
-}
-
-void moveSlow()
-{
-  monitorSlowForward();
-  car.setAngle(0);
-  car.setSpeed(15);
 }
 
 void moveBackward()
@@ -313,10 +400,82 @@ void moveBackward()
 
 
 void unstuckBack() {
-  car.setSpeed(-40);
+  int sensorBackIR = getSensorData(BACKIR);
+  car.setSpeed(-50);
   car.setAngle(-40);
+  
   // delay(1000);
-  if (car.getDistance() >= 800 && car.getSpeed() > 0.4) {
-    currentMode = "slow";
+  float currentSpeed = getSpeedData();
+  if (currentSpeed > 0.4) {
+    currentMode = SLOW;
   }
+
+  if (sensorBackIR > 0 && sensorBackIR < 50) {
+        currentMode = SLOW;
+    }
 }
+
+String reportMode() {
+  String driveMode;
+  switch(currentMode)
+    {
+      case STARTUP:
+        driveMode = "Startup";
+        break;
+      case EXPLORE:
+        driveMode = "Explore";
+        break;
+      case SLOW:
+        driveMode = "Slow";
+        break;
+      case REVERSE:
+        driveMode = "Reverse";
+        break;
+      case AVOIDFRONT:
+        driveMode = "Avoid front";
+        break;
+      case AVOIDRIGHT:
+        driveMode = "Avoid right";
+        break;
+      case AVOIDLEFT:
+        driveMode = "Avoid left";
+        break;
+      case UNSTUCK:
+        driveMode = "Unstuck";
+        break;
+      default:
+        driveMode = "Unknown";
+        break;
+    }
+  return driveMode;
+}
+
+int getSensorData(CarSensor sensorName) {
+  int detectedDistance;
+  switch(sensorName)
+    {
+      case FRONTUS:
+        detectedDistance = frontUS.getDistance();
+        break;
+      case FRONTIR:
+        detectedDistance = frontIR.getDistance();
+        break;
+      case BACKIR:
+         detectedDistance = backIR.getDistance();
+        break;
+      case LEFTIR:
+        detectedDistance = leftIR.getDistance();;
+        break;
+      case RIGHTIR:
+        detectedDistance = rightIR.getDistance();
+        break;
+      default:
+        detectedDistance = 0;
+        break;
+    }
+  return detectedDistance;
+}
+
+float getSpeedData() {
+  return car.getSpeed();
+  }
