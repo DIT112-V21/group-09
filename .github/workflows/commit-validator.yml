@@ -1,0 +1,36 @@
+name: 'Commit Message Validator'
+
+on: 
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - 'frontendApp/*'
+      - 'arduino/*'
+    paths-ignore:
+      - '*/workflows/*'
+
+jobs:
+  check-commit-message:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Verify commit messages follow best practices in CI
+        uses: platisd/bad-commit-message-blocker@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Optionally set the subject character limit (default `50`)
+          subject_limit: 60
+          # Optionally set the body character limit (default `72`)
+          body_limit: 100
+          # Optionally set the remote branch name to merge (default `master`)
+          # remote_branch: dev
