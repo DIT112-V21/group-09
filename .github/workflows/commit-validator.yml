@@ -1,6 +1,24 @@
 name: 'Commit Message Validator'
 
-on: pull_request
+on: 
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - 'frontendApp/*'
+      - 'arduino/*'
+    paths-ignore:
+      - '*/workflows/*'
 
 jobs:
   check-commit-message:
