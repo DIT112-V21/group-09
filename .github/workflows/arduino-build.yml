@@ -28,4 +28,4 @@ jobs:
           arduino-cli lib install "Arduino_OV767X"
       - name: Build sketch
         run: |
-          arduino-cli compile -b esp32:esp32:esp32doit-devkit-v1 arduino/smartcar/smartcar.ino
+          arduino-cli compile -b esp32:esp32:esp32doit-devkit-v1 smartcar/smartcar.ino
