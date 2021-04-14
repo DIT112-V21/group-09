@@ -1,30 +1,74 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, globalShortcut } = require('electron')
+
 const path = require('path')
 
 function createWindow () {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
-  })
+	const mainWindow = new BrowserWindow({
+		width: 1280,
+		height: 960,
+		icon: path.join(__dirname, 'images/favicon.ico'),
+    	webPreferences: {
+      		preload: path.join(__dirname, 'preload.js')
+    	}
+  	})
 
-  win.loadFile('index.html')
+	mainWindow.loadFile('index.html')
+	
+	/* Global shortcut for F5 to reload window */
+	globalShortcut.register('f5', function() {
+		console.log('f5 is pressed')
+		mainWindow.reload()
+	})
+	
+	globalShortcut.register('CommandOrControl+R', function() {
+		console.log('CommandOrControl+R is pressed')
+		mainWindow.reload()
+	})	
 }
 
-app.whenReady().then(() => {
-  createWindow()
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
+app.whenReady().then(() => {
+	createWindow()
+
+	app.on('activate', () => {
+		if (mainWindow.getAllWindows().length === 0) {
+			createWindow()
+    	}
+	})
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+	if (process.platform !== 'darwin') {
+		app.quit()
+	}
 })
+
+app.on('will-quit', () => {
+	// Unregister a shortcut.
+	globalShortcut.unregister('CommandOrControl+X')
+
+	// Unregister all shortcuts.
+	globalShortcut.unregisterAll()
+})
+
+//For header position
+// When the user scrolls the page, execute myFunction
+/*
+mainWindow.onscroll= function() {myFunction()};
+
+
+// Get the header
+const document= mainWindow.loadFile('manual-control.html')
+var header  = document.getElementById(myHeader);
+
+// Get the offset position of the navbar
+var sticky = header.offsetTop;
+
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function myFunction() {
+  if (mainWindow.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}*/
