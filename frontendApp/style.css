@@ -1,4 +1,4 @@
-*{
+* {
     padding:0;
     margin:0;
     text-decoration: none;
@@ -6,38 +6,35 @@
     box-sizing: border-box;
 
 }
-body{
+body {
     font-family:Georgia, 'Times New Roman', Times, serif;
-    background-image: url('images/Mars.jpg');
+    background-image: url(images/PIA22316.jpeg);
+    background-blend-mode: overlay(rgba(218, 212, 212, .4));
+    
+   
 }
 
-nav{
-    background-color: rgb(197, 145, 81);
-    height: 80px;
+nav {
+    background-color: rgb(0, 0, 0);
+    height: 90px;
     width: 100%;
 
 }
 
-    nav img{
-    display: block;
-    max-width: 80px;
+nav img{
+ 
+    float: left;
+    max-width: 300px;
     max-height: 80px;
-
-    }
-/*label.logo{
-   
-    background-image: url(/images/testLogo.png);
-    width: 800px;
-    height: 80px;
-     
-     font-size: 40px;
-     line-height:80px;
-     padding: 0 100px;
-     font-weight: bold;
+    margin: 10px 0 5px 20px;
 
 }
-*/
-    nav ul{
+
+.menus{
+    size: 100%;
+}
+
+    nav ul {
         float: right;
         margin-right: 20px;
     }
@@ -78,33 +75,31 @@ nav{
     
     @media (max-width: 952px){
 
-        div.img{
-            display: block;
-            max-height: 100%;
-            max-width: 100%;
+        div img{
+            
+            max-height: 80px;
+            max-width: 320px;
         }
 
-        /*label.logo{
-            font-size: 30px;
-            padding-left: 50px;
-        }*/
+        
         nav ul li a{
             font-size: 16px;
         }
     }
-    @media (max-width: 858px){
+    @media (max-width: 943px){
         .checkbtn{
             display: block;
         }
-        ul{
+        nav ul{
+            margin-top: 90px;
+            background:rgba(0, 0, 0, .4);
             position:fixed;
-            width: 100%;
+            width: 80%;
             height: 100vh;
-            background-image: url('images/roundMars.jpg');
-            top: 80px;
+            top: 0px;
             left:-100%;
             text-align: center;
-            transition: all .5s;
+            transition: all .3s;
 
         }
         nav ul li{
@@ -127,163 +122,261 @@ nav{
     }
 
 
+/* Left sidebar menu */
+navigation ul {
+	float: right;
+	margin-right: 20px;
+}
+navigation ul li{
+	display: inline-block;
+	line-height: 80px;
+	margin: 0 5px;
+}
+
+navigation ul li a{
+	color: white;
+	font-size: 17px;
+	text-transform: uppercase;
+	padding: 7px 13px;
+	border-radius: 3px;
+}
+@media (max-width: 943px){
+    .checkbtn{
+        display: block;
+    }
+    ul{
+        margin-top: 90px;
+        background:rgba(0, 0, 0, .4);
+        position:fixed;
+        width: 80%;
+        height: 100vh;
+        top: 0px;
+        left:-100%;
+        text-align: center;
+        transition: all .3s;
+
+    }
+    nav ul li{
+        display: block;
+        margin: 50px 0 ;
+        line-height: 30px; 
+    }
+    nav ul li a{
+        font-size: 20px;
+
+    }
+    a:hover, a.active{
+        background:none;
+        color:rgb(185, 122, 4);
+
+    }
+    #check:checked ~ ul{
+        left: 0;
+      }
+}
+
 /*<!--Manual Control layout>*/
-.grid div{
-    padding: 0.5em;
+
+parent-container{
+    
+    height: 90vh;
+    border: 2px magenta;
+    
+}
+.container {
+	display: grid;
+   
+	grid-template-columns: 1fr 4fr 3fr; 
+    grid-template-areas:
+    "navigation main-content status";
+    
+   
+	grid-gap: 0.3em;
+	grid-auto-rows: minmax(100px, auto);
+
+	border: 2px red solid;
+    position: relative;
+    width: 80%;
+    margin:0 auto;
+    height: inherit;
 }
 
-/*.grid div:nth-child(odd){
-    background:rgb(243, 203, 130);
+header{
 
-}*/
-.grid{
-  display: grid;
-  
-  grid-template-columns: 1fr 4fr 1fr;  
-  grid-gap: 0.3em;
-  grid-auto-rows: minmax(100px, auto);
-
+    grid-area:header;
+    background:black;
+    height: 90px;
+    margin-bottom: 5px;
+    
+   
+} 
+/*for header .. JS is usded for this*/
+.sticky { 
+    position: fixed;
+    top: 0;
+    width: 100%
+  }
+  /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+    padding-top: 102px;
+  }
+header img{
+    float:left;
+    max-width: 310px;
+    margin: 5px 0 15px 30px; 
 }
 
+
+.middle {
   
-.middle{
-  
-    grid-gap: 0.3em;
-   display: grid;
+	grid-gap: 0.3em;
+	display: grid;
     min-width: 500px;
     background-size: cover;
+    grid-template-rows: 1fr 1fr;
     background-position: center;
     max-width: 500px;
+	border: 2px green solid;
+    height: relative;
+    background: rgba(255, 255, 255, 0.4);
+
     
 
 }
-.controller{
+.controller {
     display: grid;
-   position: relative;
-    background:rgb(238, 179, 132);
+    position: relative;
+    
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    min-height: 400px fit-content;
+    width: 390px fit-content;
+    height: 390px fit-content;
+	border: 2px blue solid;
    
 }
 
+.snapshot{
+   
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    margin: auto;
+
+  
+}
+.snapshot:active {
+margin-top: 0.02px;
+-webkit-transform: scale(0.05);
+
+    
+    
+}
 .info{
+
+   
+    color:seashell;
+    font:bold 60px;
     display: grid;
     grid-gap: 0.2em;
     grid-template-columns: 1fr 1fr;
-    background: white;
+    height:initial;
 }
 
 .infoBoard{
-    background:rgb(229, 203, 182)
+    padding-left: 10px;
+    background:rgba(0, 0, 0, .4)
+}
+.manual-control{
+    padding-left: 10px;
+                
+    background: rgba(0, 0, 0, .9);
 }
 
-.menu{
-   font-size: 10px;
-}
-.logoDisplay{
-    padding-left: 5px;
-    font-size: 30px;
-    color: white;
-    line-height: 80px;
-    margin-right: 5px;
-    cursor: pointer;
+/* Status layout */
+
+status{
+    min-width: 250px;
+    color:seashell;
+    padding: 10px;
+    display:grid;
+    background: rgba(255, 255, 255, 0.4);
+    margin-left: 10px;
+    width: 100%;
+    font-size: large;
+    
    
 }
 
-.side{
-    background-size: cover;
-    height: 100%;
-    width: 100px;
+.status-info{
+
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    border: 10px solid black;
+    
+    
+}
+.live-stream{
+
+    border: 10px solid black;
+    box-shadow:  5px rgb(184, 115, 66);
 }
 
-    side ul{
-        float:left;
-        margin-right: 20px;
-    }
-    side ul li{
-        display: inline-block;
-        line-height: 80px;
-        margin: 0 5px;
-    }
 
-    side ul li a{
-        color:white;
-        font-size: 17px;
-        text-transform: uppercase;
-        padding: 7px 13px;
-        border-radius: 3px;
-    }
-    
-
-    
   /*stolen from https://codepen.io/jason-kinney/pen/fChrj  */
 
-
-
-
 .stop{
+position: relative;
+width:110px;
+height: 110px;
+border-radius: 50%;
+cursor: pointer;
 
-    
-    position: relative;
-  
-  width:110px;
-  height: 110px;
-  border-radius: 50%;
-    cursor: pointer;
-  border: 1px solid lighten(rgb(204, 125, 21),8%);
-  
-  background: radial-gradient(ellipse at center, rgb(170, 108, 49), rgb(170, 108, 49),12%);
-  box-shadow: 0 15px 50px rgb(209, 119, 35),
-              0 -15px 60px lighten(rgb(209, 119, 35),30%),
-              inset 0 2px 2px lighten(black, 20%);
-  -webkit-transition:all 0.5s ease;
+background: radial-gradient(ellipse at center, rgb(247, 138, 88), black);
 
-    
-    b:active{
-        margin-top: 2px;
-    
-        -webkit-transform: scale(0.95);
-        -webkit-transition:all 0.3s ease;
-        outline: none;
-        background: radial-gradient(ellipse at center, lighten(rgb(209, 119, 35),15%), lighten(rgb(209, 119, 35),10%));
-        box-shadow: 0 15px 80px rgb(209, 119, 35),
-                    0 -15px 80px lighten(rgb(209, 119, 35),30%),
-                    inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
-    }
-  b:focus { outline: none; }
+
+-webkit-transition:all 0.5s ease;
+
 }
+.stop:active{
+    margin-top: 2px;
 
+    -webkit-transform: scale(0.75);
+    -webkit-transition:all 0.3s ease;
+    outline: none;
+    background: radial-gradient(ellipse at center, lighten(rgb(209, 119, 35),15%), lighten(rgb(209, 119, 35),10%));
+    box-shadow: 0 15px 80px rgb(209, 119, 35),
+                0 -15px 80px lighten(rgb(209, 119, 35),30%),
+                inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
+}
+.stop:focus { outline: none; }
 
 .up{
 
 position:relative;
-
-  width:110px;
-  height: 110px;
-  border-radius: 50%;
-    cursor: pointer;
-  border: 1px solid lighten(rgb(204, 125, 21),8%);
-  background: radial-gradient(ellipse at center, lighten(rgb(170, 108, 49),17%), lighten(rgb(209, 119, 35),12%));*/
-  box-shadow: 0 15px 50px rgb(209, 119, 35),
-              0 -15px 60px lighten(rgb(209, 119, 35),30%),
-              inset 0 2px 2px lighten(black, 20%);
+border-radius: 50%;
+width:110px;
+height: 110px;
+border-radius: 50%;
+cursor: pointer;
+  
+background: radial-gradient(ellipse at center, rgb(247, 163, 67) ,rgb(0, 0, 0));
+  
   -webkit-transition:all 0.5s ease;
 
     
-    b:active {
-        margin-top: 2px;
     
-        -webkit-transform: scale(0.95);
-        -webkit-transition:all 0.3s ease;
-        outline: none;
-        background: radial-gradient(ellipse at center, lighten(rgb(209, 119, 35),15%), lighten(rgb(209, 119, 35),10%));
-        box-shadow: 0 15px 80px rgb(209, 119, 35),
-                    0 -15px 80px lighten(rgb(209, 119, 35),30%),
-                    inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
-    }
-  b:focus { outline: none; }
 }
+.up:active {
+    margin-top: 2px;
+
+    -webkit-transform: scale(0.75);
+    -webkit-transition:all 0.3s ease;
+    outline: none;
+    background: radial-gradient(ellipse at center, rgb(247, 163, 67) ,rgb(0, 0, 0));
+    box-shadow: 0 15px 80px rgb(209, 119, 35),
+                0 -15px 80px lighten(rgb(209, 119, 35),30%),
+                inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
+}
+.b:focus { outline: none; }
 .down {
     margin: auto;
   width:110px;
@@ -291,26 +384,29 @@ position:relative;
   border-radius: 50%;
     cursor: pointer;
   border: 1px solid lighten(rgb(204, 125, 21),8%);
-  background: radial-gradient(ellipse at center, lighten(rgb(170, 108, 49),17%), lighten(rgb(209, 119, 35),12%));*/
+  background: radial-gradient(ellipse at center, rgb(247, 163, 67) ,rgb(0, 0, 0));
   box-shadow: 0 15px 50px rgb(209, 119, 35),
               0 -15px 60px lighten(rgb(209, 119, 35),30%),
               inset 0 2px 2px lighten(black, 20%);
   -webkit-transition:all 0.5s ease;
 
     
-    b:active {
-        margin-top: 2px;
-    
-        -webkit-transform: scale(0.95);
-        -webkit-transition:all 0.3s ease;
-        outline: none;
-        background: radial-gradient(ellipse at center, lighten(rgb(209, 119, 35),15%), lighten(rgb(209, 119, 35),10%));
-        box-shadow: 0 15px 80px rgb(209, 119, 35),
-                    0 -15px 80px lighten(rgb(209, 119, 35),30%),
-                    inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
-    }
-  b:focus { outline: none; }
+ 
 }
+
+.down:active {
+    margin-top: 2px;
+
+    -webkit-transform: scale(0.75);
+    -webkit-transition:all 0.3s ease;
+    outline: none;
+    background: radial-gradient(ellipse at center, rgb(247, 163, 67) ,rgb(0, 0, 0));
+    box-shadow: 0 15px 80px rgb(209, 119, 35),
+                0 -15px 80px lighten(rgb(209, 119, 35),30%),
+                inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
+}
+.down:focus { outline: none; }
+
 .right {
     margin: auto;
   width:110px;
@@ -318,26 +414,27 @@ position:relative;
   border-radius: 50%;
     cursor: pointer;
   border: 1px solid lighten(rgb(204, 125, 21),8%);
-  background: radial-gradient(ellipse at center, lighten(rgb(255, 128, 10),17%), lighten(rgb(209, 119, 35),12%));*/
+  background: radial-gradient(ellipse at center, rgb(247, 163, 67) ,rgb(0, 0, 0));
   box-shadow: 0 15px 50px rgb(209, 119, 35),
               0 -15px 60px lighten(rgb(209, 119, 35),30%),
               inset 0 2px 2px lighten(black, 20%);
   -webkit-transition:all 0.5s ease;
 
     
-    b:active {
-        margin-top: 2px;
-    
-        -webkit-transform: scale(0.95);
-        -webkit-transition:all 0.3s ease;
-        outline: none;
-        background: radial-gradient(ellipse at center, lighten(rgb(209, 119, 35),15%), lighten(rgb(209, 119, 35),10%));
-        box-shadow: 0 15px 80px rgb(209, 119, 35),
-                    0 -15px 80px lighten(rgb(209, 119, 35),30%),
-                    inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
-    }
-  b:focus { outline: none; }
+   
 }
+.right:active {
+    margin-top: 2px;
+
+    -webkit-transform: scale(0.75);
+    -webkit-transition:all 0.3s ease;
+    outline: none;
+    background: radial-gradient(ellipse at center, rgb(247, 163, 67) ,rgb(0, 0, 0));
+    box-shadow: 0 15px 80px rgb(209, 119, 35),
+                0 -15px 80px lighten(rgb(209, 119, 35),30%),
+                inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
+}
+.right:focus { outline: none; }
 
 .left{
     margin: auto;
@@ -346,24 +443,135 @@ position:relative;
   border-radius: 50%;
     cursor: pointer;
   border: 1px solid lighten(rgb(204, 125, 21),8%);
-  background: radial-gradient(ellipse at center, lighten(rgb(170, 108, 49),17%), lighten(rgb(209, 119, 35),12%));*/
+  background: radial-gradient(ellipse at center, rgb(247, 163, 67) ,rgb(0, 0, 0));
   box-shadow: 0 15px 50px rgb(209, 119, 35),
               0 -15px 60px lighten(rgb(209, 119, 35),30%),
               inset 0 2px 2px lighten(black, 20%);
   -webkit-transition:all 0.5s ease;
 
     
-    b:active {
-        margin-top: 2px;
-    
-        -webkit-transform: scale(0.95);
-        -webkit-transition:all 0.3s ease;
-        outline: none;
-        background: radial-gradient(ellipse at center, lighten(rgb(209, 119, 35),15%), lighten(rgb(209, 119, 35),10%));
-        box-shadow: 0 15px 80px rgb(209, 119, 35),
-                    0 -15px 80px lighten(rgb(209, 119, 35),30%),
-                    inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
-    }
-  b:focus { outline: none; }
+   
 }
 
+.left:active {
+    margin-top: 2px;
+
+    -webkit-transform: scale(0.98);
+    -webkit-transition:all 0.3s ease;
+    outline: none;
+    background: radial-gradient(ellipse at center, lighten(rgb(209, 119, 35),15%), lighten(rgb(209, 119, 35),10%));
+    box-shadow: 0 15px 80px rgb(209, 119, 35),
+                0 -15px 80px lighten(rgb(209, 119, 35),30%),
+                inset 0 -2px 2px lighten(rgb(209, 119, 35),10%);
+}
+.left:focus { outline: none; }
+
+
+
+
+
+
+
+
+.footer{
+  
+    
+    color:white;
+    grid-template-columns: 1fr 1fr;
+    background-color: rgba(12, 11, 10, .9);
+    margin-top:10px ;
+    height:200px;
+    
+   
+}
+/*social media share
+Source: https://www.cssscript.com/radial-circle-popup-menu-css/
+
+*/  
+#menu {
+    width: 130px;
+    height: 130px;
+    position:absolute;
+    left: 90%;
+    top: 120%;
+    margin: -30px 0 0 -85px;
+    list-style: none;
+    font-size: 200%;
+  }
+  
+  .menu-button {
+    opacity: 0;
+    z-index: 1;
+  }
+  
+  .menu-button {
+    width: 150px;
+    height: 150px;
+    
+    left: 50%;
+    top: 50%;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    background: #e06d20;
+    background-size: 100%;
+    overflow: hidden;
+    text-decoration: none;
+    line-height: 150px;
+    color: #fff;
+  }
+  
+  #menu:not(:target)>a:first-of-type, #menu:target>a:last-of-type {
+    opacity: 1;
+    z-index: 1;
+  }
+  
+  #menu:not(:target)>.icon-plus:before, #menu:target>.icon-minus:before { opacity: 1; }
+
+  .menu-item {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    left: 55%;
+    line-height: 5px;
+    top: 50%;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    background-color: #dd7723;
+    transform: translate(0px, 0px);
+    transition: transform 500ms;
+    z-index: 0;
+    transition: .5s;
+  }
+  
+  .menu-item:hover {
+    opacity: 0.5;
+    box-shadow: 0 5px 10px rgb(255, 255, 255);
+  }
+  
+  .menu-item a {
+    color: #fff;
+    position: relative;
+    top: 30%;
+    left: 0;
+    text-decoration: none;
+  }
+  
+  #menu:target>.menu-item:nth-child(6) {
+    transform: rotate(60deg) translateY(-150px) rotate(300deg);
+    transition-delay: 0s;
+  }
+  
+  #menu:target>.menu-item:nth-child(5) {
+    transform: rotate(20deg) translateY(-155px) rotate(-20deg);
+    transition-delay: 0.1s;
+  }
+  
+  #menu:target>.menu-item:nth-child(3) {
+    transform: rotate(-20deg) translateY(-155px) rotate(20deg);
+    transition-delay: 0.2s;
+  }
+  
+  #menu:target>.menu-item:nth-child(4) {
+    transform: rotate(-60deg) translateY(-150px) rotate(60deg);
+    transition-delay: 0.3s;
+  }
