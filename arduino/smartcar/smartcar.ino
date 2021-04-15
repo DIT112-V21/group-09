@@ -1,9 +1,20 @@
 #include <Smartcar.h>
+#include <vector>
+#include <MQTT.h>
+#include <WiFi.h>
 
+#ifdef __SMCE__
+#include <OV767X.h>
+#endif
+#if defined(__has_include) && __has_include("secrets.hpp")
+#include "secrets.hpp"
+#endif
+
+const auto oneSecond = 1000UL;
 const unsigned long PRINT_INTERVAL = 1000;
 const unsigned long DETECT_INTERVAL_MED = 5000;
 const unsigned long DETECT_INTERVAL_SHORT = 2000;
-unsigned long previousPrintout = 0;
+unsigned long previousPrintout     = 0;
 unsigned long detectionTime = 0;
 unsigned long detectionTime2 = 0;
 unsigned long detectionTimeReverse = 0;
@@ -48,8 +59,8 @@ IR rightIR(arduinoRuntime, 2);
 IR backIR(arduinoRuntime, 3);
 
 SR04 frontUS(arduinoRuntime, 6, 7, 400);
-
 GY50 gyroscope(arduinoRuntime, 37, 1);
+std::vector<char> frameBuffer;
 
 DirectionlessOdometer leftOdometer{
     arduinoRuntime,
@@ -62,12 +73,40 @@ DirectionlessOdometer rightOdometer{
     []() { rightOdometer.update(); },
     pulsesPerMeter};
 
+MQTTClient mqtt;
+#ifndef __SMCE__
+WiFiClient net;
+#endif
+
 SmartCar car(arduinoRuntime, control, gyroscope, leftOdometer, rightOdometer);
 
 void setup()
 {
-    Serial.begin(9600);
-    // car.setSpeed(30); // Maintain a speed of 1.5 m/sec
+      Serial.begin(9600);
+      // car.setSpeed(30); // Maintain a speed of 1.5 m/sec
+
+      // Start the camera and connect to MQTT broker
+      #ifdef __SMCE__
+          Camera.begin(QVGA, RGB888, 15);
+          frameBuffer.resize(Camera.width() * Camera.height() * Camera.bytesPerPixel());
+          mqtt.begin(host, port, WiFi);
+      #else
+          mqtt.begin(net);
+      #endif
+          if (mqtt.connect(clientId, username, password)) {
+          
+            mqtt.subscribe("/smartRover/control", 1);
+            
+            mqtt.onMessage([](String topic, String message) {
+                if (topic == "/smartRover/control") {
+                    Serial.println(topic + " " + message);
+                }
+                else {
+                    Serial.println(topic + " " + message);
+                }
+           });
+        }
+      
 
       // Start with random speed, random angle and goes random distance before starting "explore" mode
       startDistance = (rand() % 100) + 50;
@@ -84,6 +123,38 @@ void setup()
 
 void loop()
 {
+  
+  // if connect to MQTT, then listen ...
+  if (isConnected())
+    {
+        mqtt.loop();
+        const auto currentTime = millis();
+        
+  #ifdef __SMCE__
+        
+    static auto previousFrame = 0UL;
+    if (currentTime - previousFrame >= 65) {
+      previousFrame = currentTime;
+      Camera.readFrame(frameBuffer.data());
+      mqtt.publish("/smartRover/camera", frameBuffer.data(), frameBuffer.size(),false, 0);
+    }
+    #endif
+    
+    static auto previousTransmission = 0UL;
+    
+    if (currentTime - previousTransmission >= oneSecond) {
+      previousTransmission = currentTime;
+      // const auto distance = String(front.getDistance());
+      mqtt.publish("/smartRover/control", reportMode());
+    }
+    #ifdef __SMCE__
+      // Avoid over-using the CPU if we are running in the emulator
+      delay(35);
+    #endif
+    }
+
+
+    // Monitor for driving modes
     switch(currentMode)
     {
       case STARTUP:
@@ -121,6 +192,7 @@ void loop()
         break;
     }
 
+    // Keep printing out the current heading
     unsigned long currentTime = millis();
     if (currentTime >= previousPrintout + PRINT_INTERVAL)
     {
@@ -139,6 +211,7 @@ void loop()
         Serial.print("Right: ");
         Serial.println(distanceRight);
         Serial.println(" ");
+
     }
     
 
@@ -211,7 +284,7 @@ DrivingMode monitorSlowForward() {
     int sensorRightIR = getSensorData(RIGHTIR);
     int sensorBackIR = getSensorData(BACKIR);
     
-    if (sensorFrontUS > 50 && sensorFrontUS < 250) {
+    if (sensorFrontUS > 50 && sensorFrontUS < 200) {
         checkAvoidDirection();
     }
 
@@ -479,3 +552,18 @@ int getSensorData(CarSensor sensorName) {
 float getSpeedData() {
   return car.getSpeed();
   }
+
+boolean isConnected()
+{
+    return mqtt.connected();
+}
+
+int msgToInt(String msg)
+{
+    return msg.toInt();
+}
+
+void println(String msg)
+{
+    Serial.println(msg);
+}
