@@ -6,8 +6,10 @@ function createWindow () {
 	const mainWindow = new BrowserWindow({
 		width: 1280,
 		height: 960,
-		icon: path.join(__dirname, 'images/favicon.ico'),
+		icon: path.join(__dirname, 'assets/images/favicon.ico'),
     	webPreferences: {
+			nodeIntegration: true,
+        	contextIsolation: false,
       		preload: path.join(__dirname, 'preload.js')
     	}
   	})
@@ -16,12 +18,10 @@ function createWindow () {
 	
 	/* Global shortcut for F5 to reload window */
 	globalShortcut.register('f5', function() {
-		console.log('f5 is pressed')
 		mainWindow.reload()
 	})
 	
 	globalShortcut.register('CommandOrControl+R', function() {
-		console.log('CommandOrControl+R is pressed')
 		mainWindow.reload()
 	})	
 }
