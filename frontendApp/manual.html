@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+	<link rel="stylesheet" href="./assets/css/manual.css">
     <title>SmartRover - Manual drive</title>
 
 </head>
@@ -93,8 +94,13 @@
 
                 </div>
                 <div class="manual-control">
-                    Manual Control 
-
+                    <h3>Manual Control</h2>
+											<div class="consoleContent">
+												<div id="consoleContentResults"></div>
+												<form action="">
+													<input id="consoleTextInput" type="text" placeholder="Input Command or Help" autocomplete="off">
+												</form>
+											</div>
                 </div>
             </div>
 
@@ -104,7 +110,12 @@
 		<div class="section-right">
 			<div class="status-info">
 				<h2>Status updates:</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
+
+				<div id="output-updates"></div>
+
+				<button class="clickHere">CLICK HERE</button>
+
+
 			</div>
 			<div class="live-stream">
 				<h2>Live Stream</h2>
@@ -141,5 +152,9 @@
 		  }
 		}
 </script>
+
+<script src="./assets/js/manual.js"></script>
+
+
 </body>
 </html>
