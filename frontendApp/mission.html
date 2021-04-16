@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+    <title>SmartRover - Mission control</title>
+
+</head>
+<body id="manual-control">
+	<header class="header">
+		<div id="navbar">
+			<div class="logo">
+				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
+			</div>
+			<div class="nav-menu">
+				<a href="index.html">Home</a>
+				<a href="manual.html">Manual control</a>
+				<a class="active" href="#">Mission</a>
+				<a href="mqtt.html">MQTT</a>
+				<a href="settings.html">Settings</a>
+				<a href="help.html">Help</a>
+			</div>
+		</div>
+	</header>
+    <div class="container">
+		<div class="page-title">
+			<h1>Mission control</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
+		</div>
+		<div class="section-left">
+			<div class="mission-mars">
+				<h2>Mission map</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
+				<img class="mission-map" src="assets/images/mission-map.jpg">
+			</div>
+			<div class="live-stream">
+					<h2>Live Stream</h2>
+					<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270" align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+					</div>
+				</div>
+		</div>
+		<div class="section-right">
+			<div>
+				<div >
+					<h2>Configure you mission</h2>
+
+					<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex. Vivamus et mollis urna, vel maximus mi. Sed nec interdum tortor. Cras malesuada, arcu imperdiet placerat bibendum, velit urna suscipit arcu, ac rhoncus arcu quam vitae diam. Etiam pulvinar viverra libero, non efficitur mi elementum vel. Donec tincidunt est mauris. Phasellus molestie ex dolor, id sagittis neque rhoncus ut. Etiam pulvinar pharetra mauris, vel cursus dui egestas eget. Integer molestie mauris in metus maximus, at sollicitudin massa tincidunt. Donec vel tortor vel metus porttitor pulvinar. Sed vitae lacus ullamcorper, interdum tortor volutpat, blandit dolor. In semper orci vel pulvinar viverra.</p>
+
+					<p>Nunc pharetra aliquet ex, vitae dignissim erat lobortis non. Integer finibus odio ac tempor efficitur. Aliquam in massa ac nisi interdum porttitor. Donec non mi sed erat pulvinar porta nec vitae nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque a maximus erat, nec placerat lacus. Curabitur consequat magna eget est consequat porta.</p>
+					
+					<h2>Mission status</h2>
+					<ul>
+						<li>00:10 Mission has started</li>
+						<li>00:10 Step 1 has started</li>
+						<li>00:15 Step 1 has completed</li>
+						<li>00:20 Step 2 has started</li>
+						<li>00:25 Step 2 has completed</li>
+						<li>00:30 Step 3 has started</li>
+						<li>00:35 Step 3 has completed</li>
+						<li>00:40 Step 4 has started</li>
+						<li>00:45 Step 4 has completed</li>
+						<li>00:50 Step 5 has started</li>
+						<li>00:55 Step 5 has completed</li>
+						<li>01:00 Mission ended!</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+        
+        
+
+    </div>
+		<footer class="footer">
+			<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+				Please contact us <a href="#">@github.com</a>.
+			</div>
+		   	<div class="footer-menu">
+				
+			</div>
+		</footer>
+    </div>
+	<script>
+		window.onscroll = function() {myFunction()};
+
+		var navbar = document.getElementById("navbar");
+		var sticky = navbar.offsetTop;
+
+		function myFunction() {
+		  if (window.pageYOffset >= sticky) {
+			navbar.classList.add("sticky")
+		  } else {
+			navbar.classList.remove("sticky");
+		  }
+		}
+</script>
+</body>
+</html>

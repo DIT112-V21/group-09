@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+    <title>SmartRover - Mission control</title>
+
+</head>
+<body id="manual-control">
+	<header class="header">
+		<div id="navbar">
+			<div class="logo">
+				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
+			</div>
+			<div class="nav-menu">
+				<a href="index.html">Home</a>
+				<a href="manual.html">Manual control</a>
+				<a href="mission.html">Mission</a>
+				<a href="mqtt.html">MQTT</a>
+				<a class="active" href="settings.html">Settings</a>
+				<a href="help.html">Help</a>
+			</div>
+		</div>
+	</header>
+    <div class="container-1">
+		<div class="page-title">
+			<h1>Settings</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
+		</div>
+		<section class="wrapper">
+			<aside class="col-left">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et semper enim. Praesent ornare est in velit rutrum, eu bibendum magna finibus. Phasellus imperdiet, nulla sit amet gravida ultrices, lorem neque tincidunt magna, at rutrum nibh sapien in libero. Proin nunc lacus, imperdiet non varius sit amet, fringilla ut nibh. Proin imperdiet nisi sed ligula efficitur, sit amet scelerisque massa lobortis. Proin eget condimentum quam. Sed vitae mollis mauris. Donec laoreet interdum interdum. Nulla consequat viverra hendrerit.</p>
+			</aside>
+			<div class="col-right">
+				<p>Donec augue leo, imperdiet sit amet libero dapibus, suscipit ullamcorper turpis. Maecenas quis tellus imperdiet nisl pulvinar iaculis. Maecenas vitae facilisis felis. Nullam vitae nisi vel ante mattis gravida sed ut metus. Aliquam eros ligula, tristique vitae suscipit ac, imperdiet nec felis. Duis nisl augue, ornare ac accumsan vitae, imperdiet at erat. Vivamus nec pharetra sem. Nulla vulputate nisl dui. Sed justo velit, pretium at ultrices id, faucibus nec odio. Aliquam ut ligula rutrum, aliquet tellus ut, facilisis leo. Nulla ut purus ut eros venenatis convallis sit amet sed neque.</p>
+
+				<p>In elementum, nisi vel molestie faucibus, libero risus ullamcorper lorem, a laoreet massa magna vitae enim. Duis ornare tempor est sit amet varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas augue ipsum, cursus vitae tincidunt ac, consectetur mattis sapien. Praesent posuere arcu quis tempus molestie. Etiam varius fermentum ipsum et ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris turpis turpis, ultricies a quam venenatis, congue porttitor nunc.</p>
+
+				<p>Mauris hendrerit, ligula sit amet dictum consectetur, augue ex interdum libero, et molestie sem mauris ut metus. Nullam sollicitudin magna at nibh bibendum ultrices in ut lorem. Vestibulum blandit leo nulla, et auctor tortor convallis vitae. Phasellus turpis neque, venenatis at dui viverra, venenatis efficitur magna. Praesent a condimentum erat, congue malesuada est. Cras nibh tellus, ullamcorper at auctor et, blandit vehicula ligula. Sed consequat quam a orci elementum, eget lacinia leo ultricies. Aliquam vestibulum eros sed faucibus fringilla. Sed auctor nisl eget lacus varius varius. Cras ornare tincidunt hendrerit. Fusce id magna non ante tempus rhoncus eu in sem. Sed faucibus orci vitae leo convallis, vitae interdum tellus sagittis.</p>
+			</div>
+		</section>
+    </div>
+		<footer class="footer">
+			<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+				Please contact us <a href="#">@github.com</a>.
+			</div>
+		   	<div class="footer-menu">
+				
+			</div>
+		</footer>
+    </div>
+	<script>
+		window.onscroll = function() {myFunction()};
+
+		var navbar = document.getElementById("navbar");
+		var sticky = navbar.offsetTop;
+
+		function myFunction() {
+		  if (window.pageYOffset >= sticky) {
+			navbar.classList.add("sticky")
+		  } else {
+			navbar.classList.remove("sticky");
+		  }
+		}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>

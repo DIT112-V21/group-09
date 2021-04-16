@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+    <title>SmartRover - Manual drive</title>
+
+</head>
+<body id="manual-control">
+	<header class="header">
+		<div id="navbar">
+			<div class="logo">
+				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
+			</div>
+			<div class="nav-menu">
+				<a href="index.html">Home</a>
+				<a class="active" href="manual.html">Manual control</a>
+				<a href="mission.html">Mission</a>
+				<a href="mqtt.html">MQTT</a>
+				<a href="settings.html">Settings</a>
+				<a href="help.html">Help</a>
+			</div>
+		</div>
+	</header>
+    <div class="container">
+		<div class="page-title">
+			<h1>Manual control</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
+		</div>
+		<div class="section-left">
+			<main-content class="middle">
+            <div class="controller">
+                <div class="snapshot">
+                    <i class="fas fa-camera-retro fa-3x"></i>
+                </div>
+
+                <div class="b">
+                    <input class="up" type="button">
+
+                </div>
+                <div>
+                    1
+                </div>
+                <div>
+                    <input class="left" type="button">
+                </div>
+
+
+                <div>
+
+                    <input class="stop" type="button">
+
+                </div>
+
+
+                <div>
+
+                    <input class="right" type="button">
+                    <label for="check" class="checkbtn">
+                        <i class="angle-double-right fa-3x"></i>
+                    </label>
+
+
+                </div>
+                <div>
+                    2
+                </div>
+
+                <div>
+
+                    <input class="down" type="button">
+
+                </div>
+                <div>
+                    3
+                </div>
+
+
+
+
+            </div>
+            <div class="info">
+                <div class="infoBoard">
+                    <li>Traveled Distance: </li>
+                    <li>Speed:</li>
+                    <li>Current Position:</li>
+
+
+                </div>
+                <div class="manual-control">
+                    Manual Control 
+
+                </div>
+            </div>
+
+
+        </main-content>
+		</div>
+		<div class="section-right">
+			<div class="status-info">
+				<h2>Status updates:</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
+			</div>
+			<div class="live-stream">
+				<h2>Live Stream</h2>
+				<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex.</p>
+				<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270" align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+				</div>
+			</div>
+		</div>
+		
+        
+        
+
+    </div>
+		<footer class="footer">
+			<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+				Please contact us <a href="#">@github.com</a>.
+			</div>
+		   	<div class="footer-menu">
+				
+			</div>
+		</footer>
+    </div>
+	<script>
+		window.onscroll = function() {myFunction()};
+
+		var navbar = document.getElementById("navbar");
+		var sticky = navbar.offsetTop;
+
+		function myFunction() {
+		  if (window.pageYOffset >= sticky) {
+			navbar.classList.add("sticky")
+		  } else {
+			navbar.classList.remove("sticky");
+		  }
+		}
+</script>
+</body>
+</html>
