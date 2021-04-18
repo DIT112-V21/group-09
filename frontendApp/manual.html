@@ -35,51 +35,39 @@
 		</div>
 		<div class="section-left">
 			<main-content class="middle">
-            <div class="controller">
-                <div class="snapshot">
-                    <i class="fas fa-camera-retro fa-3x"></i>
-                </div>
-
-                <div class="b">
-                    <input class="up" type="button">
-
-                </div>
-                <div>
-                    1
-                </div>
-                <div>
-                    <input class="left" type="button">
-                </div>
-
-
-                <div>
-
-                    <input class="stop" type="button">
-
-                </div>
-
-
-                <div>
-
-                    <input class="right" type="button">
-                    <label for="check" class="checkbtn">
-                        <i class="angle-double-right fa-3x"></i>
-                    </label>
-
-
-                </div>
-                <div>
-                    2
-                </div>
-
-                <div>
-
-                    <input class="down" type="button">
-
-                </div>
-                <div>
-                    3
-                </div>
+				<div class="controller">
+					<div class="snapshot">
+				<i class="fas fa-camera-retro fa-3x"></i>
+				</div>
+					<div class="up-button">
+						<button class="up" onclick="upFunction()"  ></button>
+						<p id="f10"></p>
+					</div>
+					<div>
+						1
+					</div>
+					<div class="left-button">
+						<button class="left" onclick="leftFunction()"  ></button>
+					</div>
+					<div class="stop-button">
+						<button class="stop" onclick="stopFunction()"  ></button>
+					</div>
+					<div class="right-button">
+						<button class="right" onclick="rightFunction()"  ></button>
+						<label for="check" class="checkbtn">
+							<i class="angle-double-right fa-3x"></i>
+						</label>
+					</div>
+					<div>
+						2
+					</div>
+					<div class="down-button">
+						<button class="down" onclick="downFunction()"  ></button>
+					</div>
+					<div>
+						3
+					</div>
+				</div>
 
 
 
@@ -154,6 +142,31 @@
 </script>
 
 <script src="./assets/js/manual.js"></script>
+<script>
+	function upFunction() {
+		document.getElementById("f10").innerHTML = "f10";
+	}
+</script>
+<script>
+	function leftFunction() {
+		document.getElementById("left").innerHTML = "left";
+	}
+</script>
+<script>
+	function stopFunction() {
+		document.getElementById("stop").innerHTML = "stop";
+	}
+</script>
+<script>
+	function rightFunction() {
+		document.getElementById("right").innerHTML = "right";
+	}
+</script>
+<script>
+	function downFunction() {
+		document.getElementById("r10").innerHTML = "r10";
+	}
+</script>
 
 
 </body>
