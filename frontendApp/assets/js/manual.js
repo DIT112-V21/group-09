@@ -1,5 +1,10 @@
 const buttonClick = document.querySelector(".clickHere");
 const upButtonClick = document.querySelector(".up");
+const leftButtonClick = document.querySelector(".left");
+const stopButtonClick = document.querySelector(".stop");
+const rightButtonClick = document.querySelector(".right");
+const downButtonClick = document.querySelector(".down");
+
 
 //Manual Controll
 document.addEventListener("DOMContentLoaded", function () {
@@ -140,4 +145,20 @@ buttonClick.addEventListener("click", function () {
 
 upButtonClick.addEventListener("click", function () {
   addTextToOutput("Forward 10");
+});
+
+leftButtonClick.addEventListener("click", function () {
+  addTextToOutput("Turning left");
+});
+
+stopButtonClick.addEventListener("click", function () {
+  addTextToOutput(" Rover stopped");
+});
+
+rightButtonClick.addEventListener("click", function () {
+  addTextToOutput("Turning right");
+});
+
+downButtonClick.addEventListener("click", function () {
+  addTextToOutput("backward 10");
 });
