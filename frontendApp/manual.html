@@ -2,159 +2,150 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<meta charset="UTF-8">
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
-	<link rel="stylesheet" href="./assets/css/manual.css">
-    <title>SmartRover - Manual drive</title>
-
+	<link rel="stylesheet" type="text/css" href="assets/css/manual.css">
+	<title>SmartRover - Manual drive</title>
 </head>
 <body id="manual-control">
-	<header class="header">
-		<div id="navbar">
-			<div class="logo">
-				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
+<header class="header">
+	<div id="navbar">
+		<div class="logo">
+			<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
+		</div>
+		<div class="nav-menu">
+			<a href="index.html">Home</a>
+			<a class="active" href="manual.html">Manual control</a>
+			<a href="mission.html">Mission</a>
+			<a href="mqtt.html">MQTT</a>
+			<a href="settings.html">Settings</a>
+			<a href="help.html">Help</a>
+		</div>
+	</div>
+</header>
+<div class="container">
+	<div class="page-title">
+		<h1>Manual control</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
+	</div>
+	<div class="section-left">
+
+		<div class="controller">
+			<div class="snapshot">
+				<i class="fas fa-camera-retro fa-3x"></i>
 			</div>
-			<div class="nav-menu">
-				<a href="index.html">Home</a>
-				<a class="active" href="manual.html">Manual control</a>
-				<a href="mission.html">Mission</a>
-				<a href="mqtt.html">MQTT</a>
-				<a href="settings.html">Settings</a>
-				<a href="help.html">Help</a>
+			<div class="up-button">
+				<button class="up" onclick="upFunction()">UP</button>
+			</div>
+			<div>
+				1
+			</div>
+			<div class="left-button">
+				<button class="left" onclick="leftFunction()"  >LEFT</button>
+			</div>
+			<div class="stop-button">
+				<button class="stop" onclick="stopFunction()"  >STOP</button>
+			</div>
+			<div class="right-button">
+				<button class="right" onclick="rightFunction()">RIGHT</button>
+				<label for="check" class="checkbtn">
+					<i class="angle-double-right fa-3x"></i>
+				</label>
+			</div>
+			<div>
+				2
+			</div>
+			<div class="down-button">
+				<button class="down" onclick="downFunction()"  >DOWN</button>
+			</div>
+			<div>
+				3
 			</div>
 		</div>
-	</header>
-    <div class="container">
-		<div class="page-title">
-			<h1>Manual control</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
-		</div>
-		<div class="section-left">
-			<main-content class="middle">
-            <div class="controller">
-                <div class="snapshot">
-                    <i class="fas fa-camera-retro fa-3x"></i>
-                </div>
 
-                <div class="b">
-                    <input class="up" type="button">
-
-                </div>
-                <div>
-                    1
-                </div>
-                <div>
-                    <input class="left" type="button">
-                </div>
-
-
-                <div>
-
-                    <input class="stop" type="button">
-
-                </div>
-
-
-                <div>
-
-                    <input class="right" type="button">
-                    <label for="check" class="checkbtn">
-                        <i class="angle-double-right fa-3x"></i>
-                    </label>
-
-
-                </div>
-                <div>
-                    2
-                </div>
-
-                <div>
-
-                    <input class="down" type="button">
-
-                </div>
-                <div>
-                    3
-                </div>
-
-
-
-
-            </div>
-            <div class="info">
-                <div class="infoBoard">
-                    <li>Traveled Distance: </li>
-                    <li>Speed:</li>
-                    <li>Current Position:</li>
-
-
-                </div>
-                <div class="manual-control">
-                    <h3>Manual Control</h2>
-											<div class="consoleContent">
-												<div id="consoleContentResults"></div>
-												<form action="">
-													<input id="consoleTextInput" type="text" placeholder="Input Command or Help" autocomplete="off">
-												</form>
-											</div>
-                </div>
-            </div>
-
-
-        </main-content>
-		</div>
-		<div class="section-right">
-			<div class="status-info">
-				<h2>Status updates:</h2>
-
-				<div id="output-updates"></div>
-
-				<button class="clickHere">CLICK HERE</button>
-
-
+		<div class="info">
+			<div class="infoBoard">
+				<li>Traveled Distance: </li>
+				<li>Speed:</li>
+				<li>Current Position:</li>
 			</div>
-			<div class="live-stream">
-				<h2>Live Stream</h2>
-				<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex.</p>
-				<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270" align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
-				</div>
+			<div class="manual-control">
+				<h3>Manual Control</h3>
+					<div class="consoleContent">
+						<div id="consoleContentResults"></div>
+						<form action="">
+							<input type="text" id="consoleTextInput" autocomplete="off" placeholder="Enter your command or type Help">
+						</form>
+					</div>
 			</div>
 		</div>
-		
-        
-        
-
-    </div>
-		<footer class="footer">
-			<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
-				Please contact us <a href="#">@github.com</a>.
+	</div>
+	<div class="section-right">
+		<div class="status-info">
+			<h2>Status updates:</h2>
+			<div id="output-updates"></div>
+			<button class="clickHere">CLICK HERE</button>
+		</div>
+		<div class="live-stream">
+			<h2>Live Stream</h2>
+			<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex.</p>
+			<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270" align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
 			</div>
-		   	<div class="footer-menu">
-				
-			</div>
-		</footer>
-    </div>
-	<script>
-		window.onscroll = function() {myFunction()};
+		</div>
+	</div>
 
-		var navbar = document.getElementById("navbar");
-		var sticky = navbar.offsetTop;
 
-		function myFunction() {
-		  if (window.pageYOffset >= sticky) {
+
+
+</div>
+<footer class="footer">
+	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+		Please contact us <a href="#">@github.com</a>.
+	</div>
+	<div class="footer-menu">
+
+	</div>
+</footer>
+</div>
+<script>
+	window.onscroll = function() {myFunction()};
+
+	var navbar = document.getElementById("navbar");
+	var sticky = navbar.offsetTop;
+
+	function myFunction() {
+		if (window.pageYOffset >= sticky) {
 			navbar.classList.add("sticky")
-		  } else {
+		} else {
 			navbar.classList.remove("sticky");
-		  }
 		}
+	}
 </script>
 
 <script src="./assets/js/manual.js"></script>
-
-
+<script>
+	function upFunction() {
+		document.getElementById("f10").innerHTML = "f10";
+	}
+	function leftFunction() {
+		document.getElementById("left").innerHTML = "left";
+	}
+	function stopFunction() {
+		document.getElementById("stop").innerHTML = "stop";
+	}
+	function rightFunction() {
+		document.getElementById("right").innerHTML = "right";
+	}
+	function downFunction() {
+		document.getElementById("r10").innerHTML = "r10";
+	}
+</script>
+<script src="./renderer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 const buttonClick = document.querySelector(".clickHere");
+const upButtonClick = document.querySelector(".up");
 
 //Manual Controll
 document.addEventListener("DOMContentLoaded", function () {
@@ -27,8 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Output text to the Console
   let addTextToConsole = function (textToAdd) {
-    document.getElementById("consoleContentResults").innerHTML +=
-      "<p>" + textToAdd + "</p>";
+    if (textToAdd === "invalidCommand") {
+      document.getElementById("consoleContentResults").innerHTML += "<p style=\"color: red;\">Invalid command! Type Help to see all commands.</p>";
+    } else {
+      document.getElementById("consoleContentResults").innerHTML += "<p style=\"color: #a8f18f;\">" + textToAdd + "</p>";
+    }
+
     scrollToBottomOfResults();
   };
 
@@ -74,11 +79,11 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       case "r20":
         clearInput();
-        addTextToConsole("Direction Reverse Speed 10");
+        addTextToConsole("Direction Reverse Speed 20");
         break;
       case "r30":
         clearInput();
-        addTextToConsole("Direction Reverse Speed 10");
+        addTextToConsole("Direction Reverse Speed 30");
         break;
       case "left":
         clearInput();
@@ -88,17 +93,17 @@ document.addEventListener("DOMContentLoaded", function () {
         clearInput();
         addTextToConsole("Turning Right");
         break;
-        case "stop":
-          clearInput();
-          addTextToConsole("Rover Has Stopped!")
-          break;
+      case "stop":
+        clearInput();
+        addTextToConsole("Rover Has Stopped!")
+        break;
       case "help":
         clearInput();
         postHelpList();
         break;
       default:
         clearInput();
-        addTextToConsole("That´s not a command!! Type: Help");
+        addTextToConsole("invalidCommand");
         break;
     }
   };
@@ -106,10 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let checkWord = function () {
     textInputValue = document.getElementById("consoleTextInput").value.trim();
     textInputValueLowerCase = textInputValue.toLowerCase();
-
     if (textInputValue != "") {
       addTextToConsole(
-        "<p class='userEnteredText'> Command: " + textInputValue + "<p>"
+          "<p class='userEnteredText'> Command: " + textInputValue + "<p>"
       );
       textCommands(textInputValueLowerCase);
     }
@@ -121,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //Status Updates
 let addTextToOutput = function (textToAdd) {
   document.getElementById("output-updates").innerHTML +=
-    "<p class='status-output'>" + textToAdd + "</p>";
+      "<p class='status-output'>" + textToAdd + "</p>";
   scrollOutput();
 };
 
@@ -132,4 +136,8 @@ let scrollOutput = function () {
 
 buttonClick.addEventListener("click", function () {
   addTextToOutput("Rover Has Landed!");
+});
+
+upButtonClick.addEventListener("click", function () {
+  addTextToOutput("Forward 10");
 });
