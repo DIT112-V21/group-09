@@ -9,7 +9,8 @@ function createWindow () {
 		icon: path.join(__dirname, 'assets/images/favicon.ico'),
     	webPreferences: {
 			nodeIntegration: true,
-        	contextIsolation: false,
+			contextIsolation: false,
+			enableRemoteModule: true,
       		preload: path.join(__dirname, 'preload.js')
     	}
   	})

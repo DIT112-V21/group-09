@@ -2,11 +2,11 @@ const Application = require('spectron').Application
 const assert = require('assert')
 const electronPath = require('electron') // Require Electron from the binaries included in node_modules.
 const path = require('path')
-const chaiAsPromised = require("chai-as-promised");
-const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised")
+const chai = require("chai")
 
-chai.should();
-chai.use(chaiAsPromised);
+chai.should()
+chai.use(chaiAsPromised)
 
 describe("Application launch test", function () {
   this.timeout(10000)
