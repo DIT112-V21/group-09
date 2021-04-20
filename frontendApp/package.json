@@ -1,18 +1,28 @@
 {
   "name": "SmartRover",
-  "version": "1.0.0",
-  "description": "the smartest rover",
+  "version": "0.2.0",
+  "author": "Group 9",
+  "description": "Your gateway to take control of the SmartRover to explore Mars",
+  "license": "ISC",
+  "homepage": "https://github.com/DIT112-V21/group-09#readme",
   "main": "main.js",
   "scripts": {
+    "test": "mocha",
+    "lint": "eslint .",
     "start": "electron ."
   },
-  "keywords": [],
-  "author": "group 9",
-  "license": "ISC",
   "devDependencies": {
-    "electron": "^12.0.2"
+
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3"
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "electron-chromedriver": "^12.0.0",
+    "eslint": "^7.24.0",
+    "mocha": "^8.3.2",
+    "spectron": "^14.0.0",
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "electron": "^12.0.4",
+    "mqtt": "^4.2.6"
   }
 }
