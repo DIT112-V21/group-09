@@ -33,107 +33,82 @@
 			<h1>Manual control</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
 		</div>
-		<div class="section-left">
-			<main-content class="middle">
-				<div class="controller">
-					<div class="snapshot">
-				<i class="fas fa-camera-retro fa-3x"></i>
-				</div>
-					<div class="up-button">
-						<button class="up" onclick="upFunction()"  ></button>
-						<p id="f10"></p>
+			<div class="section-left">
+				<div class="middle">
+					<div class="controller">
+							<div class="snapshot"><i class="fas fa-camera-retro fa-3x"></i></div>
+							<div class="button-grid">
+								<button class="direction-button" onclick="upFunction()"  ><label for="up"><i class="fas fa-caret-up fa-4x"></i></label></button>
+							</div>
+							<div class="button-grid"></div>
+							<div class="button-grid">
+								<button class="direction-button" onclick="leftFunction()"  ><label for="left"><i class="fas fa-caret-left fa-4x"></i></label></button>
+							</div>
+							<div class="button-grid">
+								<button class="direction-button" onclick="stopFunction()"  ><label for="left"><i class="fas fa-stop fa-3x"></i></button>
+							</div>
+							<div class="button-grid">
+								<button class="direction-button" onclick="rightFunction()"  ><label for="right"><i class="fas fa-caret-right fa-4x"></i></label></button>
+							</div>
+							<div class="button-grid"></div>
+							<div class="button-grid">
+								<button class="direction-button" onclick="downFunction()"  ><label for="down"><i class="fas fa-caret-down fa-4x"></i></label></button>
+							</div>
+							<div></div>
 					</div>
-					<div>
-						1
-					</div>
-					<div class="left-button">
-						<button class="left" onclick="leftFunction()"  ></button>
-					</div>
-					<div class="stop-button">
-						<button class="stop" onclick="stopFunction()"  ></button>
-					</div>
-					<div class="right-button">
-						<button class="right" onclick="rightFunction()"  ></button>
-						<label for="check" class="checkbtn">
-							<i class="angle-double-right fa-3x"></i>
-						</label>
-					</div>
-					<div>
-						2
-					</div>
-					<div class="down-button">
-						<button class="down" onclick="downFunction()"  ></button>
-					</div>
-					<div>
-						3
-					</div>
-				</div>
-
-
-
-
-            </div>
-            <div class="info">
-                <div class="infoBoard">
-                    <li>Traveled Distance: </li>
-                    <li>Speed:</li>
-                    <li>Current Position:</li>
-
-
-                </div>
-                <div class="manual-control">
-                    <h3>Manual Control</h2>
-											<div class="consoleContent">
-												<div id="consoleContentResults"></div>
-												<form action="">
-													<input id="consoleTextInput" type="text" placeholder="Input Command or Help" autocomplete="off">
-												</form>
-											</div>
-                </div>
-            </div>
-
-
-        </main-content>
-		</div>
-		<div class="section-right">
-			<div class="status-info">
-				<h2>Status updates:</h2>
-
-				<div id="output-updates"></div>
-
-				<button class="clickHere">CLICK HERE</button>
-
-
-			</div>
-			<div class="live-stream">
-				<h2>Live Stream</h2>
-				<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex.</p>
-				<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270" align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
-				</div>
-			</div>
-		</div>
-		
-        
-        
-
-    </div>
-		<footer class="footer">
-			<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
-				Please contact us <a href="#">@github.com</a>.
-			</div>
-		   	<div class="footer-menu">
 				
+					<div class="info">
+						<div class="infoBoard">
+							<h3>Info</h3>
+							<li>Traveled Distance: </li>
+							<li>Speed:</li>
+							<li>Current Position:</li>
+						</div>
+						<div class="manual-control">
+							<h3>Manual Control</h2>
+								<div class="consoleContent">
+									<div id="consoleContentResults"></div>
+										<form action="">
+											<input id="consoleTextInput" type="text" placeholder="Input Command or Help" autocomplete="off">
+										</form>
+								</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</footer>
-    </div>
-	<script>
-		window.onscroll = function() {myFunction()};
+			
+			<div class="section-right">
+				<div class="status-info">
+					<h2>Status updates:</h2>
+					<div id="output-updates"></div>
+					<button class="clickHere">CLICK HERE</button>
+				</div>
+				<div class="live-stream">
+					<h2>Live Stream</h2>
+					<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex.</p>
+					<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270" align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+				Please contact us <a href="#">@github.com</a>.
+		</div>
+		<div class="footer-menu">
+				
+		</div>
+	</footer>
 
-		var navbar = document.getElementById("navbar");
-		var sticky = navbar.offsetTop;
+<script>
+	window.onscroll = function() {myFunction()};
 
-		function myFunction() {
-		  if (window.pageYOffset >= sticky) {
+	var navbar = document.getElementById("navbar");
+	var sticky = navbar.offsetTop;
+
+	function myFunction() {
+		if (window.pageYOffset >= sticky) {
 			navbar.classList.add("sticky")
 		  } else {
 			navbar.classList.remove("sticky");
