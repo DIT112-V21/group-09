@@ -1,4 +1,9 @@
+<img src="https://github.com/DIT112-V21/group-09/blob/master/frontendApp/assets/images/rover-logo.png?raw=true" alt="rover-logo.png" width="480" height="121">
+
 # group-09 RoverTeam
+
+![Electron CI](https://github.com/DIT112-V21/group-09/actions/workflows/electron-ci.yml/badge.svg)
+![Arduino Build](https://github.com/DIT112-V21/group-09/actions/workflows/arduino-build.yml/badge.svg)
 
 ## What are we making?
 * Autonomous **SmartRover** that is designed to explore foreign terrain and its environment.
