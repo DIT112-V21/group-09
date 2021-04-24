@@ -15,6 +15,10 @@ body {
   background-attachment: fixed;
 }
 
+#homepage body {
+	background-image: url("../images/bg-mars-03.jpg");
+}
+
 /* Generic layout styles */
 
 @media (min-width: 1200px) {
@@ -67,10 +71,10 @@ body {
 }
 
 .header {
-  width: auto;
-  height: 90px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+	z-index: 999;
+	width: auto;
+	height: 90px;
+	margin-bottom: 20px;
 }
 
 .section-left,
@@ -109,14 +113,16 @@ body {
   margin: 10px 0 20px 0;
 }
 
-/* Top navigation menu styles */
+/* Top navigation menu styles  */
 #navbar {
-  overflow: hidden;
-  background-color: #451804;
-  z-index: 999;
-  -webkit-box-shadow: 0 10px 10px -6px #000;
-  -moz-box-shadow: 0 10px 10px -6px #000;
-  box-shadow: 0 10px 10px -6px #000;
+	overflow: hidden;
+	z-index: 999;
+	-webkit-box-shadow: 0 10px 10px -6px #000;
+	-moz-box-shadow: 0 10px 10px -6px #000;
+	box-shadow: 0 10px 10px -6px #000;
+	/*border-top: 1px white solid;
+	border-bottom: 1px white solid;*/
+	background-color: #451804;
 }
 
 .nav-menu {
@@ -131,15 +137,16 @@ body {
 }
 
 .nav-menu a {
-  color: inherit;
-  cursor: pointer;
-  display: block;
+	z-index: 999;
+	color: inherit;
+	cursor: pointer;
+	display: block;
 }
 
 .nav-menu a:hover,
 .nav-menu a.active:hover {
-  background-color: #f0e7e7;
-  color: #451804;
+	background-color: #f0e7e7;
+	color: #451804;
 }
 
 .nav-menu a.active {
@@ -169,6 +176,135 @@ body {
   text-transform: uppercase;
 }
 
+/* Home page styles */
+
+#homepage {
+	height: 100%;
+}
+
+#homepage body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	min-height: 100%;
+}
+
+.home-wrapper {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+img.home-logo {
+	position: absolute;
+	width: 540px;
+	max-width: 720px;
+	margin: 20px 0 0 20px;
+	top: 5%;
+	left: 40%;
+}
+
+img.rover-model {
+	margin: 100px 0 0 20px;
+	top: 5%;
+	left: 40%;
+}
+
+.rover-intro {
+	position: absolute;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	margin: 40px 0 0 0;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.rover-intro img {
+	width: 70%; /* Will shrink image to 30% of its original width */
+	height: auto;
+	margin-right: 200px;
+	
+}
+
+.tooltip-row {
+	position: relative;
+	z-index: 500;
+	margin: 0 auto;
+	display: inline-grid;
+	grid-auto-columns: 150px;
+	grid-column-gap: 5px;
+	grid-template-areas: 'roverTip1 roverTip2 roverTip3 roverTip4 roverTip5 roverTip6';
+	padding-bottom: 20px;
+}
+
+.intro-tooltip1 {
+	z-index: 1;
+	grid-area: roverTip1;
+}
+
+.intro-tooltip2 {
+  grid-area: roverTip2;
+}
+
+.intro-tooltip3 {
+  grid-area: roverTip3;
+}
+
+.intro-tooltip4 {
+  grid-area: roverTip4;
+}
+
+.intro-tooltip5 {
+  grid-area: roverTip5;
+}
+
+.intro-tooltip6 {
+  grid-area: roverTip6;
+}
+
+.popover {
+	z-index: 100;
+	width: 400px;
+	max-width: 480px;
+	border: 2px solid rgba(255, 158, 0, 1);
+	background-color: rgb(0,0,0,0.6);
+}
+
+.popover-header {
+	background: #feccb1; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feccb1', endColorstr='#fb955e',GradientType=1); /* IE6-9 fallback on horizontal gradient */
+}
+
+.bs-popover-auto[data-popper-placement^=top]>.popover-arrow::before, .bs-popover-top>.popover-arrow::before {
+    background-color: rgb(0,0,0,0.8);
+	bottom: 0;
+    border-width: .5rem .5rem 0;
+    border-top-color:  rgba(255, 158, 0, 1);
+}
+
+.popover .popover-arrow::before {
+    position: absolute;
+    display: block;
+    content: "";
+    border-top-color:  rgba(255, 158, 0, 1);
+	background-color: transparent;
+}
+
+ .popover .popover-arrow::after {
+    position: absolute;
+    display: block;
+    content: "";
+    border-top-color:  rgba(255, 158, 0, 1);
+	background-color: transparent;
+}
+
 /* Mission control page */
 
 .mission-map {
@@ -189,152 +325,21 @@ body {
   width: 100%;
 }
 
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.sticky + .content {
-  padding-top: 60px;
-}
 
-.menus {
-  size: 100%;
-}
 
-nav ul {
-  float: right;
-  margin-right: 20px;
-}
-nav ul li {
-  display: inline-block;
-  line-height: 80px;
-  margin: 0 5px;
-}
 
-nav ul li a {
-  color: white;
-  font-size: 17px;
-  text-transform: uppercase;
-  padding: 7px 13px;
-  border-radius: 3px;
-}
-
-.checkbtn {
-  font-size: 30px;
-  color: white;
-  float: right;
-  line-height: 80px;
-  margin-right: 40px;
-  cursor: pointer;
-  display: none;
-}
-
-#check {
-  display: none;
-}
-
-@media (max-width: 952px) {
-  div img {
-    max-height: 80px;
-    max-width: 320px;
-  }
-
-  nav ul li a {
-    font-size: 16px;
-  }
-}
-@media (max-width: 943px) {
-  .checkbtn {
-    display: block;
-  }
-  nav ul {
-    margin-top: 90px;
-    background: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    width: 80%;
-    height: 100vh;
-    top: 0px;
-    left: -100%;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  nav ul li {
-    display: block;
-    margin: 50px 0;
-    line-height: 30px;
-  }
-  nav ul li a {
-    font-size: 20px;
-  }
-  a:hover,
-  a.active {
-    background: none;
-    color: rgb(185, 122, 4);
-  }
-  #check:checked ~ ul {
-    left: 0;
-  }
-}
-
-/* Left sidebar menu */
-navigation ul {
-  float: right;
-  margin-right: 20px;
-}
-navigation ul li {
-  display: inline-block;
-  line-height: 80px;
-  margin: 0 5px;
-}
-
-navigation ul li a {
-  color: white;
-  font-size: 17px;
-  text-transform: uppercase;
-  padding: 7px 13px;
-  border-radius: 3px;
-}
-@media (max-width: 943px) {
-  .checkbtn {
-    display: block;
-  }
-  ul {
-    margin-top: 90px;
-    background: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    width: 80%;
-    height: 100vh;
-    top: 0px;
-    left: -100%;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  nav ul li {
-    display: block;
-    margin: 50px 0;
-    line-height: 30px;
-  }
-  nav ul li a {
-    font-size: 20px;
-  }
-  a:hover,
-  a.active {
-    background: none;
-    color: rgb(185, 122, 4);
-  }
-  #check:checked ~ ul {
-    left: 0;
-  }
-}
 
 /*<!--Manual Control layout>*/
 
-/*for header .. JS is usded for this*/
+/*for header .JS is used for this*/
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
 }
-/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+
 .sticky + .content {
-  padding-top: 102px;
+  padding-top: 100px;
 }
 
 .middle {
@@ -388,8 +393,8 @@ navigation ul li a {
   background: rgba(0, 0, 0, 0.9);
 }
 
-/* Status layout */
 
+/* Status layout */
 status {
   min-width: 250px;
   color: seashell;
@@ -474,6 +479,7 @@ status {
     0 -15px 80px lighten(rgb(209, 119, 35), 30%),
     inset 0 -2px 2px lighten(rgb(209, 119, 35), 10%);
 }
+
 .b:focus {
   outline: none;
 }
@@ -585,102 +591,6 @@ status {
 }
 .left:focus {
   outline: none;
-}
-
-/*social media share
-Source: https://www.cssscript.com/radial-circle-popup-menu-css/
-
-*/
-#menu {
-  width: 130px;
-  height: 130px;
-  position: absolute;
-  left: 90%;
-  top: 120%;
-  margin: -30px 0 0 -85px;
-  list-style: none;
-  font-size: 200%;
-}
-
-.menu-button {
-  opacity: 0;
-  z-index: 1;
-}
-
-.menu-button {
-  width: 150px;
-  height: 150px;
-
-  left: 50%;
-  top: 50%;
-  margin: -75px 0 0 -75px;
-  border-radius: 50%;
-  background: #e06d20;
-  background-size: 100%;
-  overflow: hidden;
-  text-decoration: none;
-  line-height: 150px;
-  color: #fff;
-}
-
-#menu:not(:target) > a:first-of-type,
-#menu:target > a:last-of-type {
-  opacity: 1;
-  z-index: 1;
-}
-
-#menu:not(:target) > .icon-plus:before,
-#menu:target > .icon-minus:before {
-  opacity: 1;
-}
-
-.menu-item {
-  width: 70px;
-  height: 70px;
-  position: absolute;
-  left: 55%;
-  line-height: 5px;
-  top: 50%;
-  margin: -50px 0 0 -50px;
-  border-radius: 50%;
-  background-color: #dd7723;
-  transform: translate(0px, 0px);
-  transition: transform 500ms;
-  z-index: 0;
-  transition: 0.5s;
-}
-
-.menu-item:hover {
-  opacity: 0.5;
-  box-shadow: 0 5px 10px rgb(255, 255, 255);
-}
-
-.menu-item a {
-  color: #fff;
-  position: relative;
-  top: 30%;
-  left: 0;
-  text-decoration: none;
-}
-
-#menu:target > .menu-item:nth-child(6) {
-  transform: rotate(60deg) translateY(-150px) rotate(300deg);
-  transition-delay: 0s;
-}
-
-#menu:target > .menu-item:nth-child(5) {
-  transform: rotate(20deg) translateY(-155px) rotate(-20deg);
-  transition-delay: 0.1s;
-}
-
-#menu:target > .menu-item:nth-child(3) {
-  transform: rotate(-20deg) translateY(-155px) rotate(20deg);
-  transition-delay: 0.2s;
-}
-
-#menu:target > .menu-item:nth-child(4) {
-  transform: rotate(-60deg) translateY(-150px) rotate(60deg);
-  transition-delay: 0.3s;
 }
 
 /* CSS style for Help Menu */

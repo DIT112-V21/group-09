@@ -14,7 +14,8 @@ function createWindow () {
       		preload: path.join(__dirname, 'preload.js')
     	}
   	})
-
+	
+	mainWindow.menuBarVisible = false
 	mainWindow.loadFile('index.html')
 	
 	/* Global shortcut for F5 to reload window */
@@ -51,25 +52,3 @@ app.on('will-quit', () => {
 	// Unregister all shortcuts.
 	globalShortcut.unregisterAll()
 })
-
-//For header position
-// When the user scrolls the page, execute myFunction
-/*
-mainWindow.onscroll= function() {myFunction()};
-
-
-// Get the header
-const document= mainWindow.loadFile('manual-control.html')
-var header  = document.getElementById(myHeader);
-
-// Get the offset position of the navbar
-var sticky = header.offsetTop;
-
-// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function myFunction() {
-  if (mainWindow.pageYOffset > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}*/
