@@ -325,6 +325,12 @@ img.rover-model {
   width: 100%;
 }
 
+/*
+Commands Table*/
+.commandTable {
+  background-color: rgba(225,225,225, 0.2);
+}
+
 
 
 
