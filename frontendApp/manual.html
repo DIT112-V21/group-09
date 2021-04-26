@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -13,139 +12,192 @@
 	<title>SmartRover - Manual drive</title>
 </head>
 <body id="manual-control">
-<header class="header">
-	<div id="navbar">
-		<div class="logo">
-			<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
-		</div>
-		<div class="nav-menu">
-			<a href="index.html">Home</a>
-			<a class="active" href="manual.html">Manual control</a>
-			<a href="mission.html">Mission</a>
-			<a href="mqtt.html">MQTT</a>
-			<a href="settings.html">Settings</a>
-			<a href="help.html">Help</a>
-		</div>
-	</div>
-</header>
-<div class="container">
-	<div class="page-title">
-		<h1>Manual control</h1>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex accumsan, lobortis mollis elit.</p>
-	</div>
-	<div class="section-left">
-
-		<div class="controller">
-			<div class="snapshot">
-				<i class="fas fa-camera-retro fa-3x"></i>
+	<header class="header">
+		<div id="navbar">
+			<div class="logo">
+				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
 			</div>
-			<div class="up-button">
-				<button class="up" onclick="upFunction()">UP</button>
-			</div>
-			<div>
-				1
-			</div>
-			<div class="left-button">
-				<button class="left" onclick="leftFunction()"  >LEFT</button>
-			</div>
-			<div class="stop-button">
-				<button class="stop" onclick="stopFunction()"  >STOP</button>
-			</div>
-			<div class="right-button">
-				<button class="right" onclick="rightFunction()">RIGHT</button>
-				<label for="check" class="checkbtn">
-					<i class="angle-double-right fa-3x"></i>
-				</label>
-			</div>
-			<div>
-				2
-			</div>
-			<div class="down-button">
-				<button class="down" onclick="downFunction()"  >DOWN</button>
-			</div>
-			<div>
-				3
+			<div class="nav-menu">
+				<a href="index.html">Home</a>
+				<a class="active" href="manual.html">Manual control</a>
+				<a href="mission.html">Mission</a>
+				<a href="mqtt.html">MQTT</a>
+				<a href="settings.html">Settings</a>
+				<a href="help.html">Help</a>
 			</div>
 		</div>
-
-		<div class="info">
-			<div class="infoBoard">
-				<li>Traveled Distance: </li>
-				<li>Speed:</li>
-				<li>Current Position:</li>
-			</div>
-			<div class="manual-control">
-				<h3>Manual Control</h3>
-					<div class="consoleContent">
-						<div id="consoleContentResults"></div>
-						<form action="">
-							<input type="text" id="consoleTextInput" autocomplete="off" placeholder="Enter your command or type Help">
-						</form>
+	</header>
+	<div class="container">
+		<div class="page-title">
+			<h1>Manual control</h1>
+		</div>
+		<div class="container-2col">
+			
+			<div class="streams rounded-3 panel panel-default">
+				<div class="rounded-3 panel2 panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Live Stream</h3>
 					</div>
+					<div id="nasaStream" class="nasa-stream panel-body"><iframe style="display: block; margin: 0 auto;" width="480" height="302" align="middle" src="http://ustream.tv/embed/6540154?forced-quality=high&html5ui=1" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+					</div>
+					<div id="roverStream" class="camera-stream panel-body">
+						<canvas id="cameraCanvas" width="320" height="240">
+						</canvas>
+					</div>
+				</div>
+			</div>
+			<div class="controller rounded-3 panel panel-default">
+				<div class="rounded-3 panel2 panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Control pad</h3>
+					</div>
+					<div class="control-button-grid mx-auto panel-body">
+						<!-- Control buttons Row 1 -->
+						<div class="control-button-container">
+							<a id="cameraBtn" class="control-button" onclick="controlPad(cameraBtn)">
+								<span id="sidebutton"><i class="fas fa-camera fa-2x" style="padding: 28px 25px 30px 29px;"></i></span>
+							</a>
+						</div>
+						<div class="control-button-container">
+							<a id="upBtn" class="control-button" onclick="controlPad(upBtn)">
+								<span id="upbutton"><i class="fas fa-chevron-up fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
+							</a>
+						</div>
+						<div class="control-button-container">
+							<a id="connectBtn" class="control-button" onclick="controlPad(connectBtn)">
+								<span id="connectbutton" class="disconnected"><i class="fas fa-power-off fa-2x" style="padding: 28px 25px 30px 27px;"></i></span>
+							</a>
+						</div>
+
+						<!-- Control buttons Row 2 -->
+						<div class="control-button-container">
+							<a id="leftBtn" class="control-button" onclick="controlPad(leftBtn)">
+								<span id="leftbutton"><i class="fas fa-chevron-left fa-2x" style="padding: 28px 25px 30px 38px;"></i></span>
+							</a>
+						</div>
+						<div class="control-button-container">
+							<a id="stopBtn" class="control-button" onclick="controlPad(stopBtn)">
+								<span id="stopbutton"><i class="fas fa-stop-circle fa-2x" style="padding: 28px 25px 25px 28px;"></i></span>
+							</a>
+						</div>
+						<div class="control-button-container">
+							<a id="rightBtn" class="control-button" onclick="controlPad(rightBtn)">
+								<span id="rightbutton"><i class="fas fa-chevron-right fa-2x" style="padding: 28px 25px 25px 39px;"></i></span>
+							</a>
+						</div>
+						<!-- Control buttons Row 3 -->
+						<div class="control-button-container">
+							<form name='subscriber'>
+								<input name="topic" class="input" type="hidden" value="/smartRover/#">
+							  	<input name="qos" type="hidden" value="1">
+								<a id="satelliteBtn" class="control-button" onclick="controlPad(satelliteBtn)">
+									<span id="satellitebutton" class="disconnected"><i class="fas fa-satellite-dish fa-2x" style="padding: 28px 25px 25px 30px;"></i></span>
+								</a>
+							</form>
+						</div>
+						<div class="control-button-container">
+							<a id="downBtn" class="control-button" onclick="controlPad(downBtn)">
+								<span id="downbutton"><i class="fas fa-chevron-down fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
+							</a>
+						</div>
+						<div class="control-button-container">
+							<a id="cruiseBtn" class="control-button" onclick="controlPad(cruiseBtn)">
+								<span id="sidebutton"><i class="fas fa-car-crash fa-2x" style="padding: 28px 25px 25px 18px;"></i></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+		<div class="container-3col">
+			<div class="rover-dash rounded-3 panel panel-default">
+				<div class="rounded-3 panel2 panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Telemetry</h3>
+					</div>
+					<div class="dashboard panel-body">
+						<div class="label1">Heading&#176; <span class="label-supplement">(degrees)</span></div>
+						<div class="data1"><var id="heading">30</var></div>
+						<div class="label2">Throttle <span class="label-supplement">(%)</span></div>
+						<div class="data2"><var id="throttle">50</var></div>
+						<div class="label3">Speed <span class="label-supplement">(m/s)</span></div>
+						<div class="data3"><var id="speed">0.5</var></div>
+						<div class="label4">Turn angle&#176;</div>
+						<div class="data4"><var id="angle">30</var></div>
+						<div class="label5">Total distance <span class="label-supplement">(m)</span></div>
+						<div class="data5"><var id="distance">30</var></div>
+					</div>
+				</div>
+			</div>
+			<div class="command-console rounded-3 panel panel-default">
+				<div class="rounded-3 panel2 panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Command console</h3>
+					</div>
+					<div class="consoleContent">
+						<div id="consoleContentResults">
+							<form action="">
+								<input type="text" id="consoleTextInput" autocomplete="off" placeholder="Enter your command or type Help">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="status-output rounded-3 panel panel-default">
+				<div class="rounded-3 panel2 panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Serial feed</h3>
+					</div>
+					<div class="status-info">
+						<div id="output-updates"></div>
+						<button class="clickHere">CLICK HERE</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="section-right">
-		<div class="status-info">
-			<h2>Status updates:</h2>
-			<div id="output-updates"></div>
-			<button class="clickHere">CLICK HERE</button>
+	<footer class="footer">
+		<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+			Please contact us <a href="#">@github.com</a>.
 		</div>
-		<div class="live-stream">
-			<h2>Live Stream</h2>
-			<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex.</p>
-			<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270" align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
-			</div>
+		<div class="footer-menu">
+
 		</div>
+	</footer>
 	</div>
+	<script>
+		window.onscroll = function() {myFunction()};
+		var navbar = document.getElementById("navbar");
+		var sticky = navbar.offsetTop;
 
-
-
-
-</div>
-<footer class="footer">
-	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
-		Please contact us <a href="#">@github.com</a>.
-	</div>
-	<div class="footer-menu">
-
-	</div>
-</footer>
-</div>
-<script>
-	window.onscroll = function() {myFunction()};
-
-	var navbar = document.getElementById("navbar");
-	var sticky = navbar.offsetTop;
-
-	function myFunction() {
-		if (window.pageYOffset >= sticky) {
-			navbar.classList.add("sticky")
-		} else {
-			navbar.classList.remove("sticky");
+		function myFunction() {
+			if (window.pageYOffset >= sticky) {
+				navbar.classList.add("sticky")
+			} else {
+				navbar.classList.remove("sticky");
+			}
 		}
-	}
-</script>
+	</script>
 
-<script src="./assets/js/manual.js"></script>
-<script>
-	function upFunction() {
-		document.getElementById("f10").innerHTML = "f10";
-	}
-	function leftFunction() {
-		document.getElementById("left").innerHTML = "left";
-	}
-	function stopFunction() {
-		document.getElementById("stop").innerHTML = "stop";
-	}
-	function rightFunction() {
-		document.getElementById("right").innerHTML = "right";
-	}
-	function downFunction() {
-		document.getElementById("r10").innerHTML = "r10";
-	}
-</script>
-<script src="./renderer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+	<script src="./assets/js/manual.js"></script>
+	<script>
+		function upFunction() {
+			document.getElementById("f10").innerHTML = "f10";
+		}
+		function leftFunction() {
+			document.getElementById("left").innerHTML = "left";
+		}
+		function stopFunction() {
+			document.getElementById("stop").innerHTML = "stop";
+		}
+		function rightFunction() {
+			document.getElementById("right").innerHTML = "right";
+		}
+		function downFunction() {
+			document.getElementById("r10").innerHTML = "r10";
+		}
+	</script>
+	<script src="./assets/js/communication.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>

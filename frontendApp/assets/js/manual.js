@@ -1,19 +1,18 @@
 const buttonClick = document.querySelector(".clickHere");
-const upButtonClick = document.querySelector(".up");
-const leftButtonClick = document.querySelector(".left");
-const stopButtonClick = document.querySelector(".stop");
-const rightButtonClick = document.querySelector(".right");
-const downButtonClick = document.querySelector(".down");
+// Get the root element
 
+// Get the css root element
+var r = document.querySelector(':root');
+var i = 30;
 
-//Manual Controll
+//Manual Control
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementsByTagName("form")[0].onsubmit = function (evt) {
     evt.preventDefault();
     checkWord();
   };
 
-  document.getElementById("consoleTextInput").focus();
+  // document.getElementById("consoleTextInput").focus();
 
   //User Input
   let textInputValue //= document.getElementById("consoleTextInput").value.trim();
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     consoleResultsDiv.scrollTop = consoleResultsDiv.scrollHeight;
   };
 
-  scrollToBottomOfResults();
+
 
   //Output text to the Console
   let addTextToConsole = function (textToAdd) {
@@ -38,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       document.getElementById("consoleContentResults").innerHTML += "<p style=\"color: #a8f18f;\">" + textToAdd + "</p>";
     }
-
-    scrollToBottomOfResults();
   };
 
   //Print Help List
@@ -123,42 +120,78 @@ document.addEventListener("DOMContentLoaded", function () {
       textCommands(textInputValueLowerCase);
     }
 
-    clearInput();
-  };
+	  	clearInput();
+  	};
+
+	
+
+
+
+	//Status Updates
+	let addTextToOutput = function (textToAdd) {
+	  document.getElementById("output-updates").innerHTML +=
+		  "<p class='status-output'>" + textToAdd + "</p>";
+	  scrollOutput();
+	};
+
+	let scrollOutput = function () {
+	  let outputResultsDiv = document.getElementById("output-updates");
+	  outputResultsDiv.scrollTop = outputResultsDiv.scrollHeight;
+	};
+
+	buttonClick.addEventListener("click", function () {
+		addTextToOutput("Rover Has Landed!");
+		var a = 1000 + parseFloat(this.value);
+		i++;
+		document.getElementById("heading").innerHTML = i;
+		addTextToOutput("Heading is now: " + i);
+
+	});
+
 });
 
-//Status Updates
-let addTextToOutput = function (textToAdd) {
-  document.getElementById("output-updates").innerHTML +=
-      "<p class='status-output'>" + textToAdd + "</p>";
-  scrollOutput();
+function controlPad(elmnt) {
+		switch (elmnt) {
+		  case upBtn:
+			addTextToConsole("Throttle +10");
+				document.
+			break;
+		  case downBtn:
+			addTextToConsole("Throttle -10");
+			break;
+		  case leftBtn:
+			addTextToConsole("Turn left +10");
+			break;
+		  case rightBtn:
+			addTextToConsole("Turn right +10");
+			break;
+		  case stopBtn:
+			addTextToConsole("Staahp!");
+			break;
+		  case cameraBtn:
+			addTextToConsole("Taking a snapshot");
+			break;
+		  case connectBtn: {
+				addTextToConsole("Starting up the engine!");
+			break;
+		  }
+		  case satelliteBtn:
+			addTextToConsole("Connecting to Mars Orbiter ...");
+			break;
+		  case cruiseBtn:
+			addTextToConsole("Cruise control is ON");
+			break;
+		  default:
+			addTextToConsole("invalidCommand");
+			break;
+	}
 };
 
-let scrollOutput = function () {
-  let outputResultsDiv = document.getElementById("output-updates");
-  outputResultsDiv.scrollTop = outputResultsDiv.scrollHeight;
+function addTextToConsole(textToAdd) {
+    if (textToAdd === "invalidCommand") {
+      document.getElementById("consoleContentResults").innerHTML += "<p style=\"color: red;\">Invalid command! Type Help to see all commands.</p>";
+    } else {
+      document.getElementById("consoleContentResults").innerHTML += "<p style=\"color: #a8f18f;\">" + textToAdd + "</p>";
+    }
+
 };
-
-buttonClick.addEventListener("click", function () {
-  addTextToOutput("Rover Has Landed!");
-});
-
-upButtonClick.addEventListener("click", function () {
-  addTextToOutput("Forward 10");
-});
-
-leftButtonClick.addEventListener("click", function () {
-  addTextToOutput("Turning left");
-});
-
-stopButtonClick.addEventListener("click", function () {
-  addTextToOutput(" Rover stopped");
-});
-
-rightButtonClick.addEventListener("click", function () {
-  addTextToOutput("Turning right");
-});
-
-downButtonClick.addEventListener("click", function () {
-  addTextToOutput("backward 10");
-});

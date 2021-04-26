@@ -1,3 +1,8 @@
+:root {
+	--connection-btn-color: red;
+	--satellite-btn-color: #3A474D;
+}
+
 html,
 body {
   margin: 0;
@@ -63,11 +68,11 @@ body {
 }
 
 .page-title {
-  grid-column: 1 / span 2;
-  width: auto;
-  position: relative;
-  color: #fff;
-  margin-bottom: 30px;
+	grid-column: 1 / span 2;
+	width: auto;
+	position: relative;
+	color: #fff;
+	padding: 50px 0 20px 0;
 }
 
 .header {
@@ -305,8 +310,384 @@ img.rover-model {
 	background-color: transparent;
 }
 
-/* Mission control page */
+/* Manual control page */
+#manual-control .container {
+  display: block;
+  position: relative;
+  margin: 30px auto 30px;
+  color: #fff;
+  background-color: #1c2329;
+  padding: 0 50px 50px 50px;
+}
 
+.container-2col, .container-3col {
+	grid-auto-rows: auto;
+	gap: 0px 0px;
+	position: relative;
+	margin: 30px auto 30px;
+	color: #fff;
+}
+
+.container-2col {
+	display: grid;
+	grid-template-columns: auto 540px;
+}
+
+.container-3col {
+  display: grid;
+  grid-template-columns: 360px auto 500px;
+}
+
+.streams, .controller, .rover-dash, .command-console, .status-output {
+	margin: 2px 5px 2px 5px;
+	padding: 10px 0;
+}
+
+#manual-control .panel {
+	background-color: #b8b4a8 !important;
+	border: 12px #fff6ed solid;
+	padding: 0 0;
+	box-shadow: 3px 3px 0px 0px #878787;
+}
+
+#manual-control .panel2 {
+	height: 100%;
+	background-color: #b8b4a8 !important;
+	border: 6px #1b1b3d solid;
+	margin: 0 0;
+	padding-bottom: 10px;
+}
+
+#manual-control .panel-heading {
+	margin: 0 auto;
+	width: 80%;
+	padding: 4px 0 0 15px;
+	margin-bottom: 15px;
+	color: #282828;
+	text-align: center;
+	border-bottom: 5px solid transparent;
+	border-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #1b1b3d  20%, #1b1b3d 80%, rgba(0, 0, 0, 0) 100%);
+	border-image-slice: 1;
+}
+
+#manual-control .panel-heading h3 {
+	display: inline-block;
+	font-family: 'Open Sans';
+	font-weight: 800;
+	font-size: 22pt;
+	text-transform: uppercase;
+}
+
+#manual-control .panel-body {
+	padding: 5px;
+}
+
+.nasa-stream {
+	display: flex;
+	visibility: visible;
+}
+
+.camera-stream {
+	display: none;
+	visibility: hidden;
+	justify-content: center;
+  	align-items: center;
+}
+
+.camera-stream #cameraCanvas {
+	margin: 0 auto;
+}
+
+.control-button-grid {
+	display: grid;
+	grid-template-columns: 130px 130px 130px;
+	grid-template-rows: 130px 130px 130px;
+	gap: 5px 5px;
+	padding: 0 auto;
+	width: 400px;
+	max-width: 400px;
+}
+
+.control-button-container {
+	width: 130px;
+	height: 130px;
+	margin: 0 auto;
+}
+
+.control-button {
+    position: relative;
+    display: inline-block;
+	width: 120px;
+	height: 120px;
+    margin: 0 auto;
+    
+    -webkit-border-radius: 10px;
+    
+    -webkit-box-shadow: 
+        0px 3px rgba(128,128,128,1), /* gradient effects */
+        0px 4px rgba(118,118,118,1),
+        0px 5px rgba(108,108,108,1),
+        0px 6px rgba(98,98,98,1),
+        0px 7px rgba(88,88,88,1),
+        0px 8px rgba(78,78,78,1),
+        0px 14px 6px -1px rgba(128,128,128,1); /* shadow */
+    
+    -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+} 
+
+.control-button span {
+    background-color: #E8E8E8;
+    
+    background-image: 
+        /* gloss gradient */
+        -webkit-gradient(
+            linear, 
+            left bottom, 
+            left top, 
+            color-stop(50%,rgba(255,255,255,0)), 
+            color-stop(50%,rgba(255,255,255,0.3)), 
+            color-stop(100%,rgba(255,255,255,0.2))),
+        
+        /* dark outside gradient */
+        -webkit-gradient(
+            linear, 
+            left top, 
+            right top, 
+            color-stop(0%,rgba(210,210,210,0.3)), 
+            color-stop(20%,rgba(210,210,210,0)), 
+            color-stop(80%,rgba(210,210,210,0)), 
+            color-stop(100%,rgba(210,210,210,0.3))),
+        
+        /* light inner gradient */
+        -webkit-gradient(
+            linear, 
+            left top, 
+            right top, 
+            color-stop(0%,rgba(255,255,255,0)), 
+            color-stop(20%,rgba(255,255,255,0.5)), 
+            color-stop(80%,rgba(255,255,255,0.5)), 
+            color-stop(100%,rgba(255,255,255,0))),        
+        
+        /* diagonal line pattern */
+   
+        -webkit-box-shadow:
+            0px -1px #fff, /* top highlight */
+            0px 1px 1px #FFFFFF; /* bottom edge */
+    
+    -webkit-background-size: 100%, 100%, 100%, 4px 4px;
+    
+    -webkit-border-radius: 10px;
+    -webkit-transition: -webkit-transform .1s ease-in-out;
+    
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+
+    display: inline-block;
+	width: 120px;
+	height: 120px;
+    
+    color: #3A474D;
+    text-transform: uppercase;
+    font-family: 'TradeGothicLTStd-BdCn20','PT Sans Narrow';
+    font-weight: 700;
+    font-size: 32px;
+    
+    text-shadow: 0px 1px #fff, 0px -1px #262F33;
+}
+
+.disconnected:hover {
+	color: var(--connection-btn-color);
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+}
+
+#satellitebutton .disconnected:hover {
+	color: var(--satellite-btn-color);
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+}
+
+.connected:hover {
+	color: var(--connection-btn-color);
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(24,255,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
+}
+
+.control-button #upbutton:hover, .control-button #downbutton:hover, 
+.control-button #leftbutton:hover, .control-button #rightbutton:hover {
+	color: #ffb400;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,179,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
+}
+
+.control-button #stopbutton:hover {
+	color: #ff0000;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+}
+
+.control-button #sidebutton:hover {
+	color: #19ed46;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+}
+
+.control-button #satellitebutton {
+	color: var(--satellite-btn-color);
+}
+
+.control-button #connectbutton {
+	color: var(--connection-btn-color);
+}
+
+.control-button:active {
+	-webkit-box-shadow: 
+	0px 3px rgba(128,128,128,1),
+	0px 4px rgba(118,118,118,1),
+	0px 5px rgba(108,108,108,1),
+	0px 6px rgba(98,98,98,1),
+	0px 7px rgba(88,88,88,1),
+	0px 8px rgba(78,78,78,1),
+	0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
+}
+
+.control-button:active span{
+	-webkit-transform: translate(0, 5px); /* depth of button press */
+}
+
+.control-button span:after {
+	display: block;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	right: 14px;
+	top: 12px;    
+
+	font-family: 'Cabin';
+	font-weight: 700;
+	color: #AEBF3B;
+	text-shadow: 0px 1px #fff, 0px -1px #97A63A;
+	font-size: 26px;
+}
+
+.dashboard {
+	display: grid;
+	grid-template-columns: auto 110px;
+	grid-template-rows: 3.5em 3.5em 3.5em;
+	gap: 0px 0px;
+	grid-template-areas:
+		". ."
+		". ."
+		". .";
+	margin: 5px;
+}
+
+.dashboard .label1 {
+	grid-column-start: 1;
+	grid-column-end: 1;
+	grid-row-start: 1;
+	grid-row-end: 1;
+	border-right: 2px #d5d5d5 solid;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .label2 {
+	grid-column-start: 1;
+	grid-column-end: 1;
+	grid-row-start: 2;
+	grid-row-end: 2;
+	border-right: 2px #d5d5d5 solid;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .label3 {
+	grid-column-start: 1;
+	grid-column-end: 1;
+	grid-row-start: 3;
+	grid-row-end: 3;
+	border-right: 2px #d5d5d5 solid;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .label4 {
+	grid-column-start: 1;
+	grid-column-end: 1;
+	grid-row-start: 4;
+	grid-row-end: 4;
+	border-right: 2px #d5d5d5 solid;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .label5 {
+	grid-column-start: 1;
+	grid-column-end: 1;
+	grid-row-start: 5;
+	grid-row-end: 5;
+	border-right: 2px #d5d5d5 solid;
+}
+
+.dashboard .data1 {
+	grid-column-start: 2;
+	grid-column-end: 2;
+	grid-row-start: 1;
+	grid-row-end: 1;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .data2 {
+	grid-column-start: 2;
+	grid-column-end: 2;
+	grid-row-start: 2;
+	grid-row-end: 2;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .data3 {
+	grid-column-start: 2;
+	grid-column-end: 2;
+	grid-row-start: 3;
+	grid-row-end: 3;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .data4 {
+	grid-column-start: 2;
+	grid-column-end: 2;
+	grid-row-start: 4;
+	grid-row-end: 4;
+	border-bottom: 2px #d5d5d5 solid;
+}
+
+.dashboard .data5 {
+	grid-column-start: 2;
+	grid-column-end: 2;
+	grid-row-start: 5;
+	grid-row-end: 5;
+}
+
+
+/* Mission control page */
 .mission-map {
   width: 90%;
   height: auto;
@@ -324,9 +705,6 @@ img.rover-model {
   top: 0;
   width: 100%;
 }
-
-
-
 
 
 /*<!--Manual Control layout>*/
@@ -353,16 +731,6 @@ img.rover-model {
   border: 2px green solid;
   height: relative;
   background: rgba(255, 255, 255, 0.4);
-}
-.controller {
-  display: grid;
-  position: relative;
-
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  width: auto;
-  height: 390px fit-content;
-  border: 2px blue solid;
 }
 
 .snapshot {
