@@ -3,11 +3,13 @@
 #include <MQTT.h>
 #include <WiFi.h>
 
+
 #ifdef __SMCE__
 #include <OV767X.h>
 #endif
 #if defined(__has_include) && __has_include("secrets.hpp")
 #include "secrets.hpp"
+#include <string>
 #endif
 
 const auto oneSecond = 1000UL;
@@ -24,6 +26,8 @@ boolean initialTurn = true;
 int startDistance = 0;
 float startSpeed = 0;
 int startAngle = 0;
+int turnAngle= 0; 
+int throttle= 30; 
 
 enum DrivingMode {
     STARTUP,
@@ -100,12 +104,24 @@ void setup()
             mqtt.onMessage([](String topic, String message) {
                 if (topic == "/smartRover/control") {
                     Serial.println(topic + " " + message);
+                    
+                }else if(topic== "/smartRover/telemetry/throttle"){
+
+                  throttle =+(message.toInt());
+                  
+                }else if(topic== "/smartRover/telemetry/turnAngle"){
+                  turnAngle =+(message.toInt());
+                  
                 }
+                
                 else {
                     Serial.println(topic + " " + message);
                 }
            });
+   
+           
         }
+
       
 
       // Start with random speed, random angle and goes random distance before starting "explore" mode
@@ -144,8 +160,20 @@ void loop()
     
     if (currentTime - previousTransmission >= oneSecond) {
       previousTransmission = currentTime;
-      // const auto distance = String(front.getDistance());
+
+      //integers to String
+      const auto throttleS = String(throttle);
+      const auto headingS = String(car.getHeading());
+      const auto speedS = String(car.getSpeed());
+       const auto angleS = String(turnAngle);
+       const auto distanceS = String(getMedianDistance());
+      
       mqtt.publish("/smartRover/control", reportMode());
+      mqtt.publish("/smartRover/telemetry/heading", headingS);
+      mqtt.publish("/smartRover/telemetry/throttle", throttleS);
+      mqtt.publish("/smartRover/telemetry/speed", speedS);
+      mqtt.publish("/smartRover/telemetry/turnAngle", angleS);
+      mqtt.publish("/smartRover/telemetry/totalDistance", distanceS );
     }
     #ifdef __SMCE__
       // Avoid over-using the CPU if we are running in the emulator
@@ -197,20 +225,20 @@ void loop()
     if (currentTime >= previousPrintout + PRINT_INTERVAL)
     {
         previousPrintout = currentTime;
-        
-        float speed = car.getSpeed();
-        long distanceLeft = leftOdometer.getDistance();
-        long distanceRight = rightOdometer.getDistance();
+       
+       
+      Serial.print("Heading: ");
+      Serial.println(car.getHeading());
+      Serial.print("Throttle: ");
+      Serial.println(throttle );
+      Serial.print("Speed: ");
+      Serial.println(car.getSpeed());
+      Serial.print("Angle: ");
+      Serial.println(turnAngle);
+      Serial.print("Distance");
+     Serial.println(getMedianDistance());
+     Serial.println();
 
-        Serial.print("Mode: ");
-        Serial.println(reportMode());
-        Serial.print("Speed: ");
-        Serial.println(speed);
-        Serial.print("Left: ");
-        Serial.println(distanceLeft);
-        Serial.print("Right: ");
-        Serial.println(distanceRight);
-        Serial.println(" ");
 
     }
     
@@ -248,6 +276,8 @@ void loop()
     }    
 }
 
+
+
 void startupMove() {
 
       // String currentMode = "startUp";
@@ -261,6 +291,13 @@ void startupMove() {
         initialTurn = false;
         currentMode = EXPLORE;
       }
+}
+
+double getMedianDistance(){
+  long distanceLeft = leftOdometer.getDistance();
+      long distanceRight = rightOdometer.getDistance();
+
+      return (distanceLeft+distanceRight)/2;
 }
 
 DrivingMode monitorForward() {
@@ -310,6 +347,8 @@ DrivingMode monitorSlowForward() {
     }
     return currentMode;
 }
+
+
 
 void checkAvoidDirection() {
     int sensorFrontUS = getSensorData(FRONTUS);
@@ -488,6 +527,7 @@ void unstuckBack() {
     }
 }
 
+
 String reportMode() {
   String driveMode;
   switch(currentMode)
@@ -548,6 +588,7 @@ int getSensorData(CarSensor sensorName) {
     }
   return detectedDistance;
 }
+
 
 float getSpeedData() {
   return car.getSpeed();
