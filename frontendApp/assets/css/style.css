@@ -591,9 +591,19 @@ img.rover-model {
 	font-size: 26px;
 }
 
+.dashboard div[class^="label"] {
+	min-width: 150px;
+	width: 180px;
+}
+
+.dashboard div[class^="data"] {
+	min-width: 70px;
+	width: 100px;
+}
+
 .dashboard {
 	display: grid;
-	grid-template-columns: auto 110px;
+	grid-template-columns: 180px 70px;
 	grid-template-rows: 3.5em 3.5em 3.5em;
 	gap: 0px 0px;
 	grid-template-areas:

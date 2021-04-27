@@ -68,7 +68,24 @@ function onConnect () {
 				document.getElementById("roverStream").style.setProperty('visibility', 'visible', 'important')
 		  })
 		  client.on('message', (topic, message) => {
-			  if (topic.includes("camera")) {
+			  if (topic.includes("telemetry/heading")) {
+				  var data = parseInt(message)
+				  document.getElementById("heading").innerHTML = data;
+			  } else if (topic.includes("telemetry/throttle")) {
+				  var data = parseInt(message)
+				  document.getElementById("throttle").innerHTML = data;
+			  } else if (topic.includes("telemetry/speed")) {
+				  var data = parseFloat(message).toFixed(3)
+				  document.getElementById("speed").innerHTML = data;
+			  } else if (topic.includes("telemetry/turnAngle")) {
+				  var data = parseInt(message)
+				  document.getElementById("angle").innerHTML = data;
+			  } else if (topic.includes("telemetry/totalDistance")) {
+				  var data = parseInt(message)
+				  document.getElementById("distance").innerHTML = data;
+			  }
+			  
+			  else if (topic.includes("camera")) {
 				  console.log("Camera")
 				  canvas = document.getElementById('cameraCanvas');
 				  ctx = canvas.getContext('2d', {alpha: false});
