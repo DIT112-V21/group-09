@@ -29,7 +29,7 @@ int turnAngle = 0;
 int throttle = 30;
 
 long currentTime = 0;
-boolean cruiseControll = true;
+boolean cruiseControl = true;
 
 enum DrivingMode {
   MANUAL,
@@ -106,45 +106,97 @@ void setup()
 
     mqtt.onMessage([](String topic, String message) {
       if (topic == "/smartRover/control/throttle") {
-        throttle += (message.toInt());
-        currentMode = MANUAL;
-        detectionTime = currentTime;
-      } else if (topic == "/smartRover/control/turnAngle") {
-        turnAngle += (message.toInt());
-        currentMode = MANUAL;
-        detectionTime = currentTime;
+
+        //Forward
+        if (message.toInt() > 0) {
+
+          //throttle += (message.toInt());
+
+          //car.setSpeed(message.toInt());
+          car.setSpeed(40);
+          car.setAngle(0);
+          currentMode = MANUAL;
+          detectionTime = currentTime;
+
+        }
+        //Reverse
+        else if (message.toInt() < 0) {
+
+          //throttle += (message.toInt());
+
+          //car.setSpeed(message.toInt());
+          car.setSpeed(-40);
+          car.setAngle(0);
+          currentMode = MANUAL;
+          detectionTime = currentTime;
+
+        }
+
+      }
+
+      //Turning
+      else if (topic == "/smartRover/control/turnAngle") {
+
+        //Left
+        if (message.toInt() < 0) {
+
+          //turnAngle += (message.toInt());
+          car.setAngle(-30);
+          currentMode = MANUAL;
+          detectionTime = currentTime;
+        }
+
+        //Right
+        else if (message.toInt() > 0) {
+
+          //turnAngle += (message.toInt());
+          car.setAngle(30);
+          currentMode = MANUAL;
+          detectionTime = currentTime;
+
+        }
+
+
+        //Stop
       } else if (topic == "/smartRover/control/stop") {
         throttle = 0;
+        car.setSpeed(0);
+        car.setAngle(0);
+        currentMode = MANUAL;
       }
 
       else if (topic == "/smartRover/console/throttle") {
-        throttle = message.toInt();
+        // throttle = message.toInt();
+        car.setSpeed(message.toInt());
         currentMode = MANUAL;
         detectionTime = currentTime;
       }
 
       else if (topic == "/smartRover/console/turnAngle") {
-        turnAngle = message.toInt();
+        //turnAngle = message.toInt();
+        car.setAngle(message.toInt());
         currentMode = MANUAL;
         detectionTime = currentTime;
       }
 
-      else if (topic == "/smartRover/control/stop") {
-        throttle = 0;
-        currentMode = MANUAL;
-        detectionTime = currentTime;
-      }
+//      else if (topic == "/smartRover/control/stop") {
+//        //throttle = 0;
+//        car.setSpeed(0);
+//        car.setAngle(0);
+//        currentMode = MANUAL;
+//        detectionTime = currentTime;
+//      }
 
       else if (topic == "/smartRover/cruiseControl") {
 
-        if (message.toInt() == 0) {
+        if (message.toInt() == 2) {
           currentMode = STARTUP;
-          cruiseControll = true;
+          cruiseControl = true;
         }
 
         else if (message.toInt() == 1) {
           currentMode = MANUAL;
-          cruiseControll = false;
+          cruiseControl = false;
         }
       }
       else {
@@ -279,7 +331,8 @@ void loop()
 
   }
 
-  if (cruiseControll) {
+
+  if (cruiseControl) {
 
     if (currentTime >= detectionTime + DETECT_INTERVAL_MED)
     {
@@ -347,8 +400,10 @@ double getMedianDistance() {
 
 void manualMove() {
   currentMode = MANUAL;
-  car.setSpeed(throttle);
-  car.setAngle(turnAngle);
+  //car.setSpeed(throttle);
+  //car.setAngle(turnAngle);
+  Serial.println("Manual Driving");
+  delay(1000);
 }
 
 DrivingMode monitorForward() {
