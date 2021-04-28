@@ -716,6 +716,21 @@ img.rover-model {
   width: 100%;
 }
 
+/*
+Commands Table*/
+.commandTable {
+  background-color: rgba(225,225,225, 0.2);
+}
+
+thead cell{
+  background-color: rgba(225,225,225,0.4);
+  font-size: 13px;
+}
+
+.data-cell{
+  width: 100px;
+}
+
 
 /*<!--Manual Control layout>*/
 

@@ -118,18 +118,28 @@
 				<div>
 					<h2>Configure you mission</h2>
 
-					<p>Duis convallis libero at odio bibendum blandit. Etiam metus velit, blandit at vehicula a, euismod in ex.
-						Vivamus et mollis urna, vel maximus mi. Sed nec interdum tortor. Cras malesuada, arcu imperdiet placerat
-						bibendum, velit urna suscipit arcu, ac rhoncus arcu quam vitae diam. Etiam pulvinar viverra libero, non
-						efficitur mi elementum vel. Donec tincidunt est mauris. Phasellus molestie ex dolor, id sagittis neque
-						rhoncus ut. Etiam pulvinar pharetra mauris, vel cursus dui egestas eget. Integer molestie mauris in metus
-						maximus, at sollicitudin massa tincidunt. Donec vel tortor vel metus porttitor pulvinar. Sed vitae lacus
-						ullamcorper, interdum tortor volutpat, blandit dolor. In semper orci vel pulvinar viverra.</p>
+					<form>
+						<input type="button" value="Add Step" onclick="addRow('commandTable')" />
+						<input type="button" value="Delete Step" onclick="deleteRow('commandTable')"/>
+						<table class="commandTable" id="commandTable">
+							<thead>
+							<th class="step">Step</th>
+							<th class="number">no.</th>
+							<th class="data">Heading</th>
+							<th class="data">Speed</th>
+							<th class="data">Distance</th>
+							</thead>
+							<tr id="row1">
+								<td><input type="checkbox" name="chk"/></td>
+								<td id="numbering">1</td>
+								<td id="heading"><input type="number" value="0" step="5" min="0" max="360" class="data-cell" /></td>
+								<td id="speed"><input type="number" value="0" step="10" min="-100" max="100" class="data-cell" /></td>
+								<td id="distance"><input type="number" value="0" step="10" class="data-cell" min="0" /></td>
+							</tr>
+						</table>
+						<button type="submit" value="">Execute Commands</button>
+					</form>
 
-					<p>Nunc pharetra aliquet ex, vitae dignissim erat lobortis non. Integer finibus odio ac tempor efficitur.
-						Aliquam in massa ac nisi interdum porttitor. Donec non mi sed erat pulvinar porta nec vitae nisi. Orci
-						varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque a maximus erat,
-						nec placerat lacus. Curabitur consequat magna eget est consequat porta.</p>
 
 					<h2>Mission status</h2>
 					<ul>
@@ -162,58 +172,13 @@
 	</footer>
 	</div>
 
+	<script src="assets/js/mission.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
 
-
-		<!--Notifications-->
-	<script>
-
-		let button1 = document.querySelector("#button1");
-		let button2 = document.querySelector("#button2");
-		let button3 = document.querySelector("#button3");
-
-		document.getElementById("button1").onclick = function () {
-			let newToast = document.getElementById('toast1');//select id of toast
-			let newNotification = new bootstrap.Toast(newToast);//inizialize it
-			newNotification.show();//show it
-		}
-
-		document.getElementById("button2").onclick = function () {
-			let newToast = document.getElementById('toast2');//select id of toast
-			let newNotification = new bootstrap.Toast(newToast);//inizialize it
-			newNotification.show();//show it
-		}
-
-		document.getElementById("button3").onclick = function () {
-			let newToast = document.getElementById('toast3');//select id of toast
-			let newNotification = new bootstrap.Toast(newToast);//inizialize it
-			newNotification.show();//show it
-		}
-
-	</script>
-
-
-
-
-
-
-	<script>
-		window.onscroll = function () { myFunction() };
-
-		var navbar = document.getElementById("navbar");
-		var sticky = navbar.offsetTop;
-
-		function myFunction() {
-			if (window.pageYOffset >= sticky) {
-				navbar.classList.add("sticky")
-			} else {
-				navbar.classList.remove("sticky");
-			}
-		}
-	</script>
+		
 </body>
 
 </html>
