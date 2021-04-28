@@ -40,7 +40,6 @@ const cameraBtn = document.getElementById('cameraBtn')
 connectBtn.addEventListener('click', onConnect)
 satelliteBtn.addEventListener('click', onSub)
 upBtn.addEventListener('click', function(){ manualControl(upBtn); }, false)
-
 downBtn.addEventListener('click', function(){ manualControl(downBtn); }, false)
 leftBtn.addEventListener('click', function(){ manualControl(leftBtn); }, false)
 rightBtn.addEventListener('click', function(){ manualControl(rightBtn); }, false)
@@ -73,7 +72,7 @@ function onConnect () {
 			    document.getElementById("roverStream").style.setProperty('display', 'flex', 'important')
 				document.getElementById("roverStream").style.setProperty('visibility', 'visible', 'important')
 		  })
-		  client.on('message', (topic, message) => {
+		client.on('message', (topic, message) => {
 			  if (topic.includes("telemetry/heading")) {
 				  var data = parseFloat(message)
 				  document.getElementById("heading").innerHTML = data;
@@ -90,7 +89,6 @@ function onConnect () {
 				  var data = parseInt(message)
 				  document.getElementById("distance").innerHTML = data;
 			  }
-			  
 			  else if (topic.includes("camera")) {
 				  console.log("Camera")
 				  canvas = document.getElementById('cameraCanvas');
@@ -118,7 +116,6 @@ function onConnect () {
 			  
 				  document.getElementById("terminalReslutsCont").innerHTML += "<p style=\"color: #a8f18f;\">" + msg + "</p>";
 				  scrollOutput();
-				  
 			  }
 		  })
 		  
@@ -194,93 +191,78 @@ function onUnsub () {
   }
 }
 
-function manualControl (elmnt) {
+function manualControl(elmnt) {
 	if ((client == null || !client.connected || client.connected == false)) {
 		var desc = "The <strong>SmartRover</strong> is not powered up!<br />Please turn on Rover by pressing Power button.<br />Also please connect to &quot;Mars Orbiter&quot; satellite for updates."
 		showModal("Rover power", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
 	} else if (client.connected) {
-	 var channel = null
-	 var command = null
-	  if (elmnt == upBtn) {
-			channel = "/smartRover/control/throttle"
-			command = "10"
-			addTextToOutput("Throttle +10");
-	  } else if (elmnt == downBtn) {
-			channel = "/smartRover/control/throttle"
-			command = "-10"
-			addTextToOutput("Throttle -10");
-	  } else if (elmnt == leftBtn) {
-			channel = "/smartRover/control/turnAngle"
-			command = "-10"
-			addTextToOutput("Turn angle +10");
-	  } else if (elmnt == rightBtn) {
-			channel = "/smartRover/control/turnAngle"
-			command = "10"
-			addTextToOutput("Turn angle -10");
-	  } else if (elmnt == stopBtn) {
-			channel = "/smartRover/control/stop"
-			command = "0"
-			addTextToOutput("Staahp!");
-	  } else if (elmnt == cruiseBtn) {
-		  channel = "/smartRover/cruiseControl"
-		  if (cruiseControl) {
-			  cruiseControl = false;
-			  command = "0"
-			  addTextToOutput("Cruise control - <span style='color: #ff9797'>OFF</span>");
-		  } else {
-			  cruiseControl = true;
-			  command = "1"
-			  addTextToOutput("Cruise control - <span style='color: #97ffa1'>ON</span>");
-		  }
-	  } else if (elmnt == cruiseBtn) {
 
-	  }
-	  else {
-		  console.log("Bad command or button");
-	  }
+		var prefix = "/smartRover/"
+		var channel = prefix + elmnt.getAttribute("topic");
+		var command = elmnt.getAttribute("step");
+
+		if (elmnt == cruiseBtn) {
+			if (command == "1") {
+				command = "0"
+				elmnt.setAttribute("step", command);
+				addTextToOutput("Cruise control - <span style='color: #ff9797'>OFF</span>");
+			} else {
+				command = "1"
+				elmnt.setAttribute("step", command);
+				addTextToOutput("Cruise control - <span style='color: #97ffa1'>ON</span>");
+			}
+		} else {
+			let commandType;
+			switch (elmnt) {
+				case upBtn:
+				case downBtn:
+					commandType = "Throttle: " + command;
+					break;
+				case leftBtn:
+				case rightBtn:
+					commandType = "Turn angle: " + command;
+					break;
+				case stopBtn:
+					commandType = "Stop the Rover.";
+				default:
+					// Print nothing;
+			}
+			addTextToOutput(commandType);
+		}
 	  
-	  client.publish( channel, command, {
-		  qos: 0,
-		  retain: false
-	  })
-  } 
+		client.publish( channel, command, {
+			qos: 0,
+			retain: false
+		 })
+	} 
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('console').onsubmit = function(evt) {
-    evt.preventDefault(); // Preventing the form from submitting
-    checkWord(); // Do your magic and check the entered word/sentence
-    //window.scrollTo(0,150);
-  }
+	document.getElementById('console').onsubmit = function(evt) {
+		evt.preventDefault(); // Preventing the form from submitting
+		checkWord();
+	}
 
-  // Get the focus to the text input to enter a word right away.
-  document.getElementById('terminalTextInput').focus();
+	document.getElementById('terminalTextInput').focus();
 
-  // Getting the text from the input
-  var textInputValue = document.getElementById('terminalTextInput').value.trim();
+	var textInputValue = document.getElementById('terminalTextInput').value.trim();
+	var textResultsValue = document.getElementById('terminalReslutsCont').innerHTML;
 
-  //Getting the text from the results div
-  var textResultsValue = document.getElementById('terminalReslutsCont').innerHTML;
+	var clearInput = function(){
+		document.getElementById('terminalTextInput').value = "";
+	}
 
-  // Clear text input
-  var clearInput = function(){
-    document.getElementById('terminalTextInput').value = "";
-  }
+	scrollOutput();
 
-  // Scroll to the bottom of the results
-  scrollOutput();
+	var addTextToResults = function(textToAdd) {
+		var currentTime = showTime();
+		document.getElementById('terminalReslutsCont').innerHTML += "<p>" + currentTime + " | " + textToAdd + "</p>";
+		scrollOutput();
+	}
 
-  // Add text to the results div
-  var addTextToResults = function(textToAdd){
-	  var currentTime = showTime();
-	  document.getElementById('terminalReslutsCont').innerHTML += "<p>" + currentTime + " | " + textToAdd + "</p>";
-	  scrollOutput();
-  }
-
-  // Getting the list of keywords for help & posting it to the screen
-  var postHelpList = function(){
-    // Array of all the help keywords
-    var helpKeyWords = [
+	var postHelpList = function() {
+		// Array of all the help keywords
+		var helpKeyWords = [
 		"Manual override commands For SmartRover",
 		"- Go forward: <strong>F10-100</strong>",
 		"- Reverse: <strong>R10-100</strong>",
@@ -292,150 +274,136 @@ document.addEventListener('DOMContentLoaded', function() {
     addTextToResults(helpKeyWords);
   }
 
-  // Getting the time and date and post it depending on what you request for
-  var getTimeAndDate = function(postTimeDay){
-    var timeAndDate = new Date();
-    var timeHours = timeAndDate.getHours();
-    var timeMinutes = timeAndDate.getMinutes();
-    var dateDay = timeAndDate.getDate();
-    console.log(dateDay);
-    var dateMonth = timeAndDate.getMonth() + 1; // Because JS starts counting months from 0
-    var dateYear = timeAndDate.getFullYear(); // Otherwise we'll get the count like 98,99,100,101...etc.
+	var getTimeAndDate = function(postTimeDay) {
+		var timeAndDate = new Date();
+		var timeHours = timeAndDate.getHours();
+		var timeMinutes = timeAndDate.getMinutes();
+		var dateDay = timeAndDate.getDate();
+		console.log(dateDay);
+		var dateMonth = timeAndDate.getMonth() + 1; // Because JS starts counting months from 0
+		var dateYear = timeAndDate.getFullYear(); // Otherwise we'll get the count like 98,99,100,101...etc.
 
-    if (timeHours < 10){ // if 1 number display 0 before it.
-      timeHours = "0" + timeHours;
-    }
+		if (timeHours < 10) { // if 1 number display 0 before it.
+			timeHours = "0" + timeHours;
+		}
 
-    if (timeMinutes < 10){ // if 1 number display 0 before it.
-      timeMinutes = "0" + timeMinutes;
-    }
+		if (timeMinutes < 10){ // if 1 number display 0 before it.
+		  timeMinutes = "0" + timeMinutes;
+		}
 
-    var currentTime = showTime();
-    var currentDate = dateDay + "/" + dateMonth + "/" + dateYear;
+		var currentTime = showTime();
+		var currentDate = dateDay + "/" + dateMonth + "/" + dateYear;
 
-    if (postTimeDay == "time"){
-		currentTime = "Mission time | " + currentTime
-		addTextToResults(currentTime);
-    }
-    if (postTimeDay == "date"){
-      addTextToResults(currentDate);
-    }
-  }
+		if (postTimeDay == "time"){
+			currentTime = "Mission time | " + currentTime
+			addTextToResults(currentTime);
+		}
+
+		if (postTimeDay == "date"){
+		  addTextToResults(currentDate);
+		}
+	}
 
     // Having a specific text reply to specific strings
     var textReplies = function() {
 
-    switch(textInputValueLowerCase){
-      // replies
-      case "hack":
-        clearInput();
-        addTextToResults("Nice try!");
-        break;
+		switch (textInputValueLowerCase) {
+			// replies
+			case "hack":
+				clearInput();
+				addTextToResults("Nice try!");
+			break;
 
-      case "i love you":
-      case "love you":
-      case "love":
-        clearInput();
-        addTextToResults("Aww! Love you too <3 ");
-        break;
+			case "i love you":
+			case "love you":
+			case "love":
+				clearInput();
+				addTextToResults("Aww! Love you too <3 ");
+			break;
 
-      case "hello":
-      case "hi":
-      case "hola":
-	  case "hey":
-	  case "hej":
-	  case "hey rover":
-        clearInput();
-        addTextToResults("Hello, I am SmartRover. Roaming around Mars ...");
-        break;
+			case "hello":
+			case "hi":
+			case "hola":
+			case "hey":
+			case "hej":
+			case "hey rover":
+				clearInput();
+				addTextToResults("Hello, I am SmartRover. Roaming around Mars ...");
+			break;
 
-      case "what the":
-      case "wtf":
-        clearInput();
-        addTextToResults("F***.");
-        break;
+			case "what the":
+			case "wtf":
+				clearInput();
+				addTextToResults("F***.");
+			break;
 
-      case "time":
-        clearInput();
-        getTimeAndDate("time");
-        break;
+			case "time":
+				clearInput();
+				getTimeAndDate("time");
+			break;
 
-      case "clear":
-        clearInput();
-        document.getElementById('terminalReslutsCont').innerHTML = '';
-        break;
+			case "clear":
+				clearInput();
+				document.getElementById('terminalReslutsCont').innerHTML = '';
+			break;
 			
-	  case "date":
-        clearInput();
-        getTimeAndDate("date");
-        break;
+			case "date":
+				clearInput();
+				getTimeAndDate("date");
+			break;
 
-      case "help":
-      case "?":
-        clearInput();
-        postHelpList();
-        break;
+			case "help":
+			case "?":
+				clearInput();
+				postHelpList();
+			break;
 	  
-	  case "stop":
-        clearInput();
-        addTextToResults("Why stop when we are having so much fun?! Oh well, Rover must stop!");
-        break;
+			case "stop":
+				clearInput();
+				addTextToResults("Why stop when we are having so much fun?! Oh well, Rover must stop!");
+			break;
 			
 			
-      default:
-      clearInput();
-      addTextToResults("<p style='color: #ff9797;'>The command " + "<b>" + textInputValue + "</b>" + " was not found. Type <b>Help</b> to see all commands.</p>");
-      break;
-    }
-  }
+			default:
+				clearInput();
+				addTextToResults("<p style='color: #ff9797;'>The command " + "<b>" + textInputValue + "</b>" + " was not found. Type <b>Help</b> to see all commands.</p>");
+			break;
+		}
+	}
 
-// Main function to check the entered text and assign it to the correct function
-  var checkWord = function() {
-	  //get the command text from the terminal
-	  textInputValue = document.getElementById('terminalTextInput').value.trim(); 
+	// Main function to check the entered text and assign it to the correct function
+	var checkWord = function() {
+		//get the command text from the terminal
+		textInputValue = document.getElementById('terminalTextInput').value.trim(); 
+		//get the lower case of the string
+		textInputValueLowerCase = textInputValue.toLowerCase(); 
 	  
-	  //get the lower case of the string
-	  textInputValueLowerCase = textInputValue.toLowerCase(); 
-	  
-	  // RegEx to recognize command patterns
-	  const regex1 = /[fr]+\d/g;
-	  const regex2 = /[fr]+\d\d/g;
-	  const regex3 = /[fr]+\d\d\d/g;
-	  const regex4 = /[t]+[+-]+\d/g;
-	  const regex5 = /[t]+[+-]+\d\d/g;
-	  const regex6 = /[t]+[+-]+\d\d\d/g;
+		// RegEx to recognize command patterns
+		const regex1 = /[fr]+\d/g;
+		const regex2 = /[fr]+\d\d/g;
+		const regex3 = /[fr]+\d\d\d/g;
+		const regex4 = /[t]+[+-]+\d/g;
+		const regex5 = /[t]+[+-]+\d\d/g;
+		const regex6 = /[t]+[+-]+\d\d\d/g;
 
-	  if (textInputValue != ""){ //checking if text was entered
-		addTextToResults("<p class='userEnteredText'>> " + textInputValue + "</p>");
-      if (textInputValueLowerCase.substr(0,5) == "open ") { //if the first 5 characters = open + space
-		  openLinkInNewWindow('http://' + textInputValueLowerCase.substr(5));
-		  addTextToResults("<i>The URL " + "<b>" + textInputValue.substr(5) + "</b>" + " should be opened now.</i>");
-      } else if (textInputValueLowerCase.substr(0,8) == "youtube ") {
-		  openLinkInNewWindow('https://www.youtube.com/results?search_query=' + textInputValueLowerCase.substr(8));
-		  addTextToResults("<i>I've searched on YouTube for " + "<b>" + textInputValue.substr(8) + "</b>" + " it should be opened now.</i>");
-      } else if (textInputValueLowerCase.substr(0,7) == "google ") {
-		  openLinkInNewWindow('https://www.google.com/search?q=' + textInputValueLowerCase.substr(7));
-		  addTextToResults("<i>I've searched on Google for " + "<b>" + textInputValue.substr(7) + "</b>" + " it should be opened now.</i>");
-      } else if (textInputValueLowerCase.substr(0,5) == "wiki "){
-		  openLinkInNewWindow('https://wikipedia.org/w/index.php?search=' + textInputValueLowerCase.substr(5));
-		  addTextToResults("<i>I've searched on Wikipedia for " + "<b>" + textInputValue.substr(5) + "</b>" + " it should be opened now.</i>");
-      } else if (textInputValue.match(regex1) || textInputValue.match(regex2) || textInputValue.match(regex3)) {
-		  clearInput();
-		  addTextToResults("Process forward/reverse commands here");
-	  } else if (textInputValue.match(regex4) || textInputValue.match(regex5) || textInputValue.match(regex6)) {
-		  clearInput();
-		  addTextToResults("Process left/right commands here");
-	  } else {
-        textReplies();
-      }
-    }
-  };
+		if (textInputValue != "") { //checking if text was entered
+			addTextToResults("<p class='userEnteredText'>> " + textInputValue + "</p>");
 
+			if (textInputValue.match(regex1) || textInputValue.match(regex2) || textInputValue.match(regex3)) {
+				clearInput();
+				addTextToResults("Process forward/reverse commands here");
+			} else if (textInputValue.match(regex4) || textInputValue.match(regex5) || textInputValue.match(regex6)) {
+				clearInput();
+				addTextToResults("Process left/right commands here");
+			} else {
+				textReplies();
+			}
+		}
+	};
 });
 
 	
 function addTextToOutput(textToAdd) {
-	
 	var currentTime = showTime();
 	document.getElementById("output-updates").innerHTML +=
 		  "<p class='status-output'>" + currentTime + " | " + textToAdd + "</p>";
@@ -490,16 +458,19 @@ const showTime = () => {
 	var timeHours = timeAndDate.getHours();
     var timeMinutes = timeAndDate.getMinutes();
 	var timeSeconds = timeAndDate.getSeconds();
+
 	if (timeHours < 10){ // if 1 number display 0 before it.
 		timeHours = "0" + timeHours;
 	}
-    if (timeMinutes < 10){ // if 1 number display 0 before it.
+
+	if (timeMinutes < 10) { // if 1 number display 0 before it.
       timeMinutes = "0" + timeMinutes;
     }
-	if (timeSeconds < 10){ // if 1 number display 0 before it.
+
+	if (timeSeconds < 10) { // if 1 number display 0 before it.
       timeSeconds = "0" + timeSeconds;
-    }
+	}
+
     var currentTime = timeHours + ":" + timeMinutes + ":" + timeSeconds;
-	
 	return currentTime;
 }
