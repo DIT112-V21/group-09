@@ -20,7 +20,7 @@ const options = {
 		retain: false
 	},
 	rejectUnauthorized: false,
-	connectUrl: "mqtt://localhost:1883",
+	connectUrl: "mqtt://aerostun.dev:1883",
 	username: "user",
   	password: "password",
 	clientId: "clientId_Hes24TQfz",
@@ -35,6 +35,7 @@ const leftBtn = document.getElementById('leftBtn')
 const rightBtn = document.getElementById('rightBtn')
 const stopBtn = document.getElementById('stopBtn')
 const cruiseBtn = document.getElementById('cruiseBtn')
+const cameraBtn = document.getElementById('cameraBtn')
 
 connectBtn.addEventListener('click', onConnect)
 satelliteBtn.addEventListener('click', onSub)
@@ -44,7 +45,8 @@ downBtn.addEventListener('click', function(){ manualControl(downBtn); }, false)
 leftBtn.addEventListener('click', function(){ manualControl(leftBtn); }, false)
 rightBtn.addEventListener('click', function(){ manualControl(rightBtn); }, false)
 stopBtn.addEventListener('click', function(){ manualControl(stopBtn); }, false)
-cruiseBtn.addEventListener('click', function(){ manualControl(cruiseBtn); }, false)
+cruiseBtn.addEventListener('click', function () { manualControl(cruiseBtn); }, false)
+// cameraBtn.addEventListener('click', function () { clacked(cameraBtn); }, false)
 
 
 function onConnect () {
@@ -114,7 +116,8 @@ function onConnect () {
 			  } else {
 				const msg = `${message.toString()}\nOn topic: ${topic}`
 			  
-				  document.getElementById("consoleContentResults").innerHTML += "<p style=\"color: #a8f18f;\">" + msg + "</p>";
+				  document.getElementById("terminalReslutsCont").innerHTML += "<p style=\"color: #a8f18f;\">" + msg + "</p>";
+				  scrollOutput();
 				  
 			  }
 		  })
@@ -195,7 +198,7 @@ function manualControl (elmnt) {
 	if ((client == null || !client.connected || client.connected == false)) {
 		var desc = "The <strong>SmartRover</strong> is not powered up!<br />Please turn on Rover by pressing Power button.<br />Also please connect to &quot;Mars Orbiter&quot; satellite for updates."
 		showModal("Rover power", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
-	} else if (client.connected || subscribed) {
+	} else if (client.connected) {
 	 var channel = null
 	 var command = null
 	  if (elmnt == upBtn) {
@@ -229,7 +232,10 @@ function manualControl (elmnt) {
 			  command = "1"
 			  addTextToOutput("Cruise control - <span style='color: #97ffa1'>ON</span>");
 		  }
-	  } else {
+	  } else if (elmnt == cruiseBtn) {
+
+	  }
+	  else {
 		  console.log("Bad command or button");
 	  }
 	  
@@ -261,20 +267,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('terminalTextInput').value = "";
   }
 
-  // Scrtoll to the bottom of the results div
-  var scrollToBottomOfResults = function(){
-    var terminalResultsDiv = document.getElementById('terminalReslutsCont');
-    terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
-  }
-
   // Scroll to the bottom of the results
-  scrollToBottomOfResults();
+  scrollOutput();
 
   // Add text to the results div
   var addTextToResults = function(textToAdd){
 	  var currentTime = showTime();
 	  document.getElementById('terminalReslutsCont').innerHTML += "<p>" + currentTime + " | " + textToAdd + "</p>";
-	  scrollToBottomOfResults();
+	  scrollOutput();
   }
 
   // Getting the list of keywords for help & posting it to the screen
@@ -444,9 +444,13 @@ function addTextToOutput(textToAdd) {
 
 // Scroll to last update
 let scrollOutput = function () {
-	  let outputResultsDiv = document.getElementById("output-updates");
-	  outputResultsDiv.scrollTop = outputResultsDiv.scrollHeight;
+	let outputResultsDiv = document.getElementById("output-updates");
+	var terminalResultsDiv = document.getElementById('terminalReslutsCont');
+	outputResultsDiv.scrollTop = outputResultsDiv.scrollHeight;
+	terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
 };
+
+
 
 // Script to show modal alert box
 var modalWrap = null;
