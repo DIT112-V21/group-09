@@ -180,116 +180,13 @@
 	</footer>
 	</div>
 
+	<script src="assets/js/mission.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
 
-
-		<!--Notifications-->
-	<script>
-
-		let button1 = document.querySelector("#button1");
-		let button2 = document.querySelector("#button2");
-		let button3 = document.querySelector("#button3");
-
-		document.getElementById("button1").onclick = function () {
-			let newToast = document.getElementById('toast1');//select id of toast
-			let newNotification = new bootstrap.Toast(newToast);//inizialize it
-			newNotification.show();//show it
-		}
-
-		document.getElementById("button2").onclick = function () {
-			let newToast = document.getElementById('toast2');//select id of toast
-			let newNotification = new bootstrap.Toast(newToast);//inizialize it
-			newNotification.show();//show it
-		}
-
-		document.getElementById("button3").onclick = function () {
-			let newToast = document.getElementById('toast3');//select id of toast
-			let newNotification = new bootstrap.Toast(newToast);//inizialize it
-			newNotification.show();//show it
-		}
-
-	</script>
-
-		<!--commandsTable-->
-		<script>
-			function addRow(commandTable) {
 		
-				var table = document.getElementById(commandTable);
-				var rowCount = table.rows.length;
-				var row = table.insertRow(rowCount);
-				var cell1 = row.insertCell(0);
-				var element1 = document.createElement("input");
-				element1.type = "checkbox";
-				element1.name="chkbox[]";
-				cell1.appendChild(element1);
-		
-				var cell2 = row.insertCell(1);
-				cell2.innerHTML = rowCount ;
-		
-				var cell3 = row.insertCell(2);
-				var element2 = document.createElement("input");
-				element2.type = "number";
-				element2.value = "0";
-				element2.step = "100";
-				element2.name = "txtbox[]";
-				cell3.appendChild(element2);
-		
-				var cell4 = row.insertCell(2);
-				var element3 = document.createElement("input");
-				element3.type = "number";
-				element3.value = "0";
-				element3.step = "10";
-				element3.name = "txtbox[]";
-				cell4.appendChild(element3);
-		
-				var cell5 = row.insertCell(2);
-				var element4 = document.createElement("input");
-				element4.type = "number";
-				element4.value = "0";
-				element4.step = "5";
-				element4.name = "txtbox[]";
-				cell5.appendChild(element4);
-			}
-			function deleteRow(commandTable) {
-				try {
-					var table = document.getElementById(commandTable);
-					var rowCount = table.rows.length;
-		
-					for(var i=0; i<rowCount; i++) {
-						var row = table.rows[i];
-						var chkbox = row.cells[0].childNodes[0];
-						if(null != chkbox && true == chkbox.checked) {
-							table.deleteRow(i);
-							rowCount--;
-							i--;
-						}
-					}
-				}catch(e) {
-					alert(e);
-				}
-			}
-		</script>
-
-
-
-
-	<script>
-		window.onscroll = function () { myFunction() };
-
-		var navbar = document.getElementById("navbar");
-		var sticky = navbar.offsetTop;
-
-		function myFunction() {
-			if (window.pageYOffset >= sticky) {
-				navbar.classList.add("sticky")
-			} else {
-				navbar.classList.remove("sticky");
-			}
-		}
-	</script>
 </body>
 
 </html>
