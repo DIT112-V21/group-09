@@ -208,12 +208,21 @@ img.home-logo {
 	margin: 20px 0 0 20px;
 	top: 5%;
 	left: 40%;
+	animation: fadeInAnimation 1s ease-in-out 1.5s forwards;
+	
+	-webkit-animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s both;
+	animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s both;
+
 }
 
 img.rover-model {
 	margin: 100px 0 0 20px;
 	top: 5%;
 	left: 40%;
+	
+	-webkit-animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s both;
+	animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s both;
+	
 }
 
 .rover-intro {
@@ -226,6 +235,57 @@ img.rover-model {
 	top: 50%;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+
+}
+
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .rover-intro img {
@@ -324,7 +384,7 @@ img.rover-model {
 	grid-auto-rows: auto;
 	gap: 0px 0px;
 	position: relative;
-	margin: 30px auto 30px;
+	margin: 8px auto 8px;
 	color: #fff;
 }
 
@@ -335,7 +395,7 @@ img.rover-model {
 
 .container-3col {
   display: grid;
-  grid-template-columns: 360px auto 500px;
+  grid-template-columns: 340px auto 400px;
 }
 
 .streams, .controller, .rover-dash, .command-console, .status-output {
@@ -494,7 +554,6 @@ img.rover-model {
     font-family: 'TradeGothicLTStd-BdCn20','PT Sans Narrow';
     font-weight: 700;
     font-size: 32px;
-    
     text-shadow: 0px 1px #fff, 0px -1px #262F33;
 }
 
@@ -696,6 +755,92 @@ img.rover-model {
 	grid-row-end: 5;
 }
 
+/* Console terminal styles */
+.terminalCont {
+	background: black;
+	width: 100%;
+	padding: 12px 0 0 0;
+	margin-top: -10px;
+	font-family: 'Roboto Mono', monospace;
+	opacity: 100;
+}
+
+.userEnteredText {
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+#terminalReslutsCont {
+	width:100%;
+	height: 370px;
+	padding: 8px;
+	overflow-y: auto;
+	resize: none;
+	border: none;
+	font-size: 10pt;
+	font-weight: 400;
+	line-height: 16px;
+	display: block;
+	color: rgba(255,255,255,0.95);
+}
+
+#terminalReslutsCont p {
+	line-height: 14px;
+}
+
+
+#terminalReslutsCont a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+}
+
+#terminalReslutsCont a:hover {
+  text-decoration: underline;
+}
+
+#terminalTextInput {
+	background: black;
+	display: block;
+	border: none;
+	border-top: 1px solid rgba(255,255,255,0.3);
+	width: 100%;
+	color: white;
+	padding: 18px;
+	font-size: 14px;
+	outline: none;
+	font-family: 'Roboto Mono', monospace;
+}
+
+.status-info {
+	background: rgba(0, 0, 0, 0.8);
+	height: 440px;
+	min-height: 360px;
+	border: 1px solid black;
+	padding: 0px;
+	margin: 2px;
+	margin-top: -5px;
+}
+
+#serial-updates {
+	display: block;
+	width: 100%;
+	height: 427px;
+	min-height: 358px;
+	overflow-y: scroll;
+	font-size: 14px;
+	line-height: 2px;
+	border: 1px white solid;
+	margin: 0;
+}
+
+.status-output {
+	font-size: 14px;
+	font-weight: 200;
+	color: white;
+}
+
 
 /* Mission control page */
 .mission-map {
@@ -787,27 +932,6 @@ thead cell{
 }
 
 
-/* Status layout */
-status {
-  min-width: 250px;
-  color: seashell;
-  padding: 10px;
-  display: grid;
-  background: rgba(255, 255, 255, 0.4);
-  margin-left: 10px;
-  width: 100%;
-  font-size: large;
-}
-
-.status-info {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 5px;
-  border: 10px solid black;
-}
-.live-stream {
-  border: 10px solid black;
-  box-shadow: 5px rgb(184, 115, 66);
-}
 
 /*stolen from https://codepen.io/jason-kinney/pen/fChrj  */
 
