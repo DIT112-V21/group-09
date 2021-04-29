@@ -1,11 +1,11 @@
 #include <Smartcar.h>
-#include <vector>
-#include <string>
 #include <MQTT.h>
 #include <WiFi.h>
 
 #ifdef __SMCE__
 #include <OV767X.h>
+#include <vector>
+#include <string>
 #endif
 #if defined(__has_include) && __has_include("secrets.hpp")
 #include "secrets.hpp"
@@ -284,7 +284,7 @@ void loop()
         currentMode = EXPLORE;
       }
 
-      if (currentMode == DrivingMode::UNSTUCK && irDistance == 0 && usDistance > 200) {
+      if (currentMode == UNSTUCK && irDistance == 0 && usDistance > 200) {
         currentMode = SLOW;
       }
     }
@@ -392,7 +392,8 @@ DrivingMode monitorSlowForward() {
 
 void checkAvoidDirection() {
   int sensorFrontUS = getSensorData(FRONTUS);
-  car.setSpeed(20);
+  throttle = 20;
+  car.setSpeed((float) throttle);
   turnAngle = -30;
   car.setAngle(turnAngle);
   delay(1500);
@@ -514,7 +515,8 @@ void moveForward()
 {
   turnAngle = 0;
   car.setAngle(turnAngle);
-  car.setSpeed(50);
+  throttle = 50;
+  car.setSpeed((float) throttle);
   monitorForward();
 }
 
@@ -522,13 +524,15 @@ void moveSlow()
 {
   turnAngle = 0;
   car.setAngle(turnAngle);
-  car.setSpeed(15);
+  throttle = 15;
+  car.setSpeed((float) throttle);
   monitorSlowForward();
 }
 
 void avoidLeft() {
   monitorLeftAvoidance();
-  car.setSpeed(-25);
+  throttle = -25;
+  car.setSpeed((float) throttle);
   turnAngle = 45;
   car.setAngle(turnAngle);
 
@@ -536,7 +540,8 @@ void avoidLeft() {
 
 void avoidRight() {
   monitorRightAvoidance();
-  car.setSpeed(-25);
+  throttle = -25;
+  car.setSpeed((float) throttle);
   turnAngle = -45;
   car.setAngle(turnAngle);
 
@@ -544,10 +549,10 @@ void avoidRight() {
 
 void avoidFront() {
   monitorFrontAvoidance();
-  car.setSpeed(-20);
+  throttle = -20;
+  car.setSpeed((float) throttle);
   turnAngle = 45;
   car.setAngle(turnAngle);
-
 }
 
 void moveBackward()
@@ -555,13 +560,15 @@ void moveBackward()
   monitorBackward();
   turnAngle = 0;
   car.setAngle(turnAngle);
-  car.setSpeed(-40);
+  throttle = -40;
+  car.setSpeed((float) throttle);
 }
 
 
 void unstuckBack() {
   int sensorBackIR = getSensorData(BACKIR);
-  car.setSpeed(-50);
+  throttle = -50;
+  car.setSpeed((float) throttle);
   turnAngle = -40;
   car.setAngle(turnAngle);
 
