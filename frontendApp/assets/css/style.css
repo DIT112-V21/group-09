@@ -787,7 +787,7 @@ img.rover-model {
 }
 
 #terminalReslutsCont p {
-	line-height: 8px;
+	line-height: 14px;
 }
 
 
@@ -823,7 +823,7 @@ img.rover-model {
 	margin-top: -5px;
 }
 
-#output-updates {
+#serial-updates {
 	display: block;
 	width: 100%;
 	height: 427px;

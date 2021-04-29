@@ -62,7 +62,7 @@ function onConnect () {
 		  })
 		  client.on('connect', () => {
 				console.log('Client connected:' + options.clientId)
-			  	addTextToOutput('Rover powered up!');
+			  	addTextToSerial('Rover powered up!');
 				// connectBtn.innerText = 'Connected';
 				document.getElementById("connectbutton").classList.remove('disconnected');
 				document.getElementById("connectbutton").classList.add('connected');
@@ -126,7 +126,7 @@ function onConnect () {
 			  console.log(options.clientId + ' disconnected')
     		})
 		  
-		  addTextToOutput('Rover turned off!');
+		  addTextToSerial('Rover turned off!');
 		  document.getElementById("connectbutton").classList.add('disconnected');
 		  document.getElementById("connectbutton").classList.remove('connected');
 		  document.getElementById("connectbutton").style.setProperty('--connection-btn-color', '#ff0000', 'important');
@@ -158,10 +158,10 @@ function onSub () {
 		client.subscribe(topic.value, { qos: parseInt(qos.value, 10) }, (error, res) => {
 			if (error) {
 				console.error('Subscribe error: ', error)
-				addTextToOutput('Satellite error!');
+				addTextToSerial('Satellite error!');
 			} else {
 				console.log('Subscribed: ', res)
-				addTextToOutput('<span style="color: #f7e062">Mars Orbiter</span> connected.');
+				addTextToSerial('<span style="color: #f7e062">Mars Orbiter</span> connected.');
 			}
 		})
 		subscribed = true;
@@ -179,10 +179,10 @@ function onUnsub () {
     client.unsubscribe(topic.value, error => {
       if (error) {
 		  console.error('Unsubscribe error: ', error)
-		  addTextToOutput('Satellite error!');
+		  addTextToSerial('Satellite error!');
       } else {
 		  console.log('Unsubscribed: ', topic.value)
-		  addTextToOutput('Satellite disconnected');
+		  addTextToSerial('Satellite disconnected');
       }
     })
 	  subscribed = false;
@@ -197,7 +197,7 @@ function manualControl(elmnt) {
 		showModal("Rover power", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
 	} else if (client.connected) {
 
-		var prefix = "/smartRover/"
+		var prefix = "smartRover/"
 		var channel = prefix + elmnt.getAttribute("topic");
 		var command = elmnt.getAttribute("step");
 
@@ -205,11 +205,11 @@ function manualControl(elmnt) {
 			if (command == "1") {
 				command = "0"
 				elmnt.setAttribute("step", command);
-				addTextToOutput("Cruise control - <span style='color: #ff9797'>OFF</span>");
+				addTextToSerial("Cruise control - <span style='color: #ff9797'>OFF</span>");
 			} else {
 				command = "1"
 				elmnt.setAttribute("step", command);
-				addTextToOutput("Cruise control - <span style='color: #97ffa1'>ON</span>");
+				addTextToSerial("Cruise control - <span style='color: #97ffa1'>ON</span>");
 			}
 		} else {
 			let commandType;
@@ -227,7 +227,7 @@ function manualControl(elmnt) {
 				default:
 					// Print nothing;
 			}
-			addTextToOutput(commandType);
+			addTextToSerial(commandType);
 		}
 	  
 		client.publish( channel, command, {
@@ -235,6 +235,25 @@ function manualControl(elmnt) {
 			retain: false
 		 })
 	} 
+}
+
+function terminalCommand(channels, commands) {
+	if ((client == null || !client.connected || client.connected == false)) {
+		var desc = "The <strong>SmartRover</strong> is not powered up!<br />Please turn on Rover by pressing Power button.<br />Also please connect to &quot;Mars Orbiter&quot; satellite for updates."
+		showModal("Rover power", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
+	} else if (client.connected) {
+
+		var prefix = "smartRover/"
+		var channel = prefix + channels;
+		var command = commands;
+
+		console.log(channel, command);
+
+		client.publish(channel, command, {
+			qos: 0,
+			retain: false
+		})
+	}
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -256,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	var addTextToResults = function(textToAdd) {
 		var currentTime = showTime();
-		document.getElementById('terminalReslutsCont').innerHTML += "<p>" + currentTime + " | " + textToAdd + "</p>";
+		document.getElementById('terminalReslutsCont').innerHTML += "<p class='terminal-text'>" + currentTime + " | " + textToAdd + "</p>";
 		scrollOutput();
 	}
 
@@ -367,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			default:
 				clearInput();
 				addTextToResults("<p style='color: #ff9797;'>The command " + "<b>" + textInputValue + "</b>" + " was not found. Type <b>Help</b> to see all commands.</p>");
+				
 			break;
 		}
 	}
@@ -379,9 +399,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		textInputValueLowerCase = textInputValue.toLowerCase(); 
 	  
 		// RegEx to recognize command patterns
-		const regex1 = /[fr]+\d/g;
-		const regex2 = /[fr]+\d\d/g;
-		const regex3 = /[fr]+\d\d\d/g;
+		// Forward and reverse patterns
+		const regex1 = /[fr]+[\d]{1}/g;
+		const regex2 = /[fr]+[\d]{1}[\d]{1}/g;
+		const regex3 = /[fr]+[\d]{1}[\d]{1}[\d]{1}/g;
+		// Turn angle patterns
 		const regex4 = /[t]+[+-]+\d/g;
 		const regex5 = /[t]+[+-]+\d\d/g;
 		const regex6 = /[t]+[+-]+\d\d\d/g;
@@ -389,12 +411,64 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (textInputValue != "") { //checking if text was entered
 			addTextToResults("<p class='userEnteredText'>> " + textInputValue + "</p>");
 
-			if (textInputValue.match(regex1) || textInputValue.match(regex2) || textInputValue.match(regex3)) {
+			if (textInputValueLowerCase.match(regex1) || textInputValueLowerCase.match(regex2) || textInputValueLowerCase.match(regex3)) {
+				channel = 'console/throttle';
+				let command = "";
+
+				if (textInputValueLowerCase.length > 4) {
+					textReplies();
+				} else {
+					if (textInputValueLowerCase.length == 2) {
+						command = textInputValueLowerCase.substr(1, 1)
+					} else if (textInputValueLowerCase.length == 3) {
+						command = textInputValueLowerCase.substr(1, 2)
+					} else if (textInputValueLowerCase.length == 4) {
+						command = textInputValueLowerCase.substr(1, 3)
+					} 
+
+					if (textInputValueLowerCase.substr(0, 1) == "f") {
+						let commandType = "Forward throttle is: " + command;
+						addTextToSerial(commandType);
+					} else {
+						let commandType = "Reverse throttle is: " + command;
+						command = "-" + command;
+						addTextToSerial(commandType);
+					}
+					clearInput();
+					terminalCommand(channel, command);
+				}
+			} else if (textInputValueLowerCase.match(regex4) || textInputValueLowerCase.match(regex5) || textInputValueLowerCase.match(regex6)) {
+				if (textInputValueLowerCase.length > 5) {
+					textReplies();
+				} else {
+					let channel = 'console/turnAngle';
+					let command = "";
+
+					if (textInputValueLowerCase.length == 3) {
+						command = textInputValueLowerCase.substr(2, 1)
+					} else if (textInputValueLowerCase.length == 4) {
+						command = textInputValueLowerCase.substr(2, 2)
+					} else if (textInputValueLowerCase.length == 5) {
+						command = textInputValueLowerCase.substr(2, 3)
+					}
+
+					if (textInputValueLowerCase.substr(1, 1) == "+") {
+						command = "+" + command;
+					} else {
+						command = "-" + command;
+					}
+
+					let commandType = "Turn angle is: " + command;
+					addTextToSerial(commandType);
+					clearInput();
+					terminalCommand(channel, command);
+                }
+			} else if (textInputValueLowerCase == "stop") {
+				let channel = 'control/stop';
+				let command = "0";
+				addTextToSerial("Stop the Rover!");
 				clearInput();
-				addTextToResults("Process forward/reverse commands here");
-			} else if (textInputValue.match(regex4) || textInputValue.match(regex5) || textInputValue.match(regex6)) {
-				clearInput();
-				addTextToResults("Process left/right commands here");
+				terminalCommand(channel, command);
 			} else {
 				textReplies();
 			}
@@ -403,16 +477,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 	
-function addTextToOutput(textToAdd) {
+function addTextToSerial(textToAdd) {
 	var currentTime = showTime();
-	document.getElementById("output-updates").innerHTML +=
+	document.getElementById("serial-updates").innerHTML +=
 		  "<p class='status-output'>" + currentTime + " | " + textToAdd + "</p>";
 	scrollOutput();
 }
 
 // Scroll to last update
 let scrollOutput = function () {
-	let outputResultsDiv = document.getElementById("output-updates");
+	let outputResultsDiv = document.getElementById("serial-updates");
 	var terminalResultsDiv = document.getElementById('terminalReslutsCont');
 	outputResultsDiv.scrollTop = outputResultsDiv.scrollHeight;
 	terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
