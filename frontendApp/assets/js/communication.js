@@ -71,6 +71,8 @@ function onConnect () {
 			  	document.getElementById("nasaStream").style.setProperty('display', 'none', 'important')
 			    document.getElementById("roverStream").style.setProperty('display', 'flex', 'important')
 				document.getElementById("roverStream").style.setProperty('visibility', 'visible', 'important')
+			  	document.getElementById("satelliteButton").style.setProperty('color', 'red', 'important');
+			  	document.getElementById("cruiseButton").style.setProperty('color', 'red', 'important');
 		  })
 		client.on('message', (topic, message) => {
 			  if (topic.includes("telemetry/heading")) {
@@ -134,6 +136,8 @@ function onConnect () {
 		  document.getElementById("roverStream").style.setProperty('visibility', 'hidden', 'important');
 		  document.getElementById("nasaStream").style.setProperty('display', 'flex', 'important')
 		  document.getElementById("roverStream").style.setProperty('display', 'none', 'important')
+		  document.getElementById("satelliteButton").style.setProperty('color', '#3A474D', 'important');
+		  document.getElementById("cruiseButton").style.setProperty('color', '#3A474D', 'important');
 	  }
 }
 
@@ -165,8 +169,9 @@ function onSub () {
 			}
 		})
 		subscribed = true;
-		document.getElementById("satellitebutton").classList.add('connected');
-		document.getElementById("satellitebutton").style.setProperty('--satellite-btn-color', '#18ff00', 'important');
+		document.getElementById("satelliteButton").classList.add('connected');
+		document.getElementById("satelliteButton").classList.remove('disconnected');
+		document.getElementById("satelliteButton").style.setProperty('color', '#18ff00', 'important');
 		} else {
 			onUnsub();
 		}
@@ -186,8 +191,9 @@ function onUnsub () {
       }
     })
 	  subscribed = false;
-	  document.getElementById("satellitebutton").classList.remove('connected');
-	  document.getElementById("satellitebutton").style.removeProperty('--satellite-btn-color');
+	  document.getElementById("satelliteButton").classList.remove('connected');
+	  document.getElementById("satelliteButton").classList.add('disconnected');
+	  document.getElementById("satelliteButton").style.setProperty('color', '#3A474D', 'important');
   }
 }
 
@@ -206,10 +212,16 @@ function manualControl(elmnt) {
 				command = "0"
 				elmnt.setAttribute("step", command);
 				addTextToSerial("Cruise control - <span style='color: #ff9797'>OFF</span>");
+				document.getElementById("cruiseButton").classList.remove('connected');
+				document.getElementById("cruiseButton").classList.add('disconnected');
+				document.getElementById("cruiseButton").style.setProperty('color', 'red', 'important');
 			} else {
 				command = "1"
 				elmnt.setAttribute("step", command);
 				addTextToSerial("Cruise control - <span style='color: #97ffa1'>ON</span>");
+				document.getElementById("cruiseButton").classList.add('connected');
+				document.getElementById("cruiseButton").classList.remove('disconnected');
+				document.getElementById("cruiseButton").style.setProperty('color', '#18ff00', 'important');
 			}
 		} else {
 			let commandType;
