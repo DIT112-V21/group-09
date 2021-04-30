@@ -1,6 +1,6 @@
 :root {
 	--connection-btn-color: red;
-	--satellite-btn-color: #3A474D;
+	--offline-btn-color: #3A474D;
 }
 
 html,
@@ -495,6 +495,68 @@ img.rover-model {
     -webkit-transition: -webkit-box-shadow .1s ease-in-out;
 } 
 
+.control-button #upbutton:hover, .control-button #downbutton:hover, 
+.control-button #leftbutton:hover, .control-button #rightbutton:hover {
+	color: #ffb400;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,179,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
+}
+
+.control-button #stopbutton:hover {
+	color: #ff0000;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+}
+
+.control-button #sidebutton:hover {
+	color: #19ed46;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+}
+
+.control-button #connectbutton {
+	color: var(--connection-btn-color);
+}
+
+.control-button:active {
+	-webkit-box-shadow: 
+	0px 3px rgba(128,128,128,1),
+	0px 4px rgba(118,118,118,1),
+	0px 5px rgba(108,108,108,1),
+	0px 6px rgba(98,98,98,1),
+	0px 7px rgba(88,88,88,1),
+	0px 8px rgba(78,78,78,1),
+	0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
+}
+
+.control-button:active span{
+	-webkit-transform: translate(0, 5px); /* depth of button press */
+}
+
+.control-button span:after {
+	display: block;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	right: 14px;
+	top: 12px;    
+
+	font-family: 'Cabin';
+	font-weight: 700;
+	color: #AEBF3B;
+	text-shadow: 0px 1px #fff, 0px -1px #97A63A;
+	font-size: 26px;
+}
+
 .control-button span {
     background-color: #E8E8E8;
     
@@ -557,6 +619,15 @@ img.rover-model {
     text-shadow: 0px 1px #fff, 0px -1px #262F33;
 }
 
+.connected:hover {
+	color: #18ff00;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(24,255,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
+}
+
 .disconnected:hover {
 	color: var(--connection-btn-color);
 	text-shadow: 0px -1px #97A63A;
@@ -566,36 +637,8 @@ img.rover-model {
 	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
 }
 
-#satellitebutton .disconnected:hover {
-	color: var(--satellite-btn-color);
-	text-shadow: 0px -1px #97A63A;
-	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
-}
-
-.connected:hover {
-	color: var(--connection-btn-color);
-	text-shadow: 0px -1px #97A63A;
-	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(24,255,0,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
-}
-
-.control-button #upbutton:hover, .control-button #downbutton:hover, 
-.control-button #leftbutton:hover, .control-button #rightbutton:hover {
-	color: #ffb400;
-	text-shadow: 0px -1px #97A63A;
-	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(255,179,0,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
-}
-
-.control-button #stopbutton:hover {
-	color: #ff0000;
+#satelliteButton .disconnected, #cruiseButton .disconnected {
+	color: red;
 	text-shadow: 0px -1px #97A63A;
 	cursor: pointer;
 	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
@@ -603,51 +646,13 @@ img.rover-model {
 	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
 }
 
-.control-button #sidebutton:hover {
-	color: #19ed46;
+#satelliteButton .disconnected:hover, #cruiseButton .disconnected:hover {
+	color: red;
 	text-shadow: 0px -1px #97A63A;
 	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
-}
-
-.control-button #satellitebutton {
-	color: var(--satellite-btn-color);
-}
-
-.control-button #connectbutton {
-	color: var(--connection-btn-color);
-}
-
-.control-button:active {
-	-webkit-box-shadow: 
-	0px 3px rgba(128,128,128,1),
-	0px 4px rgba(118,118,118,1),
-	0px 5px rgba(108,108,108,1),
-	0px 6px rgba(98,98,98,1),
-	0px 7px rgba(88,88,88,1),
-	0px 8px rgba(78,78,78,1),
-	0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
-}
-
-.control-button:active span{
-	-webkit-transform: translate(0, 5px); /* depth of button press */
-}
-
-.control-button span:after {
-	display: block;
-	width: 10px;
-	height: 10px;
-	position: absolute;
-	right: 14px;
-	top: 12px;    
-
-	font-family: 'Cabin';
-	font-weight: 700;
-	color: #AEBF3B;
-	text-shadow: 0px 1px #fff, 0px -1px #97A63A;
-	font-size: 26px;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
 }
 
 .dashboard div[class^="label"] {
