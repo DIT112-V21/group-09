@@ -6,6 +6,7 @@
 #include <OV767X.h>
 #include <vector>
 #include <string>
+
 #endif
 #if defined(__has_include) && __has_include("secrets.hpp")
 #include "secrets.hpp"
@@ -23,9 +24,10 @@ unsigned long detectionTime2 = 0;
 unsigned long detectionTimeReverse = 0;
 const auto pulsesPerMeter = 600;
 unsigned long currentTime = millis();
-
+unsigned long missionStartTime = 0; //this time should be set equal currentTime when the mode is changed to missionControl 
 boolean initialTurn = true;
-int startDistance = 0;
+double missionStartDistance = 0; //missionStartDistance = getMidianDistance(); should be called when the mode is changed to missionControl 
+double startDistance = 0;
 float startSpeed = 0;
 int startAngle = 0;
 signed int turnAngle = 0;
@@ -335,6 +337,29 @@ double getMedianDistance() {
 
   return (distanceLeft + distanceRight) / 2;
 }
+//headin, distance and speed come from the mission table
+
+double missionEstimatedDistance(){
+
+  //mission step distances
+  long missionTotalDistance = 0;
+  const int arraySize = 20;
+  long missionSteps[arraySize]= {};
+ 
+  for(double x: missionSteps){
+     missionTotalDistance =+ x; 
+  }
+  return missionTotalDistance; 
+}
+
+double missionActualDistance(){
+  
+  long currentDistance = getMedianDistance();
+ 
+  long missionDistance = currentDistance-missionStartDistance; 
+  return missionDistance; 
+}
+
 
 void manualMove() {
   currentMode = MANUAL;
