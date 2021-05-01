@@ -18,7 +18,7 @@ const auto fixSeconds = 5000UL;
 const unsigned long PRINT_INTERVAL = 1000;
 const unsigned long DETECT_INTERVAL_MED = 5000;
 const unsigned long DETECT_INTERVAL_SHORT = 2000;
-unsigned long previousPrintout     = 0;
+unsigned long previousPrintout= 0;
 unsigned long detectionTime = 0;
 unsigned long detectionTime2 = 0;
 unsigned long detectionTimeReverse = 0;
@@ -251,7 +251,7 @@ void loop()
       break;
   }
 
-  // Keep printing out the current heading
+ 
   currentTime = millis();
   if (currentTime >= previousPrintout + PRINT_INTERVAL)
   {
@@ -311,7 +311,6 @@ void loop()
 
 void startupMove() {
 
-  // String currentMode = "startUp";
   turnAngle = startAngle;
   car.setAngle(turnAngle);
   car.setSpeed(startSpeed);
@@ -332,6 +331,9 @@ void startupMove() {
 }
 
 double getMedianDistance() {
+  leftOdometer.update();
+  rightOdometer.update();
+  
   long distanceLeft = leftOdometer.getDistance();
   long distanceRight = rightOdometer.getDistance();
 
