@@ -99,7 +99,7 @@ void setup()
 
   // Start the camera and connect to MQTT broker
   #ifdef __SMCE__
-    Camera.begin(QVGA, RGB888, 15);
+    Camera.begin(VGA, RGB888, 30);
     frameBuffer.resize(Camera.width() * Camera.height() * Camera.bytesPerPixel());
     mqtt.setKeepAlive(30);
     mqtt.begin(host, port, WiFi);
