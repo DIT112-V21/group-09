@@ -46,7 +46,7 @@ leftBtn.addEventListener('click', function(){ manualControl(leftBtn); }, false)
 rightBtn.addEventListener('click', function(){ manualControl(rightBtn); }, false)
 stopBtn.addEventListener('click', function(){ manualControl(stopBtn); }, false)
 cruiseBtn.addEventListener('click', function () { manualControl(cruiseBtn); }, false)
-// cameraBtn.addEventListener('click', function () { clacked(cameraBtn); }, false)
+cameraBtn.addEventListener('click', function () { takePhoto(this); }, false)
 
 
 function onConnect () {
@@ -489,6 +489,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	};
 });
+
+function takePhoto (elmnt) {
+	if ((client == null || !client.connected || client.connected == false)) {
+		var desc = "The SmartRover is not powered up!<br />Please turn on Rover by pressing Power button."
+		showModal("Rover power", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
+	} else {
+		var canvas = document.getElementById("cameraCanvas");
+		var snapshot = canvas.toDataURL("image/png");
+  		elmnt.href = snapshot;
+		addTextToSerial('<span style="color: #f7e062">Camera snapshot</span> created.');
+	}
+}
 
 	
 function addTextToSerial(textToAdd) {
