@@ -96,24 +96,27 @@ function onConnect () {
 				  console.log("Camera")
 				  canvas = document.getElementById('cameraCanvas');
 				  ctx = canvas.getContext('2d');
+				  
+				  const width = 640;
+				  const height = 480;
+				  
+				  const arrayBuffer = new ArrayBuffer(width * height * 4);
+				  const pixels = new Uint8ClampedArray(arrayBuffer);
+				  var n = 0;	
+				  
+				  for (var i = 0; i < message.length; i += 3)
+					{
+						n += 4;
+						pixels[n] = message[i];
+						pixels[n + 1] = message[i + 1];
+						pixels[n + 2] = message[i + 2];
+						pixels[n + 3] = 255;
 
-				  const width = 320;
-				  const height = 240;
-
-				  const imageData = ctx.getImageData(0, 0, width, height);
-				  const data = message;
-				  for (var x = 0; x < width; x++) {
-						for (var y = 0; y < height; y++) {
-							var i = (x + y * width) * 3;
-							var r = message[i + 0];
-							var g = message[i + 1];
-							var b = message[i + 2];
-
-							ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
-							ctx.fillRect(x, y, 1, 1);
-						}
-				  } 
-
+					}
+				  
+				  const imageData = new ImageData(pixels, width, height);
+				  ctx.putImageData(imageData, 0, 0);
+				  
 			  } else {
 				const msg = `${message.toString()}\nOn topic: ${topic}`
 			  
