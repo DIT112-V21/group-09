@@ -5,6 +5,8 @@ var canvas;
 var ctx;
 var subscribed = false;
 var cruiseControl = false;
+const receivingChannel = "marsOrbiter/#";
+const sendingChannel = "smartRover/";
 
 const options = {
 	keepalive: 30,
@@ -20,12 +22,11 @@ const options = {
 		retain: false
 	},
 	rejectUnauthorized: false,
-	connectUrl: "mqtt://aerostun.dev:1883",
+	connectUrl: "mqtt://localhost:1883",
 	username: "user",
   	password: "password",
 	clientId: "clientId_Hes24TQfz",
 }
-
 
 const connectBtn = document.getElementById('connectBtn')
 const satelliteBtn = document.getElementById('satelliteBtn')
@@ -111,7 +112,7 @@ function onConnect () {
 							ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
 							ctx.fillRect(x, y, 1, 1);
 						}
-					} 
+				  } 
 
 			  } else {
 				const msg = `${message.toString()}\nOn topic: ${topic}`
@@ -203,8 +204,7 @@ function manualControl(elmnt) {
 		showModal("Rover power", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
 	} else if (client.connected) {
 
-		var prefix = "smartRover/"
-		var channel = prefix + elmnt.getAttribute("topic");
+		var channel = sendingChannel + elmnt.getAttribute("topic");
 		var command = elmnt.getAttribute("step");
 
 		if (elmnt == cruiseBtn) {
@@ -255,8 +255,7 @@ function terminalCommand(channels, commands) {
 		showModal("Rover power", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
 	} else if (client.connected) {
 
-		var prefix = "smartRover/"
-		var channel = prefix + channels;
+		var channel = sendingChannel + channels;
 		var command = commands;
 
 		console.log(channel, command);
