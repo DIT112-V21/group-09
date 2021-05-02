@@ -4,7 +4,7 @@
 }
 
 html,
-body {
+body, body .container-1 {
   margin: 0;
   padding: 0;
   min-width: 100%;
@@ -395,7 +395,7 @@ img.rover-model {
 
 .container-3col {
   display: grid;
-  grid-template-columns: 340px auto 400px;
+  grid-template-columns: 340px auto 320px;
 }
 
 .streams, .controller, .rover-dash, .command-console, .status-output {
@@ -844,6 +844,11 @@ img.rover-model {
 	font-size: 14px;
 	font-weight: 200;
 	color: white;
+	padding: 0;
+}
+
+.status-output p {
+	line-height: normal;
 }
 
 
