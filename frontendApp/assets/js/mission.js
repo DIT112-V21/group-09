@@ -34,7 +34,7 @@ function addRow(commandTable) {
     step.name="chkbox[]";
 
     cell1.appendChild(step);
-    
+
     var cell2 = row.insertCell(1);
     cell2.innerHTML = rowCount ;
 
@@ -75,16 +75,26 @@ function deleteRow(commandTable) {
     try {
         var table = document.getElementById(commandTable);
         var rowCount = table.rows.length;
-        for(var i=0; i<rowCount; i++) {
+        let n = 1;
+
+        for (var i=0; i < rowCount; i++) {
             var row = table.rows[i];
             var chkbox = row.cells[0].childNodes[0];
+
+            if (i > 0) {
+                let cell2 = row.cells[1];
+                cell2.innerHTML = n;
+                n++;
+            }
+
             if(null != chkbox && true == chkbox.checked) {
                 table.deleteRow(i);
                 rowCount--;
                 i--;
+                n--;
             }
         }
-    }catch(e) {
+    } catch(e) {
         alert(e);
     }
 }
