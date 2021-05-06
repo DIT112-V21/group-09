@@ -82,7 +82,7 @@ More updates coming soon ...
 
 ## Contributing
 
-If you wish to contribute to this website, please fork it on GitHub, push your change to a named branch, then send a pull request. If it is a big feature, you might want to start an issue first to make sure it's something that will be accepted. If it involves code, please also write tests for it.
+If you wish to contribute to this website, please fork it on GitHub, push your changes to a named branch, then send a pull request. If it is a big feature, you might want to start an issue first to make sure it's something that will be accepted. If it involves code, please also write tests for it.
 
 ## License
 
