@@ -54,7 +54,8 @@ To run the website for testing purposes, run:
 ## How to use
 
 ### Launch the app
-Please refer to Installation manuals above to install the system. Once installed, you can launch the SmartRover app by clicking SmartRover app icon.
+<p><img align="left" src="https://raw.githubusercontent.com/DIT112-V21/group-09/master/frontendApp/assets/images/favicon.ico" alt="rover-logo.png" width="48" height="48">
+Please refer to Installation manuals above to install the system. Once installed, you can launch the SmartRover app by clicking SmartRover app icon.</p>
     
 ### Manual control
 Manual control page allows the user to precisely control the Rover in real time by using control pad buttons and terminal console commands. Once you connect to the Mars Orbiter satellite feed, the app will show you live camera streams from the rover and detailed telemetry data as soon as it is available. 
