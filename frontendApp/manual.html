@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>SmartRover - Manual control</title>
 	<meta charset="UTF-8">
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,8 +9,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/manual.css">
-	<title>SmartRover - Manual drive</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body id="manual-control">
 	<header class="header">
@@ -21,7 +21,6 @@
 				<a href="index.html">Home</a>
 				<a class="active" href="manual.html">Manual control</a>
 				<a href="mission.html">Mission</a>
-				<a href="mqtt.html">MQTT</a>
 				<a href="settings.html">Settings</a>
 				<a href="help.html">Help</a>
 			</div>
@@ -32,7 +31,6 @@
 			<h1>Manual control</h1>
 		</div>
 		<div class="container-2col">
-			
 			<div class="streams rounded-3 panel panel-default">
 				<div class="rounded-3 panel2 panel-default">
 					<div class="panel-heading">
@@ -41,8 +39,7 @@
 					<div id="nasaStream" class="nasa-stream panel-body"><iframe style="display: block; margin: 0 auto;" width="480" height="302" align="middle" src="http://ustream.tv/embed/6540154?forced-quality=high&html5ui=1" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
 					</div>
 					<div id="roverStream" class="camera-stream panel-body">
-						<canvas id="cameraCanvas" width="320" height="240">
-						</canvas>
+						<canvas id="cameraCanvas" width="640" height="480"></canvas>
 					</div>
 				</div>
 			</div>
@@ -54,55 +51,56 @@
 					<div class="control-button-grid mx-auto panel-body">
 						<!-- Control buttons Row 1 -->
 						<div class="control-button-container">
-							<a id="cameraBtn" class="control-button" onclick="controlPad(cameraBtn)">
+							
+							<a id="cameraBtn" class="control-button" download="roverCamera.png">
 								<span id="sidebutton"><i class="fas fa-camera fa-2x" style="padding: 28px 25px 30px 29px;"></i></span>
 							</a>
 						</div>
 						<div class="control-button-container">
-							<a id="upBtn" class="control-button" onclick="controlPad(upBtn)">
+							<a id="upBtn" class="control-button" topic="control/throttle" step="+10">
 								<span id="upbutton"><i class="fas fa-chevron-up fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
 							</a>
 						</div>
 						<div class="control-button-container">
-							<a id="connectBtn" class="control-button" onclick="controlPad(connectBtn)">
+							<a id="connectBtn" class="control-button">
 								<span id="connectbutton" class="disconnected"><i class="fas fa-power-off fa-2x" style="padding: 28px 25px 30px 27px;"></i></span>
 							</a>
 						</div>
 
 						<!-- Control buttons Row 2 -->
 						<div class="control-button-container">
-							<a id="leftBtn" class="control-button" onclick="controlPad(leftBtn)">
+							<a id="leftBtn" class="control-button" topic="control/turnAngle" step="-10">
 								<span id="leftbutton"><i class="fas fa-chevron-left fa-2x" style="padding: 28px 25px 30px 38px;"></i></span>
 							</a>
 						</div>
 						<div class="control-button-container">
-							<a id="stopBtn" class="control-button" onclick="controlPad(stopBtn)">
+							<a id="stopBtn" class="control-button" topic="control/stop" step="0">
 								<span id="stopbutton"><i class="fas fa-stop-circle fa-2x" style="padding: 28px 25px 25px 28px;"></i></span>
 							</a>
 						</div>
 						<div class="control-button-container">
-							<a id="rightBtn" class="control-button" onclick="controlPad(rightBtn)">
+							<a id="rightBtn" class="control-button" topic="control/turnAngle" step="+10">
 								<span id="rightbutton"><i class="fas fa-chevron-right fa-2x" style="padding: 28px 25px 25px 39px;"></i></span>
 							</a>
 						</div>
 						<!-- Control buttons Row 3 -->
 						<div class="control-button-container">
 							<form name='subscriber'>
-								<input name="topic" class="input" type="hidden" value="/smartRover/#">
+								<input name="topic" class="input" type="hidden" value="marsOrbiter/#">
 							  	<input name="qos" type="hidden" value="1">
 								<a id="satelliteBtn" class="control-button" onclick="controlPad(satelliteBtn)">
-									<span id="satellitebutton" class="disconnected"><i class="fas fa-satellite-dish fa-2x" style="padding: 28px 25px 25px 30px;"></i></span>
+									<span id="satelliteButton" class="disconnected"><i class="fas fa-satellite-dish fa-2x" style="padding: 28px 25px 25px 30px;"></i></span>
 								</a>
 							</form>
 						</div>
 						<div class="control-button-container">
-							<a id="downBtn" class="control-button" onclick="controlPad(downBtn)">
+							<a id="downBtn" class="control-button" topic="control/throttle" step="-10">
 								<span id="downbutton"><i class="fas fa-chevron-down fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
 							</a>
 						</div>
 						<div class="control-button-container">
-							<a id="cruiseBtn" class="control-button" onclick="controlPad(cruiseBtn)">
-								<span id="sidebutton"><i class="fas fa-car-crash fa-2x" style="padding: 28px 25px 25px 18px;"></i></span>
+							<a id="cruiseBtn" class="control-button" topic="cruiseControl" step="0">
+								<span id="cruiseButton" class="disconnected"><i class="fas fa-car-crash fa-2x" style="padding: 28px 25px 25px 18px;"></i></span>
 							</a>
 						</div>
 					</div>
@@ -117,27 +115,29 @@
 					</div>
 					<div class="dashboard panel-body">
 						<div class="label1">Heading&#176; <span class="label-supplement">(degrees)</span></div>
-						<div class="data1"><var id="heading">30</var></div>
+						<div class="data1"><var id="heading">0</var></div>
 						<div class="label2">Throttle <span class="label-supplement">(%)</span></div>
-						<div class="data2"><var id="throttle">50</var></div>
+						<div class="data2"><var id="throttle">0</var></div>
 						<div class="label3">Speed <span class="label-supplement">(m/s)</span></div>
-						<div class="data3"><var id="speed">0.5</var></div>
+						<div class="data3"><var id="speed">0.0</var></div>
 						<div class="label4">Turn angle&#176;</div>
-						<div class="data4"><var id="angle">30</var></div>
+						<div class="data4"><var id="angle">0</var></div>
 						<div class="label5">Total distance <span class="label-supplement">(m)</span></div>
-						<div class="data5"><var id="distance">30</var></div>
+						<div class="data5"><var id="distance">0</var></div>
 					</div>
 				</div>
 			</div>
 			<div class="command-console rounded-3 panel panel-default">
 				<div class="rounded-3 panel2 panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Command console</h3>
+						<h3 class="panel-title">Terminal</h3>
 					</div>
-					<div class="consoleContent">
-						<div id="consoleContentResults">
-							<form action="">
-								<input type="text" id="consoleTextInput" autocomplete="off" placeholder="Enter your command or type Help">
+					<div class="consoleContent mainCont panel-body command-console">
+						<div class="terminalCont">
+							<div id="terminalReslutsCont">
+							</div>
+							<form id="console">
+								<input id="terminalTextInput" type="text" placeholder="Type your command or HELP ..." autocomplete="off">
 							</form>
 						</div>
 					</div>
@@ -148,9 +148,8 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Serial feed</h3>
 					</div>
-					<div class="status-info">
-						<div id="output-updates"></div>
-						<button class="clickHere">CLICK HERE</button>
+					<div class="panel-body status-info">
+						<div id="serial-updates"></div>
 					</div>
 				</div>
 			</div>
@@ -158,10 +157,7 @@
 	</div>
 	<footer class="footer">
 		<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
-			Please contact us <a href="#">@github.com</a>.
-		</div>
-		<div class="footer-menu">
-
+			Discover more at <a href="https://github.com/DIT112-V21/group-09" target="_blank">@github.com</a>.
 		</div>
 	</footer>
 	</div>
@@ -176,25 +172,6 @@
 			} else {
 				navbar.classList.remove("sticky");
 			}
-		}
-	</script>
-
-	<script src="./assets/js/manual.js"></script>
-	<script>
-		function upFunction() {
-			document.getElementById("f10").innerHTML = "f10";
-		}
-		function leftFunction() {
-			document.getElementById("left").innerHTML = "left";
-		}
-		function stopFunction() {
-			document.getElementById("stop").innerHTML = "stop";
-		}
-		function rightFunction() {
-			document.getElementById("right").innerHTML = "right";
-		}
-		function downFunction() {
-			document.getElementById("r10").innerHTML = "r10";
 		}
 	</script>
 	<script src="./assets/js/communication.js"></script>

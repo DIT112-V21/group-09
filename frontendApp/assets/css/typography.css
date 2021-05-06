@@ -79,7 +79,6 @@ div[class^="intro-tooltip"]:hover {
 }
 
 /* Manual control typography */
-
 .dashboard div[class^="label"], .dashboard div[class^="data"] {
     color: #1b1b3d; 
 	font-family: 'Roboto', 'Lato', Segoe, 'Segoe UI', 'sans-serif';
@@ -90,9 +89,9 @@ div[class^="intro-tooltip"]:hover {
 }
 
 .dashboard div[class^="data"] {
-	padding-top: 0;
-	padding-left: 25px;
-	font-size: 26pt;
+	padding-top: 4px;
+	padding-left: 15px;
+	font-size: 22pt;
 }
 
 .dashboard div[class^="label"] .label-supplement {

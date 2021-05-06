@@ -1,10 +1,10 @@
 :root {
 	--connection-btn-color: red;
-	--satellite-btn-color: #3A474D;
+	--offline-btn-color: #3A474D;
 }
 
 html,
-body {
+body, body .container-1 {
   margin: 0;
   padding: 0;
   min-width: 100%;
@@ -208,12 +208,21 @@ img.home-logo {
 	margin: 20px 0 0 20px;
 	top: 5%;
 	left: 40%;
+	animation: fadeInAnimation 1s ease-in-out 1.5s forwards;
+	
+	-webkit-animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s both;
+	animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s both;
+
 }
 
 img.rover-model {
 	margin: 100px 0 0 20px;
 	top: 5%;
 	left: 40%;
+	
+	-webkit-animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s both;
+	animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s both;
+	
 }
 
 .rover-intro {
@@ -226,6 +235,57 @@ img.rover-model {
 	top: 50%;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+
+}
+
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .rover-intro img {
@@ -324,7 +384,7 @@ img.rover-model {
 	grid-auto-rows: auto;
 	gap: 0px 0px;
 	position: relative;
-	margin: 30px auto 30px;
+	margin: 8px auto 8px;
 	color: #fff;
 }
 
@@ -335,7 +395,7 @@ img.rover-model {
 
 .container-3col {
   display: grid;
-  grid-template-columns: 360px auto 500px;
+  grid-template-columns: 340px auto 320px;
 }
 
 .streams, .controller, .rover-dash, .command-console, .status-output {
@@ -435,6 +495,68 @@ img.rover-model {
     -webkit-transition: -webkit-box-shadow .1s ease-in-out;
 } 
 
+.control-button #upbutton:hover, .control-button #downbutton:hover, 
+.control-button #leftbutton:hover, .control-button #rightbutton:hover {
+	color: #ffb400;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,179,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
+}
+
+.control-button #stopbutton:hover {
+	color: #ff0000;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+}
+
+.control-button #sidebutton:hover {
+	color: #19ed46;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+}
+
+.control-button #connectbutton {
+	color: var(--connection-btn-color);
+}
+
+.control-button:active {
+	-webkit-box-shadow: 
+	0px 3px rgba(128,128,128,1),
+	0px 4px rgba(118,118,118,1),
+	0px 5px rgba(108,108,108,1),
+	0px 6px rgba(98,98,98,1),
+	0px 7px rgba(88,88,88,1),
+	0px 8px rgba(78,78,78,1),
+	0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
+}
+
+.control-button:active span{
+	-webkit-transform: translate(0, 5px); /* depth of button press */
+}
+
+.control-button span:after {
+	display: block;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	right: 14px;
+	top: 12px;    
+
+	font-family: 'Cabin';
+	font-weight: 700;
+	color: #AEBF3B;
+	text-shadow: 0px 1px #fff, 0px -1px #97A63A;
+	font-size: 26px;
+}
+
 .control-button span {
     background-color: #E8E8E8;
     
@@ -494,8 +616,16 @@ img.rover-model {
     font-family: 'TradeGothicLTStd-BdCn20','PT Sans Narrow';
     font-weight: 700;
     font-size: 32px;
-    
     text-shadow: 0px 1px #fff, 0px -1px #262F33;
+}
+
+.connected:hover {
+	color: #18ff00;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(24,255,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
 }
 
 .disconnected:hover {
@@ -507,36 +637,8 @@ img.rover-model {
 	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
 }
 
-#satellitebutton .disconnected:hover {
-	color: var(--satellite-btn-color);
-	text-shadow: 0px -1px #97A63A;
-	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
-}
-
-.connected:hover {
-	color: var(--connection-btn-color);
-	text-shadow: 0px -1px #97A63A;
-	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(24,255,0,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
-}
-
-.control-button #upbutton:hover, .control-button #downbutton:hover, 
-.control-button #leftbutton:hover, .control-button #rightbutton:hover {
-	color: #ffb400;
-	text-shadow: 0px -1px #97A63A;
-	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(255,179,0,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(255,179,0,0.9);
-}
-
-.control-button #stopbutton:hover {
-	color: #ff0000;
+#satelliteButton .disconnected, #cruiseButton .disconnected {
+	color: red;
 	text-shadow: 0px -1px #97A63A;
 	cursor: pointer;
 	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
@@ -544,56 +646,28 @@ img.rover-model {
 	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
 }
 
-.control-button #sidebutton:hover {
-	color: #19ed46;
+#satelliteButton .disconnected:hover, #cruiseButton .disconnected:hover {
+	color: red;
 	text-shadow: 0px -1px #97A63A;
 	cursor: pointer;
-	-webkit-box-shadow:0px 0px 2px 2px rgba(25,237,71,0.9);
-	-moz-box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
-	box-shadow: 0px 0px 2px 2px rgba(25,237,71,0.9);
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
 }
 
-.control-button #satellitebutton {
-	color: var(--satellite-btn-color);
+.dashboard div[class^="label"] {
+	min-width: 150px;
+	width: 180px;
 }
 
-.control-button #connectbutton {
-	color: var(--connection-btn-color);
-}
-
-.control-button:active {
-	-webkit-box-shadow: 
-	0px 3px rgba(128,128,128,1),
-	0px 4px rgba(118,118,118,1),
-	0px 5px rgba(108,108,108,1),
-	0px 6px rgba(98,98,98,1),
-	0px 7px rgba(88,88,88,1),
-	0px 8px rgba(78,78,78,1),
-	0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
-}
-
-.control-button:active span{
-	-webkit-transform: translate(0, 5px); /* depth of button press */
-}
-
-.control-button span:after {
-	display: block;
-	width: 10px;
-	height: 10px;
-	position: absolute;
-	right: 14px;
-	top: 12px;    
-
-	font-family: 'Cabin';
-	font-weight: 700;
-	color: #AEBF3B;
-	text-shadow: 0px 1px #fff, 0px -1px #97A63A;
-	font-size: 26px;
+.dashboard div[class^="data"] {
+	min-width: 70px;
+	width: 100px;
 }
 
 .dashboard {
 	display: grid;
-	grid-template-columns: auto 110px;
+	grid-template-columns: 180px 70px;
 	grid-template-rows: 3.5em 3.5em 3.5em;
 	gap: 0px 0px;
 	grid-template-areas:
@@ -686,6 +760,97 @@ img.rover-model {
 	grid-row-end: 5;
 }
 
+/* Console terminal styles */
+.terminalCont {
+	background: black;
+	width: 100%;
+	padding: 12px 0 0 0;
+	margin-top: -10px;
+	font-family: 'Roboto Mono', monospace;
+	opacity: 100;
+}
+
+.userEnteredText {
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+#terminalReslutsCont {
+	width:100%;
+	height: 370px;
+	padding: 8px;
+	overflow-y: auto;
+	resize: none;
+	border: none;
+	font-size: 10pt;
+	font-weight: 400;
+	line-height: 16px;
+	display: block;
+	color: rgba(255,255,255,0.95);
+}
+
+#terminalReslutsCont p {
+	line-height: 14px;
+}
+
+
+#terminalReslutsCont a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+}
+
+#terminalReslutsCont a:hover {
+  text-decoration: underline;
+}
+
+#terminalTextInput {
+	background: black;
+	display: block;
+	border: none;
+	border-top: 1px solid rgba(255,255,255,0.3);
+	width: 100%;
+	color: white;
+	padding: 18px;
+	font-size: 14px;
+	outline: none;
+	font-family: 'Roboto Mono', monospace;
+}
+
+.status-info {
+	background: rgba(0, 0, 0, 0.8);
+	height: 440px;
+	min-height: 360px;
+	border: 1px solid black;
+	padding: 0px;
+	margin: 2px;
+	margin-top: -5px;
+}
+
+#serial-updates {
+	display: block;
+	width: 100%;
+	height: 427px;
+	min-height: 358px;
+	overflow-y: scroll;
+	font-size: 14px;
+	line-height: 2px;
+	border: 1px white solid;
+	margin: 0;
+}
+
+.status-output {
+	font-size: 14px;
+	font-weight: 200;
+	color: white;
+	padding: 0;
+}
+
+.status-output p {
+	line-height: normal;
+}
+
 
 /* Mission control page */
 .mission-map {
@@ -699,11 +864,19 @@ img.rover-model {
   padding: 16px;
 }
 
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
+/*
+Commands Table*/
+.commandTable {
+  background-color: rgba(225,225,225, 0.2);
+}
+
+thead cell{
+  background-color: rgba(225,225,225,0.4);
+  font-size: 13px;
+}
+
+.data-cell{
+  width: 100px;
 }
 
 
@@ -761,205 +934,6 @@ img.rover-model {
   background: rgba(0, 0, 0, 0.9);
 }
 
-
-/* Status layout */
-status {
-  min-width: 250px;
-  color: seashell;
-  padding: 10px;
-  display: grid;
-  background: rgba(255, 255, 255, 0.4);
-  margin-left: 10px;
-  width: 100%;
-  font-size: large;
-}
-
-.status-info {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 5px;
-  border: 10px solid black;
-}
-.live-stream {
-  border: 10px solid black;
-  box-shadow: 5px rgb(184, 115, 66);
-}
-
-/*stolen from https://codepen.io/jason-kinney/pen/fChrj  */
-
-.stop {
-  position: relative;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  cursor: pointer;
-
-  background: radial-gradient(ellipse at center, rgb(247, 138, 88), black);
-
-  -webkit-transition: all 0.5s ease;
-}
-.stop:active {
-  margin-top: 2px;
-
-  -webkit-transform: scale(0.75);
-  -webkit-transition: all 0.3s ease;
-  outline: none;
-  background: radial-gradient(
-    ellipse at center,
-    lighten(rgb(209, 119, 35), 15%),
-    lighten(rgb(209, 119, 35), 10%)
-  );
-  box-shadow: 0 15px 80px rgb(209, 119, 35),
-    0 -15px 80px lighten(rgb(209, 119, 35), 30%),
-    inset 0 -2px 2px lighten(rgb(209, 119, 35), 10%);
-}
-.stop:focus {
-  outline: none;
-}
-
-.up {
-  position: relative;
-  border-radius: 50%;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  cursor: pointer;
-
-  background: radial-gradient(
-    ellipse at center,
-    rgb(247, 163, 67),
-    rgb(0, 0, 0)
-  );
-
-  -webkit-transition: all 0.5s ease;
-}
-.up:active {
-  margin-top: 2px;
-
-  -webkit-transform: scale(0.75);
-  -webkit-transition: all 0.3s ease;
-  outline: none;
-  background: radial-gradient(
-    ellipse at center,
-    rgb(247, 163, 67),
-    rgb(0, 0, 0)
-  );
-  box-shadow: 0 15px 80px rgb(209, 119, 35),
-    0 -15px 80px lighten(rgb(209, 119, 35), 30%),
-    inset 0 -2px 2px lighten(rgb(209, 119, 35), 10%);
-}
-
-.b:focus {
-  outline: none;
-}
-.down {
-  margin: auto;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid lighten(rgb(204, 125, 21), 8%);
-  background: radial-gradient(
-    ellipse at center,
-    rgb(247, 163, 67),
-    rgb(0, 0, 0)
-  );
-  box-shadow: 0 15px 50px rgb(209, 119, 35),
-    0 -15px 60px lighten(rgb(209, 119, 35), 30%),
-    inset 0 2px 2px lighten(black, 20%);
-  -webkit-transition: all 0.5s ease;
-}
-
-.down:active {
-  margin-top: 2px;
-
-  -webkit-transform: scale(0.75);
-  -webkit-transition: all 0.3s ease;
-  outline: none;
-  background: radial-gradient(
-    ellipse at center,
-    rgb(247, 163, 67),
-    rgb(0, 0, 0)
-  );
-  box-shadow: 0 15px 80px rgb(209, 119, 35),
-    0 -15px 80px lighten(rgb(209, 119, 35), 30%),
-    inset 0 -2px 2px lighten(rgb(209, 119, 35), 10%);
-}
-.down:focus {
-  outline: none;
-}
-
-.right {
-  margin: auto;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid lighten(rgb(204, 125, 21), 8%);
-  background: radial-gradient(
-    ellipse at center,
-    rgb(247, 163, 67),
-    rgb(0, 0, 0)
-  );
-  box-shadow: 0 15px 50px rgb(209, 119, 35),
-    0 -15px 60px lighten(rgb(209, 119, 35), 30%),
-    inset 0 2px 2px lighten(black, 20%);
-  -webkit-transition: all 0.5s ease;
-}
-.right:active {
-  margin-top: 2px;
-
-  -webkit-transform: scale(0.75);
-  -webkit-transition: all 0.3s ease;
-  outline: none;
-  background: radial-gradient(
-    ellipse at center,
-    rgb(247, 163, 67),
-    rgb(0, 0, 0)
-  );
-  box-shadow: 0 15px 80px rgb(209, 119, 35),
-    0 -15px 80px lighten(rgb(209, 119, 35), 30%),
-    inset 0 -2px 2px lighten(rgb(209, 119, 35), 10%);
-}
-.right:focus {
-  outline: none;
-}
-
-.left {
-  margin: auto;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid lighten(rgb(204, 125, 21), 8%);
-  background: radial-gradient(
-    ellipse at center,
-    rgb(247, 163, 67),
-    rgb(0, 0, 0)
-  );
-  box-shadow: 0 15px 50px rgb(209, 119, 35),
-    0 -15px 60px lighten(rgb(209, 119, 35), 30%),
-    inset 0 2px 2px lighten(black, 20%);
-  -webkit-transition: all 0.5s ease;
-}
-
-.left:active {
-  margin-top: 2px;
-
-  -webkit-transform: scale(0.98);
-  -webkit-transition: all 0.3s ease;
-  outline: none;
-  background: radial-gradient(
-    ellipse at center,
-    lighten(rgb(209, 119, 35), 15%),
-    lighten(rgb(209, 119, 35), 10%)
-  );
-  box-shadow: 0 15px 80px rgb(209, 119, 35),
-    0 -15px 80px lighten(rgb(209, 119, 35), 30%),
-    inset 0 -2px 2px lighten(rgb(209, 119, 35), 10%);
-}
-.left:focus {
-  outline: none;
-}
 
 /* CSS style for Help Menu */
 .accordion-button {
