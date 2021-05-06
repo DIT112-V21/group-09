@@ -75,3 +75,6 @@ out/
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+### Godot engine ###
+.import/

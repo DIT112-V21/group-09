@@ -99,21 +99,17 @@ function onConnect () {
 				  
 				  const width = 640;
 				  const height = 480;
-				  
 				  const arrayBuffer = new ArrayBuffer(width * height * 4);
 				  const pixels = new Uint8ClampedArray(arrayBuffer);
 				  var n = 0;	
 				  
-				  for (var i = 0; i < message.length; i += 3)
-					{
+				  for (var i = 0; i < message.length; i += 3) {
 						n += 4;
 						pixels[n] = message[i];
 						pixels[n + 1] = message[i + 1];
 						pixels[n + 2] = message[i + 2];
 						pixels[n + 3] = 255;
-
-					}
-				  
+				  }
 				  const imageData = new ImageData(pixels, width, height);
 				  ctx.putImageData(imageData, 0, 0);
 				  

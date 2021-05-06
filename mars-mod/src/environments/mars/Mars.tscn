@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/environments/mars/Mars.gd" type="Script" id=1]
+[ext_resource path="res://src/environments/mars/resources/mesh_Model_5_u1_v1_diffuse.png" type="Texture" id=2]
+[ext_resource path="res://src/environments/mars/resources/mesh_Model_5.obj" type="ArrayMesh" id=3]
+
+[sub_resource type="ProceduralSky" id=1]
+sky_top_color = Color( 1, 0.827451, 0.807843, 1 )
+sky_horizon_color = Color( 1, 0.92549, 0.92549, 1 )
+sun_latitude = 90.29
+sun_energy = 2.0
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+fog_color = Color( 0.905882, 0.905882, 0.905882, 1 )
+fog_sun_color = Color( 1, 0.717647, 0.643137, 1 )
+fog_sun_amount = 0.06
+fog_depth_begin = 252.4
+fog_depth_end = 113.5
+fog_transmit_enabled = true
+fog_transmit_curve = 2.82843
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 2 )
+
+[node name="Mars" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+process_priority = 2
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64.8116, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.857068, 0.515203, 0, -0.515203, 0.857068, 0, 48.052, 38.4896 )
+fov = 104.395
+
+[node name="Spatial" type="Spatial" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="Spatial"]
+
+[node name="CSGMesh" type="CSGMesh" parent="Spatial/StaticBody"]
+transform = Transform( -4.99947, 0.0562686, -0.0463336, -0.0570263, -4.999, 0.0823263, -0.0453978, 0.082846, 4.99911, -19.7103, 0.551559, 0.542191 )
+use_collision = true
+mesh = ExtResource( 3 )
+material = SubResource( 3 )
