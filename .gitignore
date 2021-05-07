@@ -77,4 +77,5 @@ out/
 *.code-workspace
 
 ### Godot engine ###
+.import/*
 .import/
