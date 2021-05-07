@@ -1,12 +1,17 @@
 const mqtt = require('mqtt')
+let config = require('electron-node-config');
+let mqttConfig = config.get('mqtt.brokerConfig');
+
+//console.log(dbConfig.host);
+
 window.mqtt = mqtt
 let client = null
 var canvas;
 var ctx;
 var subscribed = false;
 var cruiseControl = false;
-const receivingChannel = "marsOrbiter/#";
-const sendingChannel = "smartRover/";
+const receivingChannel = mqttConfig.receivingChannel;
+const sendingChannel = mqttConfig.sendingChannel;
 
 const options = {
 	keepalive: 30,
@@ -22,10 +27,10 @@ const options = {
 		retain: false
 	},
 	rejectUnauthorized: false,
-	connectUrl: "mqtt://localhost:1883",
-	username: "user",
-  	password: "password",
-	clientId: "clientId_Hes24TQfz",
+	connectUrl: mqttConfig.connectUrl,
+	username: mqttConfig.username,
+  	password: mqttConfig.password,
+	clientId: mqttConfig.clientId
 }
 
 const connectBtn = document.getElementById('connectBtn')
