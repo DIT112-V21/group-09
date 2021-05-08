@@ -6,25 +6,37 @@
   "license": "MIT",
   "homepage": "https://github.com/DIT112-V21/group-09#readme",
   "repository": {
-	  "type": "git",
-      "url": "https://github.com/DIT112-V21/group-09.git"
+    "type": "git",
+    "url": "git+https://github.com/DIT112-V21/group-09.git"
   },
   "main": "main.js",
   "scripts": {
     "test": "mocha",
     "lint": "eslint .",
-    "start": "electron ."
+    "start": "electron .",
+    "dbConnection": "db_connection.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "electron": "^12.0.4",
     "electron-chromedriver": "^12.0.0",
     "electron-node-config": "^1.1.0",
     "eslint": "^7.24.0",
     "mocha": "^8.3.2",
     "mqtt": "^4.2.6",
+    "node-client": "^0.1.17",
+    "node-postgres": "^0.6.2",
     "spectron": "^14.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/DIT112-V21/group-09/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "electron": "^12.0.7"
   }
 }
