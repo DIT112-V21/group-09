@@ -391,7 +391,7 @@ img.rover-model {
 
 .container-2col {
 	display: grid;
-	grid-template-columns: auto 480px;
+	grid-template-columns: auto 460px;
 }
 
 .container-3col {
