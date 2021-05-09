@@ -29,7 +29,7 @@ jobs:
           enhancementLabel: '### Enhancements'
           enhancementLabels: 'enhancement'
           bugsLabel: '### Bug fixes'
-          bugsLabels: 'bug'
+          bugLabels: 'bug'
           deprecatedLabel: '### Deprecations'
           deprecatedLabels: 'deferred'
           removedLabel: '### Removals'
