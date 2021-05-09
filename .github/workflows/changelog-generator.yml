@@ -6,35 +6,40 @@ jobs:
   generate-changelog:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate changelog
-        # You may pin to the exact commit or the version.
-        # uses: heinrichreimer/action-github-changelog-generator@854576bb5274851427527d8199fba0061552dff5
-        uses: heinrichreimer/action-github-changelog-generator@v2.2
-        with:
-          # To make more than 50 requests per hour your GitHub token is required.
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: DIT112-V21/group-09
-          author: false
-          issues: true
-          pullRequests: true
-          prWoLabels: true
-          issuesWoLabels: true
-          filterByMilestone: true
-          unreleased: true
-          unreleasedOnly: false
-          compareLink: true
-          verbose: true
-          headerLabel: "# Changelog"
-          breakingLabel: '### Breaking'
-          enhancementLabel: '### Enhancements'
-          enhancementLabels: 'enhancement'
-          bugsLabel: '### Bug fixes'
-          bugLabels: 'bug'
-          deprecatedLabel: '### Deprecations'
-          deprecatedLabels: 'deferred'
-          removedLabel: '### Removals'
-          removedLabels: 'removed'
-          issuesLabel: '### Other issues'
-          prLabel: '### Other pull requests'
-          unreleasedLabel: '### Unreleased'
-          addSections: '{"documentation":{"prefix":"### Documentation","labels":["documentation"]},"tests":{"prefix":"### Testing","labels":["tests"]}}'
+    - name: Checkout master
+      uses: actions/checkout@v2
+        
+    - name: Generate changelog
+      # You may pin to the exact commit or the version.
+      # uses: heinrichreimer/action-github-changelog-generator@854576bb5274851427527d8199fba0061552dff5
+      uses: heinrichreimer/action-github-changelog-generator@v2.2
+      with:
+        # To make more than 50 requests per hour your GitHub token is required.
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repo: DIT112-V21/group-09
+        author: false
+        issues: true
+        pullRequests: true
+        prWoLabels: true
+        issuesWoLabels: true
+        filterByMilestone: true
+        unreleased: true
+        unreleasedOnly: false
+        compareLink: true
+        verbose: true
+        headerLabel: "# Changelog"
+        breakingLabel: '### Breaking'
+        enhancementLabel: '### Enhancements'
+        enhancementLabels: 'enhancement'
+        bugsLabel: '### Bug fixes'
+        bugLabels: 'bug'
+        deprecatedLabel: '### Deprecations'
+        deprecatedLabels: 'deferred'
+        removedLabel: '### Removals'
+        removedLabels: 'removed'
+        issuesLabel: '### Other issues'
+        prLabel: '### Other pull requests'
+        unreleasedLabel: '### Unreleased'
+        addSections: '{"documentation":{"prefix":"### Documentation","labels":["documentation"]},"tests":{"prefix":"### Testing","labels":["tests"]}}'
+    - run: |
+          ls
