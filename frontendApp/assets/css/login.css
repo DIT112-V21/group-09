@@ -1,6 +1,6 @@
-.btn-primary {
+.btn-secondary {
 
-  color: rgb(255, 255, 255);
+  color: rgb(236, 53, 53);
 
   border: rgb(245, 0, 0);
   background-color: brown;
@@ -11,8 +11,18 @@
 }
 
 
-.btn-primary:hover{
+.btn-secondary:hover{
 
 color: rgb(94, 255, 0);
+background-color: violet;
 
+}
+
+
+.modal-header{
+
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  color: rgb(211, 17, 59);
+
+  background-color: blanchedalmond;
 }

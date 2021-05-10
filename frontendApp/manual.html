@@ -12,6 +12,14 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
 	<link rel="stylesheet" href="assets/css/login.css">
+
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
@@ -36,41 +44,43 @@
 			<!--User Login-->
 
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-				Login
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+				aria-expanded="false">
+				Options
 			</button>
-
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				<li><a class="dropdown-item" data-mdb-toggle="modal" data-mdb-target="#loginModal" href="#">Log In</a></li>
+				<li><a class="dropdown-item" href="#">Register</a></li>
+				<li><a class="dropdown-item" href="#">Something else here</a></li>
+			</ul>
+		</div>
 
 			<!-- Modal -->
-			<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+			<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="loginModalLabel">User Login</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<h5 class="modal-title" id="exampleModalLabel">User Login</h5>
+							<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-
 							<div>
-
 								<input type="text" class="form-control" name="" id="" placeholder="User Name">
-
 							</div>
-
 							<div>
-
 								<input type="password" class="form-control" name="" id="" placeholder="Password">
-
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">LOGIN</button>
+							<button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+								Close
+							</button>
+							<button type="button" class="btn btn-primary">Log In</button>
 						</div>
 					</div>
 				</div>
 			</div>
-
 
 			<h1>Manual control</h1>
 		</div>
@@ -216,6 +226,10 @@
 		</div>
 	</footer>
 	</div>
+
+	<!-- MDB -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+
 	<script>
 		window.onscroll = function () { myFunction() };
 		var navbar = document.getElementById("navbar");
