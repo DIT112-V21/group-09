@@ -17,6 +17,7 @@ jobs:
         # To make more than 50 requests per hour your GitHub token is required.
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: DIT112-V21/group-09
+        header-label: "# SmartRover project changelog"
         author: false
         issues: true
         pullRequests: true
@@ -28,12 +29,14 @@ jobs:
         compareLink: true
         verbose: true
         headerLabel: "# Changelog"
+        issues-label: '### Closed issues'
+        pr-label: '### Merged pull requests'
         breakingLabel: '### Breaking'
         enhancementLabel: '### Enhancements'
         enhancementLabels: 'enhancement'
         bugsLabel: '### Bug fixes'
         bugLabels: 'bug'
-        deprecatedLabel: '### Deprecations'
+        deprecatedLabel: '### Deprecated'
         deprecatedLabels: 'deferred'
         removedLabel: '### Removals'
         removedLabels: 'removed'
