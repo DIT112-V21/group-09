@@ -8,27 +8,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/settings.css">
-	<link rel="stylesheet" href="settings /css/fontastic.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/typography.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/settings.css">
+	<link rel="stylesheet" href="../settings /css/fontastic.css">
 	
-	<title>SmartRover - Mission control</title>
+	<title>SmartRover - Rover settings </title>
 
 </head>
 <body id="manual-control">
 	<header class="header">
 		<div id="navbar">
 			<div class="logo">
-				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
+				<img src="../assets/images/rover-logo.png" alt="SmartRover Logo">
 			</div>
 			<div class="nav-menu">
-				<a href="index.html">Home</a>
-				<a href="manual.html">Manual control</a>
-				<a href="mission.html">Mission</a>
-				<a href="mqtt.html">MQTT</a>
-				<a class="active" href="settings.html">Settings</a>
-				<a href="help.html">Help</a>
+				<a href="../index.html">Home</a>
+				<a href="../manual.html">Manual control</a>
+				<a href="../mission.html">Mission</a>
+				<a href="../mqtt.html">MQTT</a>
+				<a class="../active" href="settings.html">Settings</a>
+				<a href="../help.html">Help</a>
 			</div>
 		</div>
 	
@@ -39,7 +39,7 @@
 			  <!-- Sidebar Header    -->
 			  <div class="sidenav-header d-flex align-items-center justify-content-center">
 				<!-- User Info-->
-				<div class="sidenav-header-inner text-center"><img src="assets/images/mars.jpeg" alt="person" class="img-fluid rounded-circle">
+				<div class="sidenav-header-inner text-center"><img src="../assets/images/mars.jpeg" alt="person" class="img-fluid rounded-circle">
 				  <h2 class="h5">Group-9</h2><span> Developers</span>
 				</div>
 				<!-- Small Brand information, appears on minimized sidebar-->
@@ -49,54 +49,30 @@
 					<h5 class="sidenav-heading">Settings</h5>
 					<ul id="side-main-menu" class="side-menu list-unstyled ">  
 						<li><a href="#"> <i class="fas fa-sign-in-alt fa-3x"></i></a></li>            
-						<li><a href="pages/mqtt_setting.html"><i class="fas fa-satellite-dish fa-3x"></i></a></li>
-						<li><a href="pages/mission_setting.html" ><i class="fas fa-tasks"></i></a></li>
-						<li><a href="pages/rover_setting.html" ><i class="fas fa-cogs"></i></a></li>
-						<li><a href="pages/manual_setting.html" > <i class="fas fa-gamepad"></i></a></li>
+						<li><a href="mqtt_setting.html"> <i class="fas fa-satellite-dish fa-3x"></i></a></li>
+						<li><a href="mission_setting.html" > <i class="fas fa-tasks"></i></a></li>
+						<li><a href="rover_setting.html" > <i class="fas fa-cogs"></i></a></li>
+						<li><a href="manual_setting.html" > <i class="fas fa-gamepad"></i></a></li>
 					</ul>
-			</div>
+				</div>
 			</div>
 		</nav>
 		<section class="wrapper">
-			<table class="table table-dark table-hover table table-striped" >
-				<thead>
-					<h1>List of Registered Servers</h1>
-					<tr style="color: rgb(255, 255, 255);" class="">
-						<th>#</th>
-						<th>connectUrl</th>
-						<th>username</th>
-						<th>clientId </th>
-						<th>Status </th>
-						<th>Edit</th>
-					</tr>
-				  </thead>
-				  <tbody>
-					<tr class="">
-						<th scope="row">1</th>
-						<td class="">http</td>
-						<td  >user</td>
-						<td class="">client</td>
-						<th> <label for="status" class="connected">connected </label> </th>
-                  		<td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button> <button type="button" data-dismiss="modal" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button></td>
-                    </tr>
-					<tr class="">
-						<th scope="row">2</th>
-						<td class="">Larry the Bird</td>
-						<td>@twitter</td>
-						<td>@twitter</td>
-						<th> <label for="status" class="connected" >connected </label> </th>
-                 		<td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button> <button type="button" data-dismiss="modal" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button></td>
-                   	</tr>
-					<tr>
-					  	<th scope="row">3</th>
-					  	<td  class="">Larry the Bird</td>
-					 	<td>@twitter</td>
-					 	<td>@twitter</td>
-					  	<th> <label for="status" class="banned">banned</label> </th>
-                  	  	<td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button> <button type="button" data-dismiss="modal" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button></td>
-                   	</tr>
-				  </tbody>
-			  </table>
+	
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+              </ul>
 				<div>
 					<button type="button" class="btn btn-primary"><i class="fas fa-plus"></i></button>	
 				</div>
@@ -113,7 +89,7 @@
 				<div class="footer-menu"></div>
 		</footer>
     </div>
-<script>
+	<script>
 		window.onscroll = function() {myFunction()};
 
 		var navbar = document.getElementById("navbar");
