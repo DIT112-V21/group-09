@@ -17,29 +17,32 @@ jobs:
         # To make more than 50 requests per hour your GitHub token is required.
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: DIT112-V21/group-09
+        headerLabel: "# SmartRover project changelog"
+        output: CHANGELOG.md
         author: false
         issues: true
+        issuesWoLabels: true
         pullRequests: true
         prWoLabels: true
-        issuesWoLabels: true
         filterByMilestone: true
         unreleased: true
         unreleasedOnly: false
         compareLink: true
         verbose: true
-        headerLabel: "# Changelog"
+        issuesLabel: '### Closed issues'
+        prLabel: '### Merged pull requests'
         breakingLabel: '### Breaking'
         enhancementLabel: '### Enhancements'
         enhancementLabels: 'enhancement'
         bugsLabel: '### Bug fixes'
         bugLabels: 'bug'
-        deprecatedLabel: '### Deprecations'
+        deprecatedLabel: '### Deprecated'
         deprecatedLabels: 'deferred'
         removedLabel: '### Removals'
         removedLabels: 'removed'
-        issuesLabel: '### Other issues'
-        prLabel: '### Other pull requests'
         unreleasedLabel: '### Unreleased'
         addSections: '{"documentation":{"prefix":"### Documentation","labels":["documentation"]},"tests":{"prefix":"### Testing","labels":["tests"]}}'
-    - run: |
-          ls
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update Changelog for PR
+        file_pattern: CHANGELOG.md
