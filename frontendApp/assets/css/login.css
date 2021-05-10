@@ -1,11 +1,12 @@
 .btn-secondary {
 
-  color: rgb(236, 53, 53);
+  /* color: rgb(27, 26, 26);
 
-  border: rgb(245, 0, 0);
-  background-color: brown;
+  border: rgb(156, 151, 151);
+  background-color: brown; */
 
   float: right;
+
 
   
 }
@@ -26,3 +27,5 @@ background-color: violet;
 
   background-color: blanchedalmond;
 }
+
+
