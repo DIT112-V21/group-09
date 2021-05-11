@@ -169,7 +169,7 @@
 						  <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
 							<div>
 								<h2>Configure you mission</h2>
-								<form>
+								<form id="missionForm">
 									<input type="button" value="Add Step" onclick="addRow('commandTable')" />
 									<input type="button" value="Delete Step" onclick="deleteRow('commandTable')"/>
 									<table class="commandTable" id="commandTable">
@@ -185,10 +185,10 @@
 											<td id="numbering">1</td>
 											<td id="heading"><input type="number" value="0" step="5" min="0" max="360" class="data-cell" /></td>
 											<td id="speed"><input type="number" value="0" step="10" min="-100" max="100" class="data-cell" /></td>
-											<td id="distance"><input type="number" value="0" step="10" class="data-cell" min="0" /></td>
+											<td id="distance"><input type="number" value="0" step="100" class="data-cell" min="0" /></td>
 										</tr>
 									</table>
-									<button type="submit" value="">Execute Commands</button>
+									<button type="submit" value="" onclick="missionTableToArray()">Execute Commands</button>
 								</form>
 							</div>
 						  </div>

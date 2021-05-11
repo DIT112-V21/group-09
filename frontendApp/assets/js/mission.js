@@ -111,3 +111,24 @@ function myFunction() {
         navbar.classList.remove("sticky");
     }
 }
+
+//User input in command table into array
+function missionTableToArray(commandTable) {
+    document.querySelector("#missionForm").addEventListener("click", function(event) {
+        event.preventDefault();
+    }, false);
+    var stepsArray = []
+    var rows = commandTable.rows;
+    var cells, t;
+    for (var i=0, iLen=rows.length; i<iLen; i++) {
+        cells = rows[i].cells;
+        t = [];
+        stepsArray[n] = rows[i].cells[1];
+        stepsArray[n+1] = rows[i].cells[2];
+        stepsArray[n+2] = rows[i].cells[3];
+        stepsArray[n+3] = rows[i].cells[4];
+        n += 4;
+        stepsArray.push(t);
+    }
+    return stepsArray;
+}
