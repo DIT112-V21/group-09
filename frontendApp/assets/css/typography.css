@@ -99,6 +99,32 @@ div[class^="intro-tooltip"]:hover {
 	font-weight: 400;
 }
 
+/* Mission control typography */
+
+.map-check-label {
+	color: #282828;
+	font-family: 'Lato', 'Open Sans', sans-serif;
+	font-size: 12pt;
+	font-weight: 750;
+	text-shadow: 2px 0 5px #ffffff;
+}
+
+#mission-map .nav-link,
+#mission-map .nav-link.active {
+	color: #282828;
+	font-family: 'Lato', 'Open Sans', sans-serif;
+	font-size: 12pt;
+	font-weight: 750;
+}
+
+#mission-map .tab-pane {
+	color: #282828;
+	font-family: 'Lato', 'Open Sans', sans-serif;
+	font-size: 12pt;
+	font-weight: 500;
+	
+}
+
 /* Font definitions used */
 
 @font-face {
