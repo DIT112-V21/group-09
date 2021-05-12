@@ -29,23 +29,19 @@
 	<div class="page-title">
 		<h1><br>Setup Guides</br></h1>
 		<div><h5><br>Select your platform to reach the correct page</br></h5></div>
-
 		<button class="tablink" onclick="openPage('Windows', this, '#aaaaa')">Windows</button>
-		<button class="tablink" onclick="openPage('MacOS', this, 'orange')">MacOS</button>
-
+		<button class="tablink" onclick="openPage('MacOS', this, '#bbbbbb')">MacOS</button>
 		<div id="Windows" class="tabcontent">
 			<h3>Windows</h3>
 			<div>
 				<div class="tab">
-					<button class="tablinks" onclick="openCity(event, 'Introduction')" id="defaultOpen">Introduction</button>
-					<button class="tablinks" onclick="openCity(event, 'InstallSMCE')">Install SMCE</button>
-					<button class="tablinks" onclick="openCity(event, 'InstallSR')">Install SmartRover</button>
-					<button class="tablinks" onclick="openCity(event, 'Arduino')">Get Arduino Sketch File</button>
-					<button class="tablinks" onclick="openCity(event, 'InstallMQTT')">Install MQTT</button>
-
+					<button class="tablinks" onclick="openTab(event, 'IntroductionW')" id="sideDefaultOpenW">Introduction</button>
+					<button class="tablinks" onclick="openTab(event, 'InstallSMCEW')">Install SMCE</button>
+					<button class="tablinks" onclick="openTab(event, 'InstallSRW')">Install SmartRover</button>
+					<button class="tablinks" onclick="openTab(event, 'ArduinoW')">Get Arduino Sketch File</button>
+					<button class="tablinks" onclick="openTab(event, 'InstallMQTTW')">Install MQTT</button>
 				</div>
-
-				<div id="Introduction" class="sideTabContent">
+				<div id="IntroductionW" class="sideTabContent">
 					<div class="scrolledText">
 						<h4><br>Introduction</br></h4>
 						<a>In this page you will find all the necessary resources and information that
@@ -58,7 +54,7 @@
 						</a>
 					</div>
 				</div>
-				<div id="InstallSMCE" class="sideTabContent">
+				<div id="InstallSMCEW" class="sideTabContent">
 					<div class="scrolledText">
 						<h4>
 							<br>1. Install SMCE-gd Emulator (Courtesy Of ItJustWorks™)</br>
@@ -101,7 +97,7 @@
 						</a>
 					</div>
 				</div>
-				<div id="InstallSR" class="sideTabContent">
+				<div id="InstallSRW" class="sideTabContent">
 					<div class="scrolledText">
 						<h4>
 							<br>2. Install Smart Rover Front End App</br>
@@ -114,7 +110,7 @@
 						</a>
 					</div>
 				</div>
-				<div id="Arduino" class="sideTabContent">
+				<div id="ArduinoW" class="sideTabContent">
 					<div class="scrolledText">
 						<h4>
 							<br>3. Get Arduino Sketch File</br>
@@ -132,7 +128,7 @@
 						</a>
 					</div>
 				</div>
-				<div id="InstallMQTT" class="sideTabContent">
+				<div id="InstallMQTTW" class="sideTabContent">
 					<div class="scrolledText">
 					<h4>
 						<br>4. Install MQTT</br>
@@ -157,16 +153,168 @@
 					</br>
 				</div>
 				</div>
+			</div>
+		</div>
+		<div id="MacOS" class="tabcontent">
+			<h3>MacOS</h3>
+			<div>
+				<div class="tab">
+					<button class="tablinks" onclick="openTab(event, 'Introduction')" id="sideDefaultOpenM">Introduction</button>
+					<button class="tablinks" onclick="openTab(event, 'InstallSMCE')">Install SMCE</button>
+					<button class="tablinks" onclick="openTab(event, 'InstallSR')">Install SmartRover</button>
+					<button class="tablinks" onclick="openTab(event, 'Arduino')">Get Arduino Sketch File</button>
+					<button class="tablinks" onclick="openTab(event, 'InstallMQTT')">Install MQTT</button>
+				</div>
+				<div id="Introduction" class="sideTabContent">
+					<div class="scrolledText">
+						<h4><br>Introduction</br></h4>
+						<a>On this page, you will find all the necessary resources
+							and information that will enable you to run the SmartRover™
+							frontend app and SMCE-gd emulator sketch to experience the
+							Mars environment and sensation of driving a rover on our
+							neighboring planet. This page would help you to solve all
+							your questions regarding the installation of each and every
+							software needed to start exploring and we will try to reference
+							other relevant libraries and dependencies to expand the resources
+							further.
+						</a>
+					</div>
+				</div>
+				<div id="InstallSMCE" class="sideTabContent">
+					<div class="scrolledText">
+						<h4>
+							<br>1. Install SMCE-gd Emulator (Courtesy Of ItJustWorks™)</br>
+						</h4>
+						<strong>
+							<br>Step 1.1: Get a package Manager</br>
+						</strong>
+						<a href="https://brew.sh/">
+							Recommendation is to use Homebrew as a package Manager
+						</a>
+						<a>
+							<br>
+							Homebrew can be installed by invoking the following command on the Terminal app
+							</br>
+						</a>
+						</a>
+						<p><mark>bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</mark>
+						</p>
+						<a>
+							Now you can install the dependencies.
+						</a>
+						<strong>
+							<br>Step 1.2: Install Dependencies</br>
+						</strong>
+						<a>
+							Use the following commands in the Terminal app
+						</a>
+						<p><mark>brew install --cask cmake</mark>
+						</p>
 
+						<p><mark>brew install arduino-cli</mark>
+						</p>
 
+						<p><mark># brew install openssl # Uncomment this one if your
+							Apple-provided LibreSSL fails to work with SMCE</mark>
+						</p>
+						<strong>
+							<br>Step 1.3: Install a C++ compiler</br>
+						</strong>
+						<a>
+							<br>If you have not any C++ compiler installed, we recommend
+							you to install AppleClang as it is the default compiler
+							by CMake. You can install AppleClang, by invoking the
+							following command in a Terminal:</br>
+						</a>
+						<p>
+							<mark>xcode-select --install</mark>
+						</p>
+						<a>
+							<br>
+								Note: The software is no longer available for macOS
+								Catalina or earlier. So you should instead download the
+								latest stable (non-beta) package from the
+								<a href="https://idmsa.apple.com/IDMSWebAuth/signin?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&path=%2Fdownload%2Fmore%2F%3Fname%3Dfor%2520Xcode&rv=1">Apple Developer Downloads page</a>.
+							</br>
+						</a>
+						<strong>
+							<br>Step 1.4: Install SMCE-Godot</br>
+						</strong>
+						<a>
+							Once done, go to SMCE-gd emulator's <a href="https://github.com/ItJustWorksTM/smce-gd/releases">releases</a>
+							page, and download the latest <mark>.dmg</mark> installer. Run it, disregarding the security warning, and drag and drop the SMCE-Godot app into the Applications folder.
+						</a>
+					</div>
+				</div>
+				<div id="InstallSR" class="sideTabContent">
+					<div class="scrolledText">
+						<h4>
+							<br>2. Install Smart Rover Front End App</br>
+						</h4>
+						<a>
+							To install the Front End App first head over to
+							<a href="https://github.com/DIT112-V21/group-09/releases">
+								the Releases Page
+							</a>, and download the latest <mark>.dmg</mark>.
+							Then open it disregarding the Gatekeeper warning,
+							finally, drag and drop the SmartRover app into the
+							Applications folder. If your mac still does not
+							allow you to open the app, check the guides to
+							<a href="https://support.apple.com/en-us/HT202491">safely open apps on Mac</a>.
+						</a>
+					</div>
+				</div>
+				<div id="Arduino" class="sideTabContent">
+					<div class="scrolledText">
+						<h4>
+							<br>3. Get Arduino Sketch File</br>
+						</h4>
+						<a>
+							To get the latest version of the SmartRover sketch to run on the SMCE-gd,
+							please visit our <a href="https://github.com/DIT112-V21/group-09/releases">
+							Releases page</a>. Arduino sketch will be
+							listed as one of the release assets and named like
+							"SmartRover_vx.x.x-sketch.zip" with reference to
+							current release version. After you
+							download and save the zip file into your computer,
+							please extract it so that you have
+							"SmartRover/SmartRover.ino" structure intact.
+						</a>
+						<a>
+							<br>
+							From SMCE-gd emulator, you can navigate the above folder you have extracted and select ino sketch file to compile. That's it.
+							</br>
+						</a>
+					</div>
+				</div>
+				<div id="InstallMQTT" class="sideTabContent">
+					<div class="scrolledText">
+						<h4>
+							<br>4. Install MQTT</br>
+						</h4>
+						<br>
+						MQTT protocol enables bi-directional communication between the SmartRover emulator and the Frontend app, so that you can receive telemetry
+						data and camera stream and send driving commands from control pad or console terminal. For the best performance, it is recommended to
+						install a local MQTT broker on your computer and configure both emulator and the frontend to connect to "localhost". Or for more realistic
+						experience of a "delayed" communication between the SmartRover, Mars Orbiter and the Earth, you can choose and use from numerous online MQTT brokers.
+						</br>
+						<strong>
+							<br>Option 1. Install or choose an online MQTT broker</br>
+						</strong>
+						<br>
+						List of Servers and brokers at <a href="https://mqtt.org/software/">https://mqtt.org/software/</a>.
+						</br>
+						<strong>
+							<br>Option 2. Install Mosquitto local broker</br>
+						</strong>
+						<br>
+						We have used and tested with a local installation of the open source <a href="https://www.mosquitto.org/">Mosquitto broker</a>.
+						</br>
+					</div>
+				</div>
 			</div>
 
 		</div>
-
-		<div id="MacOS" class="tabcontent">
-			<h3>MacOS</h3>
-		</div>
-
 	</div>
 </div>
 <footer class="footer">
@@ -206,17 +354,15 @@
 		elmnt.style.backgroundColor = color;
 	}
 
-	// Get the element with id="defaultOpen" and click on it
-	document.getElementById("defaultOpen").click();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script>
-	function openCity(evt, cityName) {
+	function openTab(evt, cityName) {
 		var i, sideTabContent, tablinks;
-		tabcontent = document.getElementsByClassName("sideTabContent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
+		sideTabContent = document.getElementsByClassName("sideTabContent");
+		for (i = 0; i < sideTabContent.length; i++) {
+			sideTabContent[i].style.display = "none";
 		}
 		tablinks = document.getElementsByClassName("tablinks");
 		for (i = 0; i < tablinks.length; i++) {
@@ -225,9 +371,8 @@
 		document.getElementById(cityName).style.display = "block";
 		evt.currentTarget.className += " active";
 	}
+	document.getElementById("sideDefaultOpenW").click();
 
-	// Get the element with id="defaultOpen" and click on it
-	document.getElementById("defaultOpen").click();
 </script>
 </body>
 </html>

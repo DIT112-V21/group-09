@@ -1034,7 +1034,9 @@ thead cell{
 #Windows {
     background-color: #aaaa;
 }
-#MacOS {background-color: orange;}
+#MacOS {
+    background-color: #bbbb;
+}
 
 
 /*side tabs*/
