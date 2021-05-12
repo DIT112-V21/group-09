@@ -1004,15 +1004,91 @@ thead cell{
 
 
 /* CSS style for Help Menu */
-.accordion-button {
-  background-color: black;
-  color: white;
+* {box-sizing: border-box}
+
+/* Style tab links */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 50%;
 }
-.accordion-collapse {
-  background-color: rgba(225, 225, 225, 0.7);
-  color: black;
+
+.tablink:hover {
+    background-color: #777;
 }
-.accordion-item {
-  border-color: #852401;
-  color: white;
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: black;
+    display: none;
+    padding: 100px 20px;
+    height: 500px;
+}
+
+#Windows {
+    background-color: #aaaa;
+}
+#MacOS {background-color: orange;}
+
+
+/*side tabs*/
+* {box-sizing: border-box}
+body {font-family: "Lato", sans-serif;}
+
+/* Style the tab */
+.tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 350px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.sideTabContent {
+    background-color: #ccc;
+    color: black;
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 350px;
+}
+
+div.scrolledText {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 }

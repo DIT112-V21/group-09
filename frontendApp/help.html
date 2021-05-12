@@ -27,90 +27,147 @@
 </header>
 <div class="container">
 	<div class="page-title">
-		<h1>Help</h1>
-		Some text here
-	</div>
-	<section class="wrapper">
-		<aside class="col-left">
-			<div class="accordion" id="accordionExample">
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingOne">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							Introduction #1
-						</button>
-					</h2>
-					<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
+		<h1><br>Setup Guides</br></h1>
+		<div><h5><br>Select your platform to reach the correct page</br></h5></div>
+
+		<button class="tablink" onclick="openPage('Windows', this, '#aaaaa')">Windows</button>
+		<button class="tablink" onclick="openPage('MacOS', this, 'orange')">MacOS</button>
+
+		<div id="Windows" class="tabcontent">
+			<h3>Windows</h3>
+			<div>
+				<div class="tab">
+					<button class="tablinks" onclick="openCity(event, 'Introduction')" id="defaultOpen">Introduction</button>
+					<button class="tablinks" onclick="openCity(event, 'InstallSMCE')">Install SMCE</button>
+					<button class="tablinks" onclick="openCity(event, 'InstallSR')">Install SmartRover</button>
+					<button class="tablinks" onclick="openCity(event, 'Arduino')">Get Arduino Sketch File</button>
+					<button class="tablinks" onclick="openCity(event, 'InstallMQTT')">Install MQTT</button>
+
+				</div>
+
+				<div id="Introduction" class="sideTabContent">
+					<div class="scrolledText">
+						<h4><br>Introduction</br></h4>
+						<a>In this page you will find all the necessary resources and information that
+							will enable you to run the SmartRover™ frontend app and SMCE-gd emulator
+							sketch to experience the Mars environment and sensation of driving a rover
+							on our neighboring planet. This page would help you to solve all your questions
+							regarding the installation of the each and every software needed to start
+							exploring and we will try to reference other relevant libraries and dependencies
+							to expend the resources further.
+						</a>
 					</div>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-							Installation #2
-						</button>
-					</h2>
-					<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
+				<div id="InstallSMCE" class="sideTabContent">
+					<div class="scrolledText">
+						<h4>
+							<br>1. Install SMCE-gd Emulator (Courtesy Of ItJustWorks™)</br>
+						</h4>
+						<strong>
+							<br>Step 1.1: Get a package Manager</br>
+						</strong>
+						<a href="https://community.chocolatey.org/courses/installation/installing?method=installing-chocolatey">
+							Recommendation is to use Chocolatey as a Manager
+						</a>
+						<a>
+							<br>
+							For installing the package manager and dependencies start by opening Power Shell in Administrative Mode.
+							</br>
+						</a>
+						<strong>
+							<br>Step 1.2: Install Dependencies</br>
+						</strong>
+						<a>
+							Use the following commands in Power Shell as Administrator
+						</a>
+						<p><mark>choco install cmake -y --installargs 'ADD_CMAKE_TO_PATH=System'</mark>
+						</p>
+
+						<p><mark>choco install arduino-cli openssl -y</mark>
+						</p>
+
+						<p><mark>choco install visualstudio2019buildtools -y --package-parameters "--add
+							Microsoft.VisualStudio.Workload.VCTools --includeRecommended --passive --locale en-US"
+						</mark>
+						</p>
+						<strong>
+							<br>Step 1.3: Install SMCE-Godot</br>
+						</strong>
+						<a>
+							Once done, go to SMCE-gd emulator's <a href="https://github.com/ItJustWorksTM/smce-gd/releases">releases</a>
+							page, and download the latest <mark>.msi</mark> installer. Run it,
+							disregarding SmartScreen security warning (see <a href="https://openmindsoftware.org/wp-content/uploads/smartscreen-1024x484.png">
+							this picture</a> if you do not know how to ignore SmartScreen once).
+						</a>
 					</div>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingThree">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Starting app #3
-						</button>
-					</h2>
-					<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
+				<div id="InstallSR" class="sideTabContent">
+					<div class="scrolledText">
+						<h4>
+							<br>2. Install Smart Rover Front End App</br>
+						</h4>
+						<a>
+							To install the Front End App first head over to <a href="https://github.com/DIT112-V21/group-09/releases">the Releases Page</a>.
+							From here click the latest release and then download the latest .exe installer file. Then to install, double click the file.
+							Windows will then display the standard warning message, choose More Info and then click Run Anyway. The App is then
+							installed to the User directory. Now to run the App, just double click the Smart Rover icon.
+						</a>
 					</div>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingFour">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Manual control #4
-						</button>
-					</h2>
-					<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
+				<div id="Arduino" class="sideTabContent">
+					<div class="scrolledText">
+						<h4>
+							<br>3. Get Arduino Sketch File</br>
+						</h4>
+						<a>
+							To get the latest version of the SmartRover sketch to run on the SMCE-gd, please visit our <a href="https://github.com/DIT112-V21/group-09/releases">
+							Releases page</a>. Arduino sketch will be
+							listed as one of the release assets and named like "SmartRover_vx.x.x-sketch.zip" with reference to current release version. After you
+							download and save the zip file into your computer, please extract it so that you have "SmartRover/SmartRover.ino" structure intact.
+						</a>
+						<a>
+							<br>
+								From SMCE-gd emulator, you can navigate the above folder you have extracted and select ino sketch file to compile. That's it.
+							</br>
+						</a>
 					</div>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingFive">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Mission Control #5
-						</button>
-					</h2>
-					<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
+				<div id="InstallMQTT" class="sideTabContent">
+					<div class="scrolledText">
+					<h4>
+						<br>4. Install MQTT</br>
+					</h4>
+					<br>
+						MQTT protocol enables bi-directional communication between the SmartRover emulator and the Frontend app, so that you can receive telemetry
+						data and camera stream and send driving commands from control pad or console terminal. For the best performance, it is recommended to
+						install a local MQTT broker on your computer and configure both emulator and the frontend to connect to "localhost". Or for more realistic
+						experience of a "delayed" communication between the SmartRover, Mars Orbiter and the Earth, you can choose and use from numerous online MQTT brokers.
+					</br>
+					<strong>
+						<br>Option 1. Install or choose an online MQTT broker</br>
+					</strong>
+					<br>
+						List of Servers and brokers at <a href="https://mqtt.org/software/">https://mqtt.org/software/</a>.
+					</br>
+					<strong>
+						<br>Option 2. Install Mosquitto local broker</br>
+					</strong>
+					<br>
+						We have used and tested with a local installation of the open source <a href="https://www.mosquitto.org/">Mosquitto broker</a>.
+					</br>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingSix">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Settings #6
-						</button>
-					</h2>
-					<div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
 				</div>
+
+
 			</div>
-		</aside>
-		<div class="col-right">
-			Some text here too
+
 		</div>
-	</section>
+
+		<div id="MacOS" class="tabcontent">
+			<h3>MacOS</h3>
+		</div>
+
+	</div>
 </div>
 <footer class="footer">
 	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
@@ -134,6 +191,43 @@
 		}
 	}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script>
+	function openPage(pageName,elmnt,color) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablink");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].style.backgroundColor = "";
+		}
+		document.getElementById(pageName).style.display = "block";
+		elmnt.style.backgroundColor = color;
+	}
+
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script>
+	function openCity(evt, cityName) {
+		var i, sideTabContent, tablinks;
+		tabcontent = document.getElementsByClassName("sideTabContent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+</script>
 </body>
 </html>
