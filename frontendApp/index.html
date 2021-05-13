@@ -15,6 +15,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
 	<!-- MDB -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+
+
+
 	<link rel="stylesheet" href="assets/css/login.css">
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
@@ -32,53 +35,70 @@
 					<a href="mission.html">Mission</a>
 					<a href="settings.html">Settings</a>
 					<a href="help.html">Help</a>
+
+					<a href="#optionList">
+
+						<!-- Button trigger modal -->
+
+						<div id="optionsButton" class="dropdown" style="margin: auto;">
+							<button style="color: rgb(255, 255, 255); margin-bottom: auto; padding-bottom: 5px; "
+								class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<i class="fas fa-user-astronaut fa-3x "></i>
+							</button>
+							<ul id="optionList" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+								<li><a class="dropdown-item" data-mdb-toggle="modal" data-mdb-target="#loginModal" href="#"
+										style="text-decoration: none;">Log In</a></li>
+								<li><a class="dropdown-item" href="#" style="text-decoration: none;">Register</a></li>
+								<li><a class="dropdown-item" href="#" style="text-decoration: none;">Something else here</a></li>
+							</ul>
+						</div>
+
+
+					</a>
+
+				</div>
+
+
+			</div>
+
+
+
+
+
+			<!-- Modal -->
+			<div style="z-index: 9;" class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">User Login</h5>
+							<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<input type="text" class="form-control" name="" id="userName" placeholder="User Name">
+							</div>
+							<div>
+								<input type="password" class="form-control" name="" id="passWord" placeholder="Password">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+								Close
+							</button>
+							<button type="button" class="btn btn-primary" id="loginBtn">Log In</button>
+						</div>
+					</div>
 				</div>
 			</div>
+
 		</header>
 
 
-		<!-- Button trigger modal -->
 
 
 
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-				aria-expanded="false">
-				<i class="fas fa-user-astronaut"></i>
-			</button>
-			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-				<li><a class="dropdown-item" data-mdb-toggle="modal" data-mdb-target="#loginModal" href="#">Log In</a></li>
-				<li><a class="dropdown-item" href="#">Register</a></li>
-				<li><a class="dropdown-item" href="#">Something else here</a></li>
-			</ul>
-		</div>
-
-
-		<!-- Modal -->
-		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">User Login</h5>
-						<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div>
-							<input type="text" class="form-control" name="" id="" placeholder="User Name">
-						</div>
-						<div>
-							<input type="password" class="form-control" name="" id="" placeholder="Password">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-							Close
-						</button>
-						<button type="button" class="btn btn-primary">Log In</button>
-					</div>
-				</div>
-			</div>
-		</div>
 
 
 
@@ -155,6 +175,8 @@
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		crossorigin="anonymous"></script>
 	</script>
+
+
 	<script type="text/javascript">
 		var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 		var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
@@ -170,6 +192,8 @@
 			});
 		});
 	</script>
+
+	
 </body>
 
 </html>
