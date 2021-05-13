@@ -759,8 +759,8 @@ texture = ExtResource( 3 )
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.99863, 0.052336, 0, -0.052336, 0.99863, 0, 0.608909, -0.944293 )
 light_color = Color( 0.87451, 0.87451, 0.87451, 1 )
-light_energy = 3.0
-light_indirect_energy = 3.0
+light_indirect_energy = 1.5
+light_specular = 0.0
 spot_range = 29.0657
 spot_angle = 28.0624
 
@@ -794,7 +794,7 @@ script = ExtResource( 2 )
 pin = 3
 
 [node name="Front UltraSonic" type="Spatial" parent="Attachments"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.776154, -1.14053 )
+transform = Transform( 1, 0, 0, 0, 0.999048, -0.0436194, 0, 0.0436194, 0.999048, 0, 0.776154, -1.14053 )
 script = ExtResource( 10 )
 trigger_pin = 6
 echo_pin = 7
@@ -833,7 +833,7 @@ distance_pin = 36
 direction_pin = 39
 
 [node name="Front Camera" type="Spatial" parent="Attachments"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.735401, -2.30562 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.735, -2.306 )
 script = ExtResource( 11 )
 distort = 0.75
 
@@ -853,9 +853,10 @@ shadow_atlas_quad_0 = 1
 shadow_atlas_quad_3 = 3
 
 [node name="Camera" type="Camera" parent="Attachments/Front Camera/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.444803, 1.1389, -0.82746 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.444803, 1.46867, -0.624782 )
+keep_aspect = 0
 current = true
-fov = 95.0
+fov = 75.0
 far = 1500.0
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="Attachments/Front Camera/Viewport"]
