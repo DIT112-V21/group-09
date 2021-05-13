@@ -1,0 +1,44 @@
+name: Changelog generation
+
+on: [push, pull_request]
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@v2
+        
+    - name: Generate changelog
+      # You may pin to the exact commit or the version.
+      # uses: heinrichreimer/action-github-changelog-generator@854576bb5274851427527d8199fba0061552dff5
+      uses: heinrichreimer/action-github-changelog-generator@v2.2
+      with:
+        # To make more than 50 requests per hour your GitHub token is required.
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repo: DIT112-V21/group-09
+        headerLabel: "# SmartRover project changelog"
+        output: CHANGELOG.md
+        author: false
+        issues: true
+        issuesWoLabels: true
+        pullRequests: true
+        prWoLabels: true
+        filterByMilestone: true
+        unreleased: true
+        unreleasedOnly: false
+        compareLink: true
+        verbose: true
+        issuesLabel: '### Closed issues'
+        prLabel: '### Merged pull requests'
+        breakingLabel: '### Breaking'
+        enhancementLabel: '### Enhancements'
+        enhancementLabels: 'enhancement'
+        bugsLabel: '### Bug fixes'
+        bugLabels: 'bug'
+        deprecatedLabel: '### Deprecated'
+        deprecatedLabels: 'deferred'
+        removedLabel: '### Removals'
+        removedLabels: 'removed'
+        unreleasedLabel: '### Unreleased'
+        addSections: '{"documentation":{"prefix":"### Documentation","labels":["documentation"]},"tests":{"prefix":"### Testing","labels":["tests"]}}'

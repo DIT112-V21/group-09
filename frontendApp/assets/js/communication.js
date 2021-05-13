@@ -2,8 +2,6 @@ const mqtt = require('mqtt')
 let config = require('electron-node-config');
 let mqttConfig = config.get('mqtt.brokerConfig');
 
-//console.log(dbConfig.host);
-
 window.mqtt = mqtt
 let client = null
 var canvas;
@@ -52,7 +50,6 @@ rightBtn.addEventListener('click', function(){ manualControl(rightBtn); }, false
 stopBtn.addEventListener('click', function(){ manualControl(stopBtn); }, false)
 cruiseBtn.addEventListener('click', function () { manualControl(cruiseBtn); }, false)
 cameraBtn.addEventListener('click', function () { takePhoto(this); }, false)
-
 
 function onConnect () {
   // const { host, port, clientId, username, password } = connection

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<title>SmartRover - Mission control</title>
 	<meta charset="UTF-8">
@@ -11,7 +10,17 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
 	<link rel="stylesheet" href="./assets/css/notifications.css">
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 </head>
 <body id="mission-control">
 	<header class="header">
@@ -30,6 +39,8 @@
 	</header>
 	<div class="container">
 		<div class="page-title">
+			
+			<!-- Notifications -->
 			<div aria-live="polite" aria-atomic="true" class="position-relative">
 				<!-- Position it: -->
 				<!-- - `.toast-container` for spacing between toasts -->
@@ -82,73 +93,142 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean
 				accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis
 				sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt
-				lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum nisi. Nullam
-				finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui, rhoncus et ex
-				accumsan, lobortis mollis elit.</p>
+				lorem vel ultrices.</p>
 		</div>
-		<div class="section-left">
-			<div class="mission-mars">
-				<h2>Mission map</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean
-					accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu,
-					convallis sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet
-					tincidunt lorem vel ultrices. Nam aliquam bibendum metus non molestie. Suspendisse potenti. Sed et bibendum
-					nisi. Nullam finibus euismod ante, in feugiat odio auctor et. Mauris vitae porttitor dui. Donec nunc dui,
-					rhoncus et ex accumsan, lobortis mollis elit.</p>
-				<img class="mission-map" src="assets/images/mission-map.jpg">
+		
+		<div class="container-2col">
+			<div class="mission-map rounded-3 panel panel-default">
+				<div class="rounded-3 panel2 panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Build your mission</h3>
+					</div>
+					<div id="mission-map" class="panel-body">
+						<!-- Tabs navs -->
+						<ul class="nav nav-tabs mb-3 nav-fill" id="ex1" role="tablist">
+						  <li class="nav-item" role="presentation">
+							<a class="nav-link active"
+							  id="ex1-tab-1"
+							  data-mdb-toggle="tab"
+							  href="#ex1-tabs-1"
+							  role="tab"
+							  aria-controls="ex1-tabs-1"
+							  aria-selected="true">
+								Mission map</a>
+						  </li>
+						  <li class="nav-item" role="presentation">
+							<a class="nav-link"
+							  id="ex1-tab-2"
+							  data-mdb-toggle="tab"
+							  href="#ex1-tabs-2"
+							  role="tab"
+							  aria-controls="ex1-tabs-2"
+							  aria-selected="false">
+								Mission table</a>
+						  </li>
+						  <li class="nav-item" role="presentation">
+							<a class="nav-link"
+							  id="ex1-tab-3"
+							  data-mdb-toggle="tab"
+							  href="#ex1-tabs-3"
+							  role="tab"
+							  aria-controls="ex1-tabs-3"
+							  aria-selected="false">
+								Status feed</a>
+						  </li>
+						</ul>
+						<!-- Tabs navs -->
+
+						<!-- Tabs content -->
+						<div class="tab-content" id="ex1-content">
+						  <div class="tab-pane fade show active"
+							id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+							<div id="marsMap"></div>
+							<div class="map-layer-checkboxes" align="center">
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="showAllCheck" />
+								  <label class="form-check-label map-check-label" for="showAllCheck">Show/hide all</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="spawnCheck" />
+								  <label class="form-check-label map-check-label" for="spawnCheck">Landing site</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="targetCheck" />
+								  <label class="form-check-label map-check-label" for="targetCheck">Mission targets</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="rockCheck" />
+								  <label class="form-check-label map-check-label" for="rockCheck">Rocks &#38; obstacles</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="routeCheck" />
+								  <label class="form-check-label map-check-label" for="routeCheck">Suggested routes</label>
+								</div>
+							</div>
+						  </div>
+						  <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+							<div>
+								<h2>Configure you mission</h2>
+								<form id="missionForm">
+									<input type="button" value="Add Step" onclick="addRow('commandTable')" />
+									<input type="button" value="Delete Step" onclick="deleteRow('commandTable')"/>
+									<table class="commandTable" id="commandTable">
+										<thead>
+										<th class="step">Step</th>
+										<th class="number">no.</th>
+										<th class="data">Heading</th>
+										<th class="data">Speed</th>
+										<th class="data">Distance</th>
+										</thead>
+										<tr id="row1">
+											<td><input type="checkbox" name="chk"/></td>
+											<td id="numbering">1</td>
+											<td id="heading"><input type="number" value="0" step="5" min="0" max="360" class="data-cell" /></td>
+											<td id="speed"><input type="number" value="0" step="10" min="-100" max="100" class="data-cell" /></td>
+											<td id="distance"><input type="number" value="0" step="100" class="data-cell" min="0" /></td>
+										</tr>
+									</table>
+									<button type="submit" value="" onclick="missionTableToArray()">Execute Commands</button>
+								</form>
+							</div>
+						  </div>
+						  <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+							<h2>Mission status</h2>
+								<ul>
+									<li>00:10 Mission has started</li>
+									<li>00:10 Step 1 has started</li>
+									<li>00:15 Step 1 has completed</li>
+									<li>00:20 Step 2 has started</li>
+									<li>00:25 Step 2 has completed</li>
+									<li>00:30 Step 3 has started</li>
+									<li>00:35 Step 3 has completed</li>
+									<li>00:40 Step 4 has started</li>
+									<li>00:45 Step 4 has completed</li>
+									<li>00:50 Step 5 has started</li>
+									<li>00:55 Step 5 has completed</li>
+									<li>01:00 Mission ended!</li>
+								</ul>
+						  </div>
+						</div>
+						<!-- Tabs content -->
+					</div>
+				</div>
 			</div>
-			<div class="live-stream">
-				<h2>Live Stream</h2>
-				<div style="width: auto;"><iframe style="display: block; margin: 0 auto;" width="480" height="270"
-						align="middle" src="http://ustream.tv/embed/6540154" scrolling="no" allowfullscreen webkitallowfullscreen
-						frameborder="0" style="border: 0 none transparent;"></iframe>
+			<div class="map-control rounded-3 panel panel-default">
+				<div class="rounded-3 panel2 panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Mission control</h3>
+					</div>
+					<div id="mission-map panel-body">
+						fjiorejfioerjfioer
+					</div>
 				</div>
 			</div>
 		</div>
+		
 		<div class="section-right">
 			<div>
-				<div>
-					<h2>Configure you mission</h2>
 
-					<form>
-						<input type="button" value="Add Step" onclick="addRow('commandTable')" />
-						<input type="button" value="Delete Step" onclick="deleteRow('commandTable')"/>
-						<table class="commandTable" id="commandTable">
-							<thead>
-							<th class="step">Step</th>
-							<th class="number">no.</th>
-							<th class="data">Heading</th>
-							<th class="data">Speed</th>
-							<th class="data">Distance</th>
-							</thead>
-							<tr id="row1">
-								<td><input type="checkbox" name="chk"/></td>
-								<td id="numbering">1</td>
-								<td id="heading"><input type="number" value="0" step="5" min="0" max="360" class="data-cell" /></td>
-								<td id="speed"><input type="number" value="0" step="10" min="-100" max="100" class="data-cell" /></td>
-								<td id="distance"><input type="number" value="0" step="10" class="data-cell" min="0" /></td>
-							</tr>
-						</table>
-						<button type="submit" value="">Execute Commands</button>
-					</form>
-
-
-					<h2>Mission status</h2>
-					<ul>
-						<li>00:10 Mission has started</li>
-						<li>00:10 Step 1 has started</li>
-						<li>00:15 Step 1 has completed</li>
-						<li>00:20 Step 2 has started</li>
-						<li>00:25 Step 2 has completed</li>
-						<li>00:30 Step 3 has started</li>
-						<li>00:35 Step 3 has completed</li>
-						<li>00:40 Step 4 has started</li>
-						<li>00:45 Step 4 has completed</li>
-						<li>00:50 Step 5 has started</li>
-						<li>00:55 Step 5 has completed</li>
-						<li>01:00 Mission ended!</li>
-					</ul>
-				</div>
 			</div>
 		</div>
 
@@ -163,9 +243,11 @@
 		</div>
 	</footer>
 	</div>
-
+	<script src="assets/js/map.js"></script>
 	<script src="assets/js/mission.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+	<!-- MDB -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
 </body>
 </html>

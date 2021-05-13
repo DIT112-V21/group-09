@@ -6,3 +6,4 @@ func _ready() -> void:
 	
 func init_cam_pos() -> Basis:
 	return $Camera.global_transform
+
