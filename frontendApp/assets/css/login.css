@@ -1,31 +1,24 @@
+.dropdown{
+  position: relative;
+  float: right;
+}
+
 .btn-secondary {
-
   /* color: rgb(27, 26, 26);
-
   border: rgb(156, 151, 151);
   background-color: brown; */
-
-  float: right;
-
-
-  
+  float: right; 
 }
 
 
 .btn-secondary:hover{
-
 color: rgb(94, 255, 0);
 background-color: violet;
-
 }
-
 
 .modal-header{
-
   font-family:Georgia, 'Times New Roman', Times, serif;
   color: rgb(211, 17, 59);
-
   background-color: blanchedalmond;
 }
-
 
