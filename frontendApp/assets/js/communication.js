@@ -1,6 +1,8 @@
 const mqtt = require('mqtt')
 let config = require('electron-node-config');
 let mqttConfig = config.get('mqtt.brokerConfig');
+const QrScanner = require('./assets/js/qr-scanner.umd.min.js');
+QrScanner.WORKER_PATH = './assets/js/qr-scanner-worker.min.js';
 
 window.mqtt = mqtt
 let client = null
@@ -10,6 +12,7 @@ var subscribed = false;
 var cruiseControl = false;
 const receivingChannel = mqttConfig.receivingChannel;
 const sendingChannel = mqttConfig.sendingChannel;
+var frameCount = 0;
 
 const options = {
 	keepalive: 30,
@@ -114,6 +117,19 @@ function onConnect () {
 				  }
 				  const imageData = new ImageData(pixels, width, height);
 				  ctx.putImageData(imageData, 0, 0);
+				  
+				  frameCount++;
+				  
+				  if (frameCount > 30) {
+					  var scanData = canvas.toDataURL('image/bmp');
+					  QrScanner.scanImage(scanData)
+						  .then(result => {
+						  	var qrMessage = "Found target area: " + result;
+						  	addTextToSerial(qrMessage);
+						  })
+						  .catch(error => console.log(error || 'No QR code found.'));
+					  frameCount = 0;
+				  }
 				  
 			  } else {
 				const msg = `${message.toString()}\nOn topic: ${topic}`
