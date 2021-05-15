@@ -27,296 +27,295 @@
 </header>
 <div class="container">
 	<div class="page-title">
-		<h1><br>Setup Guides</br></h1>
-		<div><h5><br>Select your platform to reach the correct page</br></h5></div>
-		<button class="tablink" onclick="openPage('Windows', this, '#aaaaa')">Windows</button>
-		<button class="tablink" onclick="openPage('MacOS', this, '#bbbbbb')">MacOS</button>
-		<div id="Windows" class="tabcontent">
-			<h3>Windows</h3>
-			<div>
-				<div class="tab">
-					<button class="tablinks" onclick="openTab(event, 'IntroductionW')" id="sideDefaultOpenW">Introduction</button>
-					<button class="tablinks" onclick="openTab(event, 'InstallSMCEW')">Install SMCE</button>
-					<button class="tablinks" onclick="openTab(event, 'InstallSRW')">Install SmartRover</button>
-					<button class="tablinks" onclick="openTab(event, 'ArduinoW')">Get Arduino Sketch File</button>
-					<button class="tablinks" onclick="openTab(event, 'InstallMQTTW')">Install MQTT</button>
-				</div>
-				<div id="IntroductionW" class="sideTabContent">
-					<div class="scrolledText">
-						<h4><br>Introduction</br></h4>
-						<a>In this page you will find all the necessary resources and information that
-							will enable you to run the SmartRover™ frontend app and SMCE-gd emulator
-							sketch to experience the Mars environment and sensation of driving a rover
-							on our neighboring planet. This page would help you to solve all your questions
-							regarding the installation of the each and every software needed to start
-							exploring and we will try to reference other relevant libraries and dependencies
-							to expend the resources further.
-						</a>
-					</div>
-				</div>
-				<div id="InstallSMCEW" class="sideTabContent">
-					<div class="scrolledText">
-						<h4>
-							<br>1. Install SMCE-gd Emulator (Courtesy Of ItJustWorks™)</br>
-						</h4>
-						<strong>
-							<br>Step 1.1: Get a package Manager</br>
-						</strong>
-						<a href="https://community.chocolatey.org/courses/installation/installing?method=installing-chocolatey">
-							Recommendation is to use Chocolatey as a Manager
-						</a>
-						<a>
-							<br>
-							For installing the package manager and dependencies start by opening Power Shell in Administrative Mode.
-							</br>
-						</a>
-						<strong>
-							<br>Step 1.2: Install Dependencies</br>
-						</strong>
-						<a>
-							Use the following commands in Power Shell as Administrator
-						</a>
-						<p><mark>choco install cmake -y --installargs 'ADD_CMAKE_TO_PATH=System'</mark>
-						</p>
+		<h1>Setup Guides</h1>
+		<h5>Select your platform to reach the correct page</h5>
+	</div>
+	<button class="tablink" onclick="openPage('ManualCtrl', this, '#3c0700')" >Manual Control</button>
+	<button class="tablink" onclick="openPage('MissionCtrl', this, '#3c0700')">Mission Control</button>
+	<div id="ManualCtrl" class="tabcontent">
+		<h3>Manual Control</h3>
+		<div>
+			<div class="tab">
+				<button class="tablinks" onclick="openTab(event, 'Introduction')" id="sideDefaultOpenW">Introduction</button>
+				<button class="tablinks" onclick="openTab(event, 'ControlPad')">Control Pad</button>
+				<button class="tablinks" onclick="openTab(event, 'Telemetry')">Telemetry</button>
+				<button class="tablinks" onclick="openTab(event, 'TerminalConsole')">Terminal Console</button>
+				<button class="tablinks" onclick="openTab(event, 'SerialFeed')">Serial feed</button>
+				<button class="tablinks" onclick="openTab(event, 'LiveStreaming')">Live Streaming</button>
+			</div>
+			<div id="Introduction" class="sideTabContent">
+				<div class="scrolledText">
+					<h4>Introduction</h4>
+					<p>
+						Having the control of a vehicle remotely is hard,
+						but if it's located on Mars it's even harder.
+						This page will thoroughly explain everything
+						in a paint-by-numbers fashion. Leaving nothing
+						to interpretation. It's Mars isn't it?
+					</p>
+					<img id="manualImg" src="assets/images/Manual-Control.png" width="100%" max-width="500px" height="inherit">
 
-						<p><mark>choco install arduino-cli openssl -y</mark>
-						</p>
-
-						<p><mark>choco install visualstudio2019buildtools -y --package-parameters "--add
-							Microsoft.VisualStudio.Workload.VCTools --includeRecommended --passive --locale en-US"
-						</mark>
-						</p>
-						<strong>
-							<br>Step 1.3: Install SMCE-Godot</br>
-						</strong>
-						<a>
-							Once done, go to SMCE-gd emulator's <a href="https://github.com/ItJustWorksTM/smce-gd/releases">releases</a>
-							page, and download the latest <mark>.msi</mark> installer. Run it,
-							disregarding SmartScreen security warning (see <a href="https://openmindsoftware.org/wp-content/uploads/smartscreen-1024x484.png">
-							this picture</a> if you do not know how to ignore SmartScreen once).
-						</a>
-					</div>
 				</div>
-				<div id="InstallSRW" class="sideTabContent">
-					<div class="scrolledText">
-						<h4>
-							<br>2. Install Smart Rover Front End App</br>
-						</h4>
-						<a>
-							To install the Front End App first head over to <a href="https://github.com/DIT112-V21/group-09/releases">the Releases Page</a>.
-							From here click the latest release and then download the latest .exe installer file. Then to install, double click the file.
-							Windows will then display the standard warning message, choose More Info and then click Run Anyway. The App is then
-							installed to the User directory. Now to run the App, just double click the Smart Rover icon.
-						</a>
-					</div>
-				</div>
-				<div id="ArduinoW" class="sideTabContent">
-					<div class="scrolledText">
-						<h4>
-							<br>3. Get Arduino Sketch File</br>
-						</h4>
-						<a>
-							To get the latest version of the SmartRover sketch to run on the SMCE-gd, please visit our <a href="https://github.com/DIT112-V21/group-09/releases">
-							Releases page</a>. Arduino sketch will be
-							listed as one of the release assets and named like "SmartRover_vx.x.x-sketch.zip" with reference to current release version. After you
-							download and save the zip file into your computer, please extract it so that you have "SmartRover/SmartRover.ino" structure intact.
-						</a>
-						<a>
-							<br>
-								From SMCE-gd emulator, you can navigate the above folder you have extracted and select ino sketch file to compile. That's it.
-							</br>
-						</a>
-					</div>
-				</div>
-				<div id="InstallMQTTW" class="sideTabContent">
-					<div class="scrolledText">
+			</div>
+			<div id="ControlPad" class="sideTabContent">
+				<div class="scrolledText">
 					<h4>
-						<br>4. Install MQTT</br>
+						Control Pad
 					</h4>
-					<br>
-						MQTT protocol enables bi-directional communication between the SmartRover emulator and the Frontend app, so that you can receive telemetry
-						data and camera stream and send driving commands from control pad or console terminal. For the best performance, it is recommended to
-						install a local MQTT broker on your computer and configure both emulator and the frontend to connect to "localhost". Or for more realistic
-						experience of a "delayed" communication between the SmartRover, Mars Orbiter and the Earth, you can choose and use from numerous online MQTT brokers.
-					</br>
-					<strong>
-						<br>Option 1. Install or choose an online MQTT broker</br>
-					</strong>
-					<br>
-						List of Servers and brokers at <a href="https://mqtt.org/software/">https://mqtt.org/software/</a>.
-					</br>
-					<strong>
-						<br>Option 2. Install Mosquitto local broker</br>
-					</strong>
-					<br>
-						We have used and tested with a local installation of the open source <a href="https://www.mosquitto.org/">Mosquitto broker</a>.
-					</br>
-				</div>
-				</div>
-			</div>
-		</div>
-		<div id="MacOS" class="tabcontent">
-			<h3>MacOS</h3>
-			<div>
-				<div class="tab">
-					<button class="tablinks" onclick="openTab(event, 'Introduction')" id="sideDefaultOpenM">Introduction</button>
-					<button class="tablinks" onclick="openTab(event, 'InstallSMCE')">Install SMCE</button>
-					<button class="tablinks" onclick="openTab(event, 'InstallSR')">Install SmartRover</button>
-					<button class="tablinks" onclick="openTab(event, 'Arduino')">Get Arduino Sketch File</button>
-					<button class="tablinks" onclick="openTab(event, 'InstallMQTT')">Install MQTT</button>
-				</div>
-				<div id="Introduction" class="sideTabContent">
-					<div class="scrolledText">
-						<h4><br>Introduction</br></h4>
-						<a>On this page, you will find all the necessary resources
-							and information that will enable you to run the SmartRover™
-							frontend app and SMCE-gd emulator sketch to experience the
-							Mars environment and sensation of driving a rover on our
-							neighboring planet. This page would help you to solve all
-							your questions regarding the installation of each and every
-							software needed to start exploring and we will try to reference
-							other relevant libraries and dependencies to expand the resources
-							further.
-						</a>
-					</div>
-				</div>
-				<div id="InstallSMCE" class="sideTabContent">
-					<div class="scrolledText">
-						<h4>
-							<br>1. Install SMCE-gd Emulator (Courtesy Of ItJustWorks™)</br>
-						</h4>
+					<img id="controlImg" src="assets/images/Control-Pad.png" width="100%">
+					<div>
 						<strong>
-							<br>Step 1.1: Get a package Manager</br>
+							Camera Button
+							<span id="sidebutton"><i class="fas fa-camera fa-2x" style="padding: 28px 25px 30px 29px;"></i></span>
 						</strong>
-						<a href="https://brew.sh/">
-							Recommendation is to use Homebrew as a package Manager
-						</a>
-						<a>
-							<br>
-							Homebrew can be installed by invoking the following command on the Terminal app
-							</br>
-						</a>
-						</a>
-						<p><mark>bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</mark>
-						</p>
-						<a>
-							Now you can install the dependencies.
-						</a>
-						<strong>
-							<br>Step 1.2: Install Dependencies</br>
-						</strong>
-						<a>
-							Use the following commands in the Terminal app
-						</a>
-						<p><mark>brew install --cask cmake</mark>
-						</p>
-
-						<p><mark>brew install arduino-cli</mark>
-						</p>
-
-						<p><mark># brew install openssl # Uncomment this one if your
-							Apple-provided LibreSSL fails to work with SMCE</mark>
-						</p>
-						<strong>
-							<br>Step 1.3: Install a C++ compiler</br>
-						</strong>
-						<a>
-							<br>If you have not any C++ compiler installed, we recommend
-							you to install AppleClang as it is the default compiler
-							by CMake. You can install AppleClang, by invoking the
-							following command in a Terminal:</br>
-						</a>
 						<p>
-							<mark>xcode-select --install</mark>
+							The camera button located on the top left
+							corner is the starting point for all camera
+							related activities. Snapshots, footage of
+							the SmartRover a long with a livestream of
+							the excursion will all be accessed through
+							that centralised application. Easy, accessible
+							and efficient.
 						</p>
-						<a>
-							<br>
-								Note: The software is no longer available for macOS
-								Catalina or earlier. So you should instead download the
-								latest stable (non-beta) package from the
-								<a href="https://idmsa.apple.com/IDMSWebAuth/signin?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&path=%2Fdownload%2Fmore%2F%3Fname%3Dfor%2520Xcode&rv=1">Apple Developer Downloads page</a>.
-							</br>
-						</a>
-						<strong>
-							<br>Step 1.4: Install SMCE-Godot</br>
-						</strong>
-						<a>
-							Once done, go to SMCE-gd emulator's <a href="https://github.com/ItJustWorksTM/smce-gd/releases">releases</a>
-							page, and download the latest <mark>.dmg</mark> installer. Run it, disregarding the security warning, and drag and drop the SMCE-Godot app into the Applications folder.
-						</a>
+
 					</div>
-				</div>
-				<div id="InstallSR" class="sideTabContent">
-					<div class="scrolledText">
-						<h4>
-							<br>2. Install Smart Rover Front End App</br>
-						</h4>
-						<a>
-							To install the Front End App first head over to
-							<a href="https://github.com/DIT112-V21/group-09/releases">
-								the Releases Page
-							</a>, and download the latest <mark>.dmg</mark>.
-							Then open it disregarding the Gatekeeper warning,
-							finally, drag and drop the SmartRover app into the
-							Applications folder. If your mac still does not
-							allow you to open the app, check the guides to
-							<a href="https://support.apple.com/en-us/HT202491">safely open apps on Mac</a>.
-						</a>
-					</div>
-				</div>
-				<div id="Arduino" class="sideTabContent">
-					<div class="scrolledText">
-						<h4>
-							<br>3. Get Arduino Sketch File</br>
-						</h4>
-						<a>
-							To get the latest version of the SmartRover sketch to run on the SMCE-gd,
-							please visit our <a href="https://github.com/DIT112-V21/group-09/releases">
-							Releases page</a>. Arduino sketch will be
-							listed as one of the release assets and named like
-							"SmartRover_vx.x.x-sketch.zip" with reference to
-							current release version. After you
-							download and save the zip file into your computer,
-							please extract it so that you have
-							"SmartRover/SmartRover.ino" structure intact.
-						</a>
-						<a>
-							<br>
-							From SMCE-gd emulator, you can navigate the above folder you have extracted and select ino sketch file to compile. That's it.
-							</br>
-						</a>
-					</div>
-				</div>
-				<div id="InstallMQTT" class="sideTabContent">
-					<div class="scrolledText">
-						<h4>
-							<br>4. Install MQTT</br>
-						</h4>
-						<br>
-						MQTT protocol enables bi-directional communication between the SmartRover emulator and the Frontend app, so that you can receive telemetry
-						data and camera stream and send driving commands from control pad or console terminal. For the best performance, it is recommended to
-						install a local MQTT broker on your computer and configure both emulator and the frontend to connect to "localhost". Or for more realistic
-						experience of a "delayed" communication between the SmartRover, Mars Orbiter and the Earth, you can choose and use from numerous online MQTT brokers.
-						</br>
+					<div>
 						<strong>
-							<br>Option 1. Install or choose an online MQTT broker</br>
+							Up Arrow Button
+							<span id="upbutton"><i class="fas fa-chevron-up fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
+
 						</strong>
-						<br>
-						List of Servers and brokers at <a href="https://mqtt.org/software/">https://mqtt.org/software/</a>.
-						</br>
+						<p>
+							A up arrow will direct the SmartRover in a
+							straight direction with respect to the heading
+							off the SmartRover vehicle and increment the
+							speed upon clicking the button in either direction.
+						</p>
+					</div>
+					<div>
 						<strong>
-							<br>Option 2. Install Mosquitto local broker</br>
+							Power Button
+							<span id="connectbutton" class="disconnected"><i class="fas fa-power-off fa-2x" style="padding: 28px 25px 30px 27px;"></i></span>
 						</strong>
-						<br>
-						We have used and tested with a local installation of the open source <a href="https://www.mosquitto.org/">Mosquitto broker</a>.
-						</br>
+						<p>
+							Will activate and deactivate the SmartRover.
+							When the button is clicked it can display
+							one of which modes indicated by specific
+							set of colouring. Green and Grey. Green
+							color indicates that the SmartRover has
+							been turned on and is now reactive to
+							commands given to it from Manual Control
+							Panel. When clicking the green button the
+							SmartRover will be deactivated from its
+							previously active state. A deactivated
+							state is indicated by grey. A color that
+							is set to default for the Panel.
+						</p>
+
+					</div>
+					<div>
+						<strong>
+							Left Arrow Button
+							<span id="leftbutton"><i class="fas fa-chevron-left fa-2x" style="padding: 28px 25px 30px 38px;"></i></span>
+						</strong>
+						<p>
+							A left arrow will direct the SmartRover to
+							the left incrementally with each left click.
+						</p>
+					</div>
+					<div>
+						<strong>
+							Stop Button
+							<span id="stopbutton"><i class="fas fa-stop-circle fa-2x" style="padding: 28px 25px 25px 28px;"></i></span>
+						</strong>
+						<p>
+							The Stop Button will stop the SmartRover
+							with no braking distance independent of
+							the speed of the SmartRover
+						</p>
+					</div>
+					<div>
+						<strong>
+							Right Arrow Button
+							<span id="rightbutton"><i class="fas fa-chevron-right fa-2x" style="padding: 28px 25px 25px 39px;"></i></span>
+						</strong>
+						<p>
+							The right arrow will direct the
+							SmartRover to the left incrementally
+							with each right click.
+						</p>
+					</div>
+					<div>
+						<strong>
+							Satellite connection button
+							<span id="satelliteButton" class="fas fa-satellite-dish fa-2x" style="padding: 28px 25px 25px 30px;"></span>
+						</strong>
+						<p>
+							The Satellite connection button on the bottom
+							left corner will connect the SmartRover to
+							the Mars Orbiter satellite to transfer telemetry
+							and camera data from the SmartRover through a
+							central hub called the broker. Telemetry data
+							will be updated every 3 seconds and camera feed
+							will live at VGA (30 fps) resolution.
+						</p>
+					</div>
+					<div>
+						<strong>
+							Down Arrow Button
+							<span id="downbutton"><i class="fas fa-chevron-down fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
+						</strong>
+						<p>
+							The Down arrow will reverse the SmartRover
+							and the speed will also be incremented
+							with each click.
+						</p>
+					</div>
+					<div>
+						<strong>
+							Obstacle Avoidance Button
+							<span id="cruiseButton" class="disconnected"><i class="fas fa-car-crash fa-2x" style="padding: 28px 25px 25px 18px;"></i></span>
+						</strong>
+						<p>
+							The Obstacle Avoidance Button will activate
+							the obstacles avoidance function that will
+							activate the SmartRovers sensors for detecting
+							nearby obstacles within a given radius.
+						</p>
 					</div>
 				</div>
 			</div>
-
+			<div id="Telemetry" class="sideTabContent">
+				<div class="scrolledText">
+					<h4>
+						Telemetry
+					</h4>
+					<img id="telemetryImg" src="assets/images/Manual-Control-Telemetry.png" width="100%">
+					<div>
+						<p>
+							<strong>Heading - </strong> On the Telemetry
+							field, data regarding the heading will be
+							displayed in real-time through a synchronization
+							with the SmartRover. By moving the SmartRover
+							the vehicles heading will be affected and
+							continuously updated on the Telemetry field.
+							The result and data will be translated to degrees.
+						</p>
+						<p>
+							<strong>Throttle - </strong> Throttle will be displayed
+							in % and will describe the correlation between power
+							or speed and the regulation of the engine. By monitoring
+							the speed of the vehicle you will directly affect the
+							Throttle which will be picked up and translated into
+							the Telemetry field.
+						</p>
+						<p>
+							<strong>Speed - </strong> The speed of the SmartRover
+							will also be displayed in the Telemetry field and
+							translated to m/s. By monitoring the SmartRover, by
+							setting and modulating the overall speed and acceleration
+							will set off a chain reaction to the Telemetry field.
+							Displaying accurate data in real-time and by sequence
+							of events in order.
+						</p>
+						<p>
+							<strong>Turn Angle - </strong> By using the Control Panel
+							or sending commands to the SmartRover you will be able to
+							change and monitor the SmartRovers direction completely.
+							Commands will be discussed further down, but by using the
+							Control Panel, the buttons representing possible direction
+							will trigger the SmartRover to move or try to move accordingly
+							with regards to possible obstacles or interruptions.
+						</p>
+						<p>
+							<strong>Total distance - </strong> The total distance will be
+							collected upon spawning in the Mars landscape. Every distance
+							that was travelled will be logged and added. The unit in which
+							everything will be calculated is in meters. This will grant
+							the user control over the mileage in addition to providing a
+							useful tool to estimate and approximate with regards to
+							mileage and distance travelled.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="TerminalConsole" class="sideTabContent">
+				<div class="scrolledText">
+					<h4>
+						Terminal Console
+					</h4>
+					<img id="terminalImg" src="assets/images/Manual-Control-Terminal.png" width="100%">
+					<div>
+						<p>
+							<strong>Commands - </strong>The SmartRover is programmed to
+							respond to different ascribed commands. Each with a set
+							of instructions that the SmartRover is able to complete
+							and follow through with. With respect to the circumstances
+							and the complexity of the game. //List of commands for user
+						</p>
+						<p>
+							<strong>How to drive - </strong>The SmartRover was designed
+							and equipped with a Control Panel that resembles that of a
+							real car. Only difference is that the SmartRover is monitored
+							remotely. Meaning that it communicates with the user by reeling
+							data through a server called the Broker(MQTT). By pressing a
+							button or writing an ascribed command for the SmartRover the
+							user will be able to steer the SmartRover and exercise full
+							control over its entirety. From the direction, acceleration,
+							speed to turning angle or heading. All this information can
+							be retrieved in the Mission Control page of the SmartRover.
+							//Screenshots with text under
+						</p>
+						<p>
+							<strong>Ask date and time</strong>
+						</p>
+						<p>
+							<strong>More stuff.</strong>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="SerialFeed" class="sideTabContent">
+				<div class="scrolledText">
+					<h4>
+						Serial Feed
+					</h4>
+					<img id="serialImg" src="assets/images/Manual-Control-Serial-Feed.png" width="100%">
+					<div>
+						<p>
+							<strong>Lorem</strong>Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+							exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate
+							velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+							sint occaecat cupidatat non proident, sunt in culpa qui officia
+							deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="LiveStreaming" class="sideTabContent">
+				<div class="scrolledText">
+					<h4>
+						Live Streaming
+					</h4>
+					<img id="liveStreamingImg" src="assets/images/Manual-Control-Live-Streaming.png" width="100%">
+					<div>
+						<p>
+							You can get live visual feedback from the <strong>SmartRover</strong>.
+							The live streaming makes it easier to see the
+							environment in Mars planet and avoid obstacles while
+							 controlling the <strong>SmartRover</strong>.
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
+	<div id="MissionCtrl" class="tabcontent">
+
+	</div>
 <footer class="footer">
 	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
 		Please contact us <a href="#">@github.com</a>.
@@ -358,7 +357,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script>
-	function openTab(evt, cityName) {
+	function openTab(evt, tabName) {
 		var i, sideTabContent, tablinks;
 		sideTabContent = document.getElementsByClassName("sideTabContent");
 		for (i = 0; i < sideTabContent.length; i++) {
@@ -368,11 +367,29 @@
 		for (i = 0; i < tablinks.length; i++) {
 			tablinks[i].className = tablinks[i].className.replace(" active", "");
 		}
-		document.getElementById(cityName).style.display = "block";
+		document.getElementById(tabName).style.display = "block";
 		evt.currentTarget.className += " active";
 	}
 	document.getElementById("sideDefaultOpenW").click();
 
 </script>
+<script>
+	function openInnerTab(evt, innerTabName) {
+		var i, innerSideTabContent, tablinks;
+		innerSideTabContent = document.getElementsByClassName("sideTabContent");
+		for (i = 0; i < innerSideTabContent.length; i++) {
+			innerSideTabContent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(innerTabName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+	document.getElementById("sideDefaultOpenW").click();
+
+</script>
+
 </body>
 </html>
