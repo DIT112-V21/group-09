@@ -87,10 +87,7 @@
 				</div>
 			</div>
 			<h1>Mission control</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean
-				accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis
-				sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt
-				lorem vel ultrices.</p>
+			<p style="margin-top: 25px; padding-left: 5px; color: white;">Welcome to Mission control. This section allows you to review the mission area from the Mars Orbiter satellite image and plan a mission for the SmartRover. Once you have reviewed Landing site, mission target areas, rocks, obstacles and suggested routes from the satellite image, please use the Mission control to plan and modify your mission route. When you feel ready then we can blast off to the mission. Good luck, champ.</p>
 		</div>
 		
 		<div class="container-2col">
@@ -213,10 +210,10 @@
 						<h3 class="panel-title">Mission control</h3>
 					</div>
 					<div id="mission-guide panel-body" style="padding: 3px;">
-						<section id="mapPlotter" class="border p-4 mb-4 d-flex justify-content-center">
+						<section id="mapPlotter" class="border p-3 d-flex justify-content-center" style="border: 1px red solid;">
 							<div id="select-wrapper-158016" class="select-wrapper">
-								<div class="form-outline">
-									<h5>Step 1. </h5>
+								<div class="form-outline mission-control-text">
+									<h5>STEP 1. </h5>
 									<p>Select destination target area</p>
 									<div class="input-group">
 									<select id="routeSelector" class="form-select select select-initialized">
@@ -231,13 +228,13 @@
 									  data-mdb-ripple-color="dark" data-toggle="modal" data-target="#reloadWarning" disabled><i class="fas fa-sync-alt"></i></button>
 									</div>
 									<br />
-									<h5>Step 2. </h5>
-									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-waypoint.png"><strong>Drag-and-drop</strong> these waypoints to change its destination.<br /><strong>Click</strong> on these waypoints, to delete it from the route.</p>
-									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-midpoint.png"><strong>Click</strong> these midpoints to change it to a waypoint and add one more step to the mission.<br /></p>
+									<h5>STEP 2. </h5>
+									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-waypoint.png"><strong>Drag-and-drop</strong> these waypoints to change its location.<br /><strong>Click</strong> on these waypoints, to delete it from the route. <strong>Right-click</strong> to delete a waypoint.</p>
+									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-midpoint.png"><strong>Click-hold (drag around)</strong> these midpoints to change it to a new waypoint and add one more step to the mission.<br /></p>
 									
 									<i class="fas fa-sync-alt"></i> Click <strong>Reload</strong> button in Step 1 to reset everything.</p>
 									
-									<h5>Step 3. </h5>
+									<h5>STEP 3. </h5>
 									<p>Ready to launch? Click below:</p>
 									<div style="text-align:center">
 										<button id="executeBtn" type="button" class="btn btn-success btn-rounded input-group-addon input-group-button"
