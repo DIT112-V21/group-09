@@ -927,6 +927,16 @@ img.rover-model {
 	padding: 10px;
 }
 
+#mission-guide .input-group-button {
+    padding: 0 0 0 5px;
+    border-color: transparent;
+    background: none;
+}
+
+#mission-control img.mission-map-waypoint {
+	margin: 3px 3px 0 0;
+}
+
 /* Page content */
 .content {
   padding: 16px;

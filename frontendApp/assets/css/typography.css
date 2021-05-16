@@ -122,7 +122,10 @@ div[class^="intro-tooltip"]:hover {
 	font-family: 'Lato', 'Open Sans', sans-serif;
 	font-size: 12pt;
 	font-weight: 500;
-	
+}
+
+#mission-control .mission-control-text {
+	text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
 }
 
 /* Font definitions used */

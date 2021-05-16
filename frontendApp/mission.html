@@ -16,11 +16,13 @@
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
 	<link rel="stylesheet" href="./assets/css/notifications.css">
+	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+	<script type="text/javascript" src="./assets/js/leaflet-mission-polyline.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body id="mission-control">
 	<header class="header">
@@ -84,16 +86,8 @@
 					</div>
 				</div>
 			</div>
-
-			<button id="button1">Click Me</button>
-			<button id="button2">Click Me</button>
-			<button id="button3">Click Me</button>
-
 			<h1>Mission control</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut convallis magna, in eleifend lacus. Aenean
-				accumsan lorem neque, maximus aliquet odio consequat sed. Nunc neque lacus, scelerisque eu aliquet eu, convallis
-				sed elit. Ut non eleifend nunc. Donec scelerisque nulla vitae sem euismod finibus. Vivamus imperdiet tincidunt
-				lorem vel ultrices.</p>
+			<p style="margin-top: 25px; padding-left: 5px; color: white;">Welcome to Mission control. This section allows you to review the mission area from the Mars Orbiter satellite image and plan a mission for the SmartRover. Once you have reviewed Landing site, mission target areas, rocks, obstacles and suggested routes from the satellite image, please use the Mission control to plan and modify your mission route. When you feel ready then we can blast off to the mission. Good luck, champ.</p>
 		</div>
 		
 		<div class="container-2col">
@@ -104,56 +98,55 @@
 					</div>
 					<div id="mission-map" class="panel-body">
 						<!-- Tabs navs -->
-						<ul class="nav nav-tabs mb-3 nav-fill" id="ex1" role="tablist">
+						<ul class="nav nav-tabs mb-3 nav-fill" id="missionTabs" role="tablist">
 						  <li class="nav-item" role="presentation">
 							<a class="nav-link active"
-							  id="ex1-tab-1"
+							  id="missionTabs-map-tab"
 							  data-mdb-toggle="tab"
-							  href="#ex1-tabs-1"
+							  href="#map-tab"
 							  role="tab"
-							  aria-controls="ex1-tabs-1"
+							  aria-controls="map"
 							  aria-selected="true">
 								Mission map</a>
 						  </li>
 						  <li class="nav-item" role="presentation">
 							<a class="nav-link"
-							  id="ex1-tab-2"
+							  id="missionTabs-table-tab"
 							  data-mdb-toggle="tab"
-							  href="#ex1-tabs-2"
+							  href="#table-tab"
 							  role="tab"
-							  aria-controls="ex1-tabs-2"
+							  aria-controls="table"
 							  aria-selected="false">
 								Mission table</a>
 						  </li>
 						  <li class="nav-item" role="presentation">
 							<a class="nav-link"
-							  id="ex1-tab-3"
+							  id="missionTabs-stream-tab"
 							  data-mdb-toggle="tab"
-							  href="#ex1-tabs-3"
+							  href="#stream-tab"
 							  role="tab"
-							  aria-controls="ex1-tabs-3"
+							  aria-controls="stream"
 							  aria-selected="false">
 								Status feed</a>
 						  </li>
 						</ul>
 						<!-- Tabs navs -->
-
 						<!-- Tabs content -->
 						<div class="tab-content" id="ex1-content">
 						  <div class="tab-pane fade show active"
-							id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+							id="map-tab" role="tabpanel" aria-labelledby="map">
 							<div id="marsMap"></div>
 							<div class="map-layer-checkboxes" align="center">
 								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="checkbox" id="showAllCheck" />
+								  <input class="form-check-input" type="checkbox" id="showAllCheck" checked />
 								  <label class="form-check-label map-check-label" for="showAllCheck">Show/hide all</label>
 								</div>
 								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="checkbox" id="spawnCheck" />
-								  <label class="form-check-label map-check-label" for="spawnCheck">Landing site</label>
+								  <input class="form-check-input" type="checkbox" id="spawnCheck" checked />
+								  <label class="form-check-label map-check-label" for="spawnCheck" >Landing site</label>
 								</div>
 								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="checkbox" id="targetCheck" />
+								  <input class="form-check-input" type="checkbox" id="targetCheck" checked />
 								  <label class="form-check-label map-check-label" for="targetCheck">Mission targets</label>
 								</div>
 								<div class="form-check form-check-inline">
@@ -166,7 +159,7 @@
 								</div>
 							</div>
 						  </div>
-						  <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+						  <div class="tab-pane fade" id="table-tab" role="tabpanel" aria-labelledby="table">
 							<div>
 								<h2>Configure you mission</h2>
 								<form id="missionForm">
@@ -192,7 +185,7 @@
 								</form>
 							</div>
 						  </div>
-						  <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+						  <div class="tab-pane fade" id="stream-tab" role="tabpanel" aria-labelledby="stream">
 							<h2>Mission status</h2>
 								<ul>
 									<li>00:10 Mission has started</li>
@@ -203,11 +196,8 @@
 									<li>00:30 Step 3 has started</li>
 									<li>00:35 Step 3 has completed</li>
 									<li>00:40 Step 4 has started</li>
-									<li>00:45 Step 4 has completed</li>
-									<li>00:50 Step 5 has started</li>
-									<li>00:55 Step 5 has completed</li>
-									<li>01:00 Mission ended!</li>
 								</ul>
+							  	<textarea id="routePlotArea" rows="10" cols="70"></textarea>
 						  </div>
 						</div>
 						<!-- Tabs content -->
@@ -219,8 +209,40 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Mission control</h3>
 					</div>
-					<div id="mission-map panel-body">
-						fjiorejfioerjfioer
+					<div id="mission-guide panel-body" style="padding: 3px;">
+						<section id="mapPlotter" class="border p-3 d-flex justify-content-center" style="border: 1px red solid;">
+							<div id="select-wrapper-158016" class="select-wrapper">
+								<div class="form-outline mission-control-text">
+									<h5>STEP 1. </h5>
+									<p>Select destination target area</p>
+									<div class="input-group">
+									<select id="routeSelector" class="form-select select select-initialized">
+										<option value="none" selected disabled>&lt;Select target&gt;</option>
+								  		<option value="sierra">Sierra Nevada</option>
+								  		<option value="steigerwald">Steigerwald Lake</option>
+								  		<option value="gascogne">Landes de Gascogne</option>
+								  		<option value="timan">Timanfaya</option>
+								  		<option value="katmai">Katmai</option>
+									</select>
+									<button id="reloadBtn" type="button" class="btn btn-warning btn-rounded input-group-addon input-group-button"
+									  data-mdb-ripple-color="dark" data-toggle="modal" data-target="#reloadWarning" disabled><i class="fas fa-sync-alt"></i></button>
+									</div>
+									<br />
+									<h5>STEP 2. </h5>
+									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-waypoint.png"><strong>Drag-and-drop</strong> these waypoints to change its location.<br /><strong>Click</strong> on these waypoints, to delete it from the route. <strong>Right-click</strong> to delete a waypoint.</p>
+									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-midpoint.png"><strong>Click-hold (drag around)</strong> these midpoints to change it to a new waypoint and add one more step to the mission.<br /></p>
+									
+									<i class="fas fa-sync-alt"></i> Click <strong>Reload</strong> button in Step 1 to reset everything.</p>
+									
+									<h5>STEP 3. </h5>
+									<p>Ready to launch? Click below:</p>
+									<div style="text-align:center">
+										<button id="executeBtn" type="button" class="btn btn-success btn-rounded input-group-addon input-group-button"
+										  data-mdb-ripple-color="dark" data-toggle="modal" data-target="#reloadWarning" disabled><i class="fas fa-rocket"></i>&nbsp;&nbsp;<strong>Execute mission</strong></button>
+									</div>
+								</div>
+						  </div>
+						</section>
 					</div>
 				</div>
 			</div>
@@ -238,11 +260,7 @@
 		<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
 			Please contact us <a href="#">@github.com</a>.
 		</div>
-		<div class="footer-menu">
-
-		</div>
 	</footer>
-	</div>
 	<script src="assets/js/map.js"></script>
 	<script src="assets/js/mission.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
