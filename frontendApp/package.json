@@ -27,6 +27,7 @@
     "mqtt": "^4.2.6",
     "node-client": "^0.1.17",
     "node-postgres": "^0.6.2",
+    "sequelize": "^6.6.2",
     "spectron": "^14.0.0"
   },
   "bugs": {
