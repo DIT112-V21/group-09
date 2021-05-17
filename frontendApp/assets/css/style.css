@@ -1004,43 +1004,6 @@ thead cell{
 
 
 /* CSS style for Help Menu */
-* {box-sizing: border-box}
-
-/* Style tab links */
-.tablink {
-    background-color: #451804;
-    color: white;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    font-size: 17px;
-    width: 50%;
-}
-
-
-.tablink:hover {
-    background-color: white;
-    color: black;
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-    color: black;
-    display: none;
-    padding: 100px 20px;
-    height: 700px;
-}
-
-#ManualCtrl {
-    background-color: rgba(0,0,0,0.5);
-}
-#MissionCtrl {
-    background-color: rgba(0,0,0,0.5);
-}
-
-
 /*side tabs*/
 * {box-sizing: border-box}
 body {font-family: "Lato", sans-serif;}
@@ -1048,20 +1011,20 @@ body {font-family: "Lato", sans-serif;}
 /* Style the tab */
 .tab {
     float: left;
-    border: 1px solid #ccc;
-    background-color: #451804;
+    background-color: rgb(204, 204, 204);
     width: 30%;
     height: 550px;
 }
 
 /* Style the buttons inside the tab */
 .tab button {
+    color: #282828;
+    background-color: rgb(204, 204, 204);
+    border-right: 2px #b8b4a8 solid;
+    border-bottom: none;
     display: block;
-    background-color: #451804;
-    color: white;
     padding: 22px 16px;
     width: 100%;
-    border: none;
     outline: none;
     text-align: left;
     cursor: pointer;
@@ -1071,25 +1034,37 @@ body {font-family: "Lato", sans-serif;}
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    color: black;
-    background-color: white;
+    color: #282828;
+    background-color: rgb(220, 220, 220);
+    border-top: 2px #282828 solid;
+    border-left: 1px #fff solid;
+    border-right: none;
+    border-bottom: 1px #fff solid;
 }
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-    background-color: #3c0700;
+    color: #282828;
+    background: rgb(239, 239, 239);
+    border-top: 1px #282828 solid;
+    border-left: 2px #282828 solid;
+    border-right: none;
+    border-bottom: 1px #282828 solid;
 }
 
 /* Style the tab content */
 .sideTabContent {
-    background-color: #3c0700;
-    color: white;
+    background: rgb(239, 239, 239);
+    color: #1b1b3d;
+    margin: 0 0;
     float: left;
-    padding: 0px 12px;
-    border: 1px solid #ccc;
+    padding: 12px 12px;
     width: 70%;
-    border-left: none;
     height: 550px;
+    border-top: 1px #282828 solid;
+    border-left: none;
+    border-right: 1px #282828 solid;
+    border-bottom: 1px #282828 solid;
 }
 
 div.scrolledText {
@@ -1098,15 +1073,15 @@ div.scrolledText {
     overflow: auto;
 }
 
-#manualImg{
-    max-width: 700px;
+#roverLogoImg{
+    max-width: 750px;
 }
-#controlImg{
-    max-width: 300px;
+#manualCTRLImg{
+    max-width: 700px;
 }
 #telemetryImg, #serialImg{
     max-width: 200px;
 }
-#terminalImg, #liveStreamingImg{
-    max-width: 400px;
+#liveStreamingImg, #controlPadImg, #terminalImg{
+    max-width: 250px;
 }

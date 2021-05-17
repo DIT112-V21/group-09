@@ -30,301 +30,228 @@
 		<h1>Setup Guides</h1>
 		<h5>Select your platform to reach the correct page</h5>
 	</div>
+	<!--</div>
 	<button class="tablink" onclick="openPage('ManualCtrl', this, '#3c0700')" >Manual Control</button>
 	<button class="tablink" onclick="openPage('MissionCtrl', this, '#3c0700')">Mission Control</button>
 	<div id="ManualCtrl" class="tabcontent">
-		<h3>Manual Control</h3>
-		<div>
-			<div class="tab">
-				<button class="tablinks" onclick="openTab(event, 'Introduction')" id="sideDefaultOpenW">Introduction</button>
-				<button class="tablinks" onclick="openTab(event, 'ControlPad')">Control Pad</button>
-				<button class="tablinks" onclick="openTab(event, 'Telemetry')">Telemetry</button>
-				<button class="tablinks" onclick="openTab(event, 'TerminalConsole')">Terminal Console</button>
-				<button class="tablinks" onclick="openTab(event, 'SerialFeed')">Serial feed</button>
-				<button class="tablinks" onclick="openTab(event, 'LiveStreaming')">Live Streaming</button>
+		<h3>Manual Control</h3>-->
+	<div>
+		<div class="tab">
+			<button class="tablinks" onclick="openTab(event, 'SRProjectTab')" id="sideDefaultOpenW">SmartRover project</button>
+			<button class="tablinks" onclick="openTab(event, 'SettingsTab')">Settings - How to do settings</button>
+			<button class="tablinks" onclick="openTab(event, 'RegistrationTab')">Registration and user login</button>
+			<button class="tablinks" onclick="openTab(event, 'ManualCTRLTab')"> Manual control</button>
+			<button class="tablinks" onclick="openTab(event, 'MissionCTRLTab')">Mission control</button>
+			<button class="tablinks" onclick="openTab(event, 'TSTab')">Troubleshooting</button>
+		</div>
+		<div id="SRProjectTab" class="sideTabContent">
+			<div class="scrolledText">
+				<img id="roverLogoImg" src="assets/images/rover-logo.png" width="100%" max-width="500px" height="inherit">
+				<h4>SmartRover Project</h4>
+				<p>
+					The SmartRover is an open source project that is revised
+					and based on the
+					<a href="https://github.com/platisd/smartcar_shield/wiki">
+						SmartCar</a> project in so far as providing open source
+					software and hardware components accompanied by integrated
+					libraries for optimal usage. In contrast to the SmartCar
+					project which provides a terrain and a miniature vehicle the
+					SmartRover is further developed and customised to explore
+					and accomplish mission tasks on a martian terrain. The
+					project is designed to resemble and offer a close to real-life
+					experience on how a martian exploration could be whilst
+					providing leeway for the user in terms of having mission
+					tasks and functionalities at their disposal.
+				</p>
+
 			</div>
-			<div id="Introduction" class="sideTabContent">
-				<div class="scrolledText">
-					<h4>Introduction</h4>
+		</div>
+		<div id="SettingsTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Settings - How to do settings
+				</h4>
+				<img id="xxx" src="assets/images/Control-Pad.png" width="100%">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Phasellus urna purus, sollicitudin sagittis porttitor eu,
+					volutpat nec lectus. Duis tincidunt pulvinar ipsum et
+					vulputate. Nullam sed tempor mauris. Proin et nibh velit.
+					Duis gravida velit ullamcorper sagittis volutpat. Praesent
+					dignissim tempor augue, ac semper orci ultricies at. Quisque
+					leo ante, euismod aliquam augue nec, tincidunt volutpat ex.
+					Mauris varius lorem eu sapien molestie, ut sollicitudin orci
+					posuere. Nulla vestibulum convallis vestibulum. In sagittis
+					dapibus tortor, vitae placerat odio tincidunt ac. Donec quis
+					felis sem. Nam eu arcu cursus, scelerisque massa id, convallis
+					eros. Nullam eu molestie ex. Proin sed tempus purus. Cras ac
+					mi consectetur, consequat justo in, luctus orci.
+				</p>
+			</div>
+		</div>
+		<div id="RegistrationTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Registration and user login
+				</h4>
+				<img id="" src="assets/images/Manual-Control-Telemetry.png" width="100%">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Phasellus urna purus, sollicitudin sagittis porttitor eu,
+					volutpat nec lectus. Duis tincidunt pulvinar ipsum et
+					vulputate. Nullam sed tempor mauris. Proin et nibh velit.
+					Duis gravida velit ullamcorper sagittis volutpat. Praesent
+					dignissim tempor augue, ac semper orci ultricies at. Quisque
+					leo ante, euismod aliquam augue nec, tincidunt volutpat ex.
+					Mauris varius lorem eu sapien molestie, ut sollicitudin orci
+					posuere. Nulla vestibulum convallis vestibulum. In sagittis
+					dapibus tortor, vitae placerat odio tincidunt ac. Donec quis
+					felis sem. Nam eu arcu cursus, scelerisque massa id, convallis
+					eros. Nullam eu molestie ex. Proin sed tempus purus. Cras ac
+					mi consectetur, consequat justo in, luctus orci.
+				</p>
+			</div>
+		</div>
+		<div id="ManualCTRLTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Manual Control
+				</h4>
+				<p>
+					In the manual control page you are able to control
+					the rover using your mouse and the keyboard,
+					you can get serial feed of the SmartRover current action,
+					visual feedback and the
+					<a href="https://github.com/DIT112-V21/group-09">
+					   SmartRover</a> current statues as well.
+				</p>
+				<p>
+					Manual control page contains six parts:
+				</p>
+				<div>
 					<p>
-						Having the control of a vehicle remotely is hard,
-						but if it's located on Mars it's even harder.
-						This page will thoroughly explain everything
-						in a paint-by-numbers fashion. Leaving nothing
-						to interpretation. It's Mars isn't it?
+						<strong>
+							LIVE STREAM
+						</strong>
 					</p>
-					<img id="manualImg" src="assets/images/Manual-Control.png" width="100%" max-width="500px" height="inherit">
-
+					<img id="liveStreamingImg" src="assets/images/Manual-Control-Live-Streaming.png" width="70%">
+					<p>
+						is a visual feedback from the camera that is
+						located in the front of the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>. Which makes it easier to avoid
+						obstacles that are in the rover's way.
+					</p>
 				</div>
-			</div>
-			<div id="ControlPad" class="sideTabContent">
-				<div class="scrolledText">
-					<h4>
-						Control Pad
-					</h4>
-					<img id="controlImg" src="assets/images/Control-Pad.png" width="100%">
-					<div>
+				<div>
+					<p>
 						<strong>
-							Camera Button
-							<span id="sidebutton"><i class="fas fa-camera fa-2x" style="padding: 28px 25px 30px 29px;"></i></span>
+							CONTROL PAD
 						</strong>
-						<p>
-							The camera button located on the top left
-							corner is the starting point for all camera
-							related activities. Snapshots, footage of
-							the SmartRover a long with a livestream of
-							the excursion will all be accessed through
-							that centralised application. Easy, accessible
-							and efficient.
-						</p>
-
-					</div>
-					<div>
-						<strong>
-							Up Arrow Button
-							<span id="upbutton"><i class="fas fa-chevron-up fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
-
-						</strong>
-						<p>
-							A up arrow will direct the SmartRover in a
-							straight direction with respect to the heading
-							off the SmartRover vehicle and increment the
-							speed upon clicking the button in either direction.
-						</p>
-					</div>
-					<div>
-						<strong>
-							Power Button
-							<span id="connectbutton" class="disconnected"><i class="fas fa-power-off fa-2x" style="padding: 28px 25px 30px 27px;"></i></span>
-						</strong>
-						<p>
-							Will activate and deactivate the SmartRover.
-							When the button is clicked it can display
-							one of which modes indicated by specific
-							set of colouring. Green and Grey. Green
-							color indicates that the SmartRover has
-							been turned on and is now reactive to
-							commands given to it from Manual Control
-							Panel. When clicking the green button the
-							SmartRover will be deactivated from its
-							previously active state. A deactivated
-							state is indicated by grey. A color that
-							is set to default for the Panel.
-						</p>
-
-					</div>
-					<div>
-						<strong>
-							Left Arrow Button
-							<span id="leftbutton"><i class="fas fa-chevron-left fa-2x" style="padding: 28px 25px 30px 38px;"></i></span>
-						</strong>
-						<p>
-							A left arrow will direct the SmartRover to
-							the left incrementally with each left click.
-						</p>
-					</div>
-					<div>
-						<strong>
-							Stop Button
-							<span id="stopbutton"><i class="fas fa-stop-circle fa-2x" style="padding: 28px 25px 25px 28px;"></i></span>
-						</strong>
-						<p>
-							The Stop Button will stop the SmartRover
-							with no braking distance independent of
-							the speed of the SmartRover
-						</p>
-					</div>
-					<div>
-						<strong>
-							Right Arrow Button
-							<span id="rightbutton"><i class="fas fa-chevron-right fa-2x" style="padding: 28px 25px 25px 39px;"></i></span>
-						</strong>
-						<p>
-							The right arrow will direct the
-							SmartRover to the left incrementally
-							with each right click.
-						</p>
-					</div>
-					<div>
-						<strong>
-							Satellite connection button
-							<span id="satelliteButton" class="fas fa-satellite-dish fa-2x" style="padding: 28px 25px 25px 30px;"></span>
-						</strong>
-						<p>
-							The Satellite connection button on the bottom
-							left corner will connect the SmartRover to
-							the Mars Orbiter satellite to transfer telemetry
-							and camera data from the SmartRover through a
-							central hub called the broker. Telemetry data
-							will be updated every 3 seconds and camera feed
-							will live at VGA (30 fps) resolution.
-						</p>
-					</div>
-					<div>
-						<strong>
-							Down Arrow Button
-							<span id="downbutton"><i class="fas fa-chevron-down fa-2x" style="padding: 27px 25px 30px 32px;"></i></span>
-						</strong>
-						<p>
-							The Down arrow will reverse the SmartRover
-							and the speed will also be incremented
-							with each click.
-						</p>
-					</div>
-					<div>
-						<strong>
-							Obstacle Avoidance Button
-							<span id="cruiseButton" class="disconnected"><i class="fas fa-car-crash fa-2x" style="padding: 28px 25px 25px 18px;"></i></span>
-						</strong>
-						<p>
-							The Obstacle Avoidance Button will activate
-							the obstacles avoidance function that will
-							activate the SmartRovers sensors for detecting
-							nearby obstacles within a given radius.
-						</p>
-					</div>
+					</p>
+					<img id="controlPadImg" src="assets/images/Control-Pad.png">
+					<p>
+						It's never been easier to control another
+						thing than our control pad. In the control
+						pad it's easy to start/shut down the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>, direct the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>, take screenshot from
+						the camera feedback, connect  the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a> to the server and
+						enable/disable obstacle avoidance.
+					</p>
 				</div>
-			</div>
-			<div id="Telemetry" class="sideTabContent">
-				<div class="scrolledText">
-					<h4>
-						Telemetry
-					</h4>
-					<img id="telemetryImg" src="assets/images/Manual-Control-Telemetry.png" width="100%">
-					<div>
-						<p>
-							<strong>Heading - </strong> On the Telemetry
-							field, data regarding the heading will be
-							displayed in real-time through a synchronization
-							with the SmartRover. By moving the SmartRover
-							the vehicles heading will be affected and
-							continuously updated on the Telemetry field.
-							The result and data will be translated to degrees.
-						</p>
-						<p>
-							<strong>Throttle - </strong> Throttle will be displayed
-							in % and will describe the correlation between power
-							or speed and the regulation of the engine. By monitoring
-							the speed of the vehicle you will directly affect the
-							Throttle which will be picked up and translated into
-							the Telemetry field.
-						</p>
-						<p>
-							<strong>Speed - </strong> The speed of the SmartRover
-							will also be displayed in the Telemetry field and
-							translated to m/s. By monitoring the SmartRover, by
-							setting and modulating the overall speed and acceleration
-							will set off a chain reaction to the Telemetry field.
-							Displaying accurate data in real-time and by sequence
-							of events in order.
-						</p>
-						<p>
-							<strong>Turn Angle - </strong> By using the Control Panel
-							or sending commands to the SmartRover you will be able to
-							change and monitor the SmartRovers direction completely.
-							Commands will be discussed further down, but by using the
-							Control Panel, the buttons representing possible direction
-							will trigger the SmartRover to move or try to move accordingly
-							with regards to possible obstacles or interruptions.
-						</p>
-						<p>
-							<strong>Total distance - </strong> The total distance will be
-							collected upon spawning in the Mars landscape. Every distance
-							that was travelled will be logged and added. The unit in which
-							everything will be calculated is in meters. This will grant
-							the user control over the mileage in addition to providing a
-							useful tool to estimate and approximate with regards to
-							mileage and distance travelled.
-						</p>
-					</div>
+				<div>
+					<p>
+						<strong>
+							TELEMETRY
+						</strong>
+					</p>
+					<img id="telemetryImg" src="assets/images/Manual-Control-Telemetry.png">
+					<p>
+						In the telemetry you can get the current and actual
+						heading, speed, throttle, turn angle and the total
+						distance that the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a> cross.
+					</p>
 				</div>
-			</div>
-			<div id="TerminalConsole" class="sideTabContent">
-				<div class="scrolledText">
-					<h4>
-						Terminal Console
-					</h4>
+				<div>
+					<p>
+						<strong>
+							TERMINAL
+						</strong>
+					</p>
 					<img id="terminalImg" src="assets/images/Manual-Control-Terminal.png" width="100%">
-					<div>
-						<p>
-							<strong>Commands - </strong>The SmartRover is programmed to
-							respond to different ascribed commands. Each with a set
-							of instructions that the SmartRover is able to complete
-							and follow through with. With respect to the circumstances
-							and the complexity of the game. //List of commands for user
-						</p>
-						<p>
-							<strong>How to drive - </strong>The SmartRover was designed
-							and equipped with a Control Panel that resembles that of a
-							real car. Only difference is that the SmartRover is monitored
-							remotely. Meaning that it communicates with the user by reeling
-							data through a server called the Broker(MQTT). By pressing a
-							button or writing an ascribed command for the SmartRover the
-							user will be able to steer the SmartRover and exercise full
-							control over its entirety. From the direction, acceleration,
-							speed to turning angle or heading. All this information can
-							be retrieved in the Mission Control page of the SmartRover.
-							//Screenshots with text under
-						</p>
-						<p>
-							<strong>Ask date and time</strong>
-						</p>
-						<p>
-							<strong>More stuff.</strong>
-						</p>
-					</div>
+					<p>
+						In the SmartRover's Terminal you are able to control
+						the rover by typing commands using your keyboard,
+						and here is the executable command list:
+					<ul>
+						<li>help</li>
+						<li>hi</li>
+						<li>.</li>
+						<li>.</li>
+						<li>.</li>
+					</ul>
+					</p>
+				</div>
+				<div>
+					<p>
+						<strong>
+							SERIAL FEED
+						</strong>
+					</p>
+					<img id="serialImg" src="assets/images/Manual-Control-Serial-Feed.png">
+					<p>
+						Serial feed is updating you with serial feed of the
+						actions that the rover taking at the same moment.
+					</p>
 				</div>
 			</div>
-			<div id="SerialFeed" class="sideTabContent">
-				<div class="scrolledText">
-					<h4>
-						Serial Feed
-					</h4>
-					<img id="serialImg" src="assets/images/Manual-Control-Serial-Feed.png" width="100%">
-					<div>
-						<p>
-							<strong>Lorem</strong>Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-							exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate
-							velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-							sint occaecat cupidatat non proident, sunt in culpa qui officia
-							deserunt mollit anim id est laborum.
-						</p>
-					</div>
+		</div>
+		<div id="MissionCTRLTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Live Streaming
+				</h4>
+				<div>
+					<p>
+						You can get live visual feedback from the <strong>SmartRover</strong>.
+						The live streaming makes it easier to see the
+						environment in Mars planet and avoid obstacles while
+						controlling the <strong>SmartRover</strong>.
+					</p>
 				</div>
 			</div>
-			<div id="LiveStreaming" class="sideTabContent">
-				<div class="scrolledText">
-					<h4>
-						Live Streaming
-					</h4>
-					<img id="liveStreamingImg" src="assets/images/Manual-Control-Live-Streaming.png" width="100%">
-					<div>
-						<p>
-							You can get live visual feedback from the <strong>SmartRover</strong>.
-							The live streaming makes it easier to see the
-							environment in Mars planet and avoid obstacles while
-							 controlling the <strong>SmartRover</strong>.
-						</p>
-					</div>
+		</div>
+		<div id="TSTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Live Streaming
+				</h4>
+				<div>
+					<p>
+						You can get live visual feedback from the <strong>SmartRover</strong>.
+						The live streaming makes it easier to see the
+						environment in Mars planet and avoid obstacles while
+						controlling the <strong>SmartRover</strong>.
+					</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="MissionCtrl" class="tabcontent">
-
 	</div>
+</div>
+
 <footer class="footer">
 	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
-		Please contact us <a href="#">@github.com</a>.
+		Discover more at <a href="https://github.com/DIT112-V21/group-09" target="_blank">@github.com</a>.
 	</div>
-	<div class="footer-menu">
-
-	</div>
-</footer>
-<script>
+</footer><script>
 	window.onscroll = function() {myFunction()};
 
 	var navbar = document.getElementById("navbar");
@@ -337,22 +264,6 @@
 			navbar.classList.remove("sticky");
 		}
 	}
-</script>
-<script>
-	function openPage(pageName,elmnt,color) {
-		var i, tabcontent, tablinks;
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablink");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].style.backgroundColor = "";
-		}
-		document.getElementById(pageName).style.display = "block";
-		elmnt.style.backgroundColor = color;
-	}
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
@@ -368,23 +279,6 @@
 			tablinks[i].className = tablinks[i].className.replace(" active", "");
 		}
 		document.getElementById(tabName).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-	document.getElementById("sideDefaultOpenW").click();
-
-</script>
-<script>
-	function openInnerTab(evt, innerTabName) {
-		var i, innerSideTabContent, tablinks;
-		innerSideTabContent = document.getElementsByClassName("sideTabContent");
-		for (i = 0; i < innerSideTabContent.length; i++) {
-			innerSideTabContent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className.replace(" active", "");
-		}
-		document.getElementById(innerTabName).style.display = "block";
 		evt.currentTarget.className += " active";
 	}
 	document.getElementById("sideDefaultOpenW").click();
