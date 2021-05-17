@@ -27,100 +27,231 @@
 </header>
 <div class="container">
 	<div class="page-title">
-		<h1>Help</h1>
-		Some text here
+		<h1>Setup Guides</h1>
+		<h5>Select your platform to reach the correct page</h5>
 	</div>
-	<section class="wrapper">
-		<aside class="col-left">
-			<div class="accordion" id="accordionExample">
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingOne">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							Introduction #1
-						</button>
-					</h2>
-					<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
+	<!--</div>
+	<button class="tablink" onclick="openPage('ManualCtrl', this, '#3c0700')" >Manual Control</button>
+	<button class="tablink" onclick="openPage('MissionCtrl', this, '#3c0700')">Mission Control</button>
+	<div id="ManualCtrl" class="tabcontent">
+		<h3>Manual Control</h3>-->
+	<div>
+		<div class="tab">
+			<button class="tablinks" onclick="openTab(event, 'SRProjectTab')" id="sideDefaultOpenW">SmartRover project</button>
+			<button class="tablinks" onclick="openTab(event, 'SettingsTab')">Settings - How to do settings</button>
+			<button class="tablinks" onclick="openTab(event, 'RegistrationTab')">Registration and user login</button>
+			<button class="tablinks" onclick="openTab(event, 'ManualCTRLTab')"> Manual control</button>
+			<button class="tablinks" onclick="openTab(event, 'MissionCTRLTab')">Mission control</button>
+			<button class="tablinks" onclick="openTab(event, 'TSTab')">Troubleshooting</button>
+		</div>
+		<div id="SRProjectTab" class="sideTabContent">
+			<div class="scrolledText">
+				<img id="roverLogoImg" src="assets/images/rover-logo.png" width="100%" max-width="500px" height="inherit">
+				<h4>SmartRover Project</h4>
+				<p>
+					The SmartRover is an open source project that is revised
+					and based on the
+					<a href="https://github.com/platisd/smartcar_shield/wiki">
+						SmartCar</a> project in so far as providing open source
+					software and hardware components accompanied by integrated
+					libraries for optimal usage. In contrast to the SmartCar
+					project which provides a terrain and a miniature vehicle the
+					SmartRover is further developed and customised to explore
+					and accomplish mission tasks on a martian terrain. The
+					project is designed to resemble and offer a close to real-life
+					experience on how a martian exploration could be whilst
+					providing leeway for the user in terms of having mission
+					tasks and functionalities at their disposal.
+				</p>
+
+			</div>
+		</div>
+		<div id="SettingsTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Settings - How to do settings
+				</h4>
+				<img id="xxx" src="assets/images/Control-Pad.png" width="100%">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Phasellus urna purus, sollicitudin sagittis porttitor eu,
+					volutpat nec lectus. Duis tincidunt pulvinar ipsum et
+					vulputate. Nullam sed tempor mauris. Proin et nibh velit.
+					Duis gravida velit ullamcorper sagittis volutpat. Praesent
+					dignissim tempor augue, ac semper orci ultricies at. Quisque
+					leo ante, euismod aliquam augue nec, tincidunt volutpat ex.
+					Mauris varius lorem eu sapien molestie, ut sollicitudin orci
+					posuere. Nulla vestibulum convallis vestibulum. In sagittis
+					dapibus tortor, vitae placerat odio tincidunt ac. Donec quis
+					felis sem. Nam eu arcu cursus, scelerisque massa id, convallis
+					eros. Nullam eu molestie ex. Proin sed tempus purus. Cras ac
+					mi consectetur, consequat justo in, luctus orci.
+				</p>
+			</div>
+		</div>
+		<div id="RegistrationTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Registration and user login
+				</h4>
+				<img id="" src="assets/images/Manual-Control-Telemetry.png" width="100%">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Phasellus urna purus, sollicitudin sagittis porttitor eu,
+					volutpat nec lectus. Duis tincidunt pulvinar ipsum et
+					vulputate. Nullam sed tempor mauris. Proin et nibh velit.
+					Duis gravida velit ullamcorper sagittis volutpat. Praesent
+					dignissim tempor augue, ac semper orci ultricies at. Quisque
+					leo ante, euismod aliquam augue nec, tincidunt volutpat ex.
+					Mauris varius lorem eu sapien molestie, ut sollicitudin orci
+					posuere. Nulla vestibulum convallis vestibulum. In sagittis
+					dapibus tortor, vitae placerat odio tincidunt ac. Donec quis
+					felis sem. Nam eu arcu cursus, scelerisque massa id, convallis
+					eros. Nullam eu molestie ex. Proin sed tempus purus. Cras ac
+					mi consectetur, consequat justo in, luctus orci.
+				</p>
+			</div>
+		</div>
+		<div id="ManualCTRLTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Manual Control
+				</h4>
+				<p>
+					In the manual control page you are able to control
+					the rover using your mouse and the keyboard,
+					you can get serial feed of the SmartRover current action,
+					visual feedback and the
+					<a href="https://github.com/DIT112-V21/group-09">
+					   SmartRover</a> current statues as well.
+				</p>
+				<p>
+					Manual control page contains six parts:
+				</p>
+				<div>
+					<p>
+						<strong>
+							LIVE STREAM
+						</strong>
+					</p>
+					<img id="liveStreamingImg" src="assets/images/Manual-Control-Live-Streaming.png" width="70%">
+					<p>
+						is a visual feedback from the camera that is
+						located in the front of the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>. Which makes it easier to avoid
+						obstacles that are in the rover's way.
+					</p>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-							Installation #2
-						</button>
-					</h2>
-					<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
+				<div>
+					<p>
+						<strong>
+							CONTROL PAD
+						</strong>
+					</p>
+					<img id="controlPadImg" src="assets/images/Control-Pad.png">
+					<p>
+						It's never been easier to control another
+						thing than our control pad. In the control
+						pad it's easy to start/shut down the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>, direct the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>, take screenshot from
+						the camera feedback, connect  the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a> to the server and
+						enable/disable obstacle avoidance.
+					</p>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingThree">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Starting app #3
-						</button>
-					</h2>
-					<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
+				<div>
+					<p>
+						<strong>
+							TELEMETRY
+						</strong>
+					</p>
+					<img id="telemetryImg" src="assets/images/Manual-Control-Telemetry.png">
+					<p>
+						In the telemetry you can get the current and actual
+						heading, speed, throttle, turn angle and the total
+						distance that the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a> cross.
+					</p>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingFour">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Manual control #4
-						</button>
-					</h2>
-					<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
+				<div>
+					<p>
+						<strong>
+							TERMINAL
+						</strong>
+					</p>
+					<img id="terminalImg" src="assets/images/Manual-Control-Terminal.png" width="100%">
+					<p>
+						In the SmartRover's Terminal you are able to control
+						the rover by typing commands using your keyboard,
+						and here is the executable command list:
+					<ul>
+						<li>help</li>
+						<li>hi</li>
+						<li>.</li>
+						<li>.</li>
+						<li>.</li>
+					</ul>
+					</p>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingFive">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Mission Control #5
-						</button>
-					</h2>
-					<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingSix">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Settings #6
-						</button>
-					</h2>
-					<div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-						</div>
-					</div>
+				<div>
+					<p>
+						<strong>
+							SERIAL FEED
+						</strong>
+					</p>
+					<img id="serialImg" src="assets/images/Manual-Control-Serial-Feed.png">
+					<p>
+						Serial feed is updating you with serial feed of the
+						actions that the rover taking at the same moment.
+					</p>
 				</div>
 			</div>
-		</aside>
-		<div class="col-right">
-			Some text here too
 		</div>
-	</section>
+		<div id="MissionCTRLTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Live Streaming
+				</h4>
+				<div>
+					<p>
+						You can get live visual feedback from the <strong>SmartRover</strong>.
+						The live streaming makes it easier to see the
+						environment in Mars planet and avoid obstacles while
+						controlling the <strong>SmartRover</strong>.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div id="TSTab" class="sideTabContent">
+			<div class="scrolledText">
+				<h4>
+					Live Streaming
+				</h4>
+				<div>
+					<p>
+						You can get live visual feedback from the <strong>SmartRover</strong>.
+						The live streaming makes it easier to see the
+						environment in Mars planet and avoid obstacles while
+						controlling the <strong>SmartRover</strong>.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 </div>
+
 <footer class="footer">
 	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
-		Please contact us <a href="#">@github.com</a>.
+		Discover more at <a href="https://github.com/DIT112-V21/group-09" target="_blank">@github.com</a>.
 	</div>
-	<div class="footer-menu">
-
-	</div>
-</footer>
-<script>
+</footer><script>
 	window.onscroll = function() {myFunction()};
 
 	var navbar = document.getElementById("navbar");
@@ -134,6 +265,25 @@
 		}
 	}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script>
+	function openTab(evt, tabName) {
+		var i, sideTabContent, tablinks;
+		sideTabContent = document.getElementsByClassName("sideTabContent");
+		for (i = 0; i < sideTabContent.length; i++) {
+			sideTabContent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(tabName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+	document.getElementById("sideDefaultOpenW").click();
+
+</script>
+
 </body>
 </html>
