@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<<<<<<< Updated upstream
+=======
+	<title>SmartRover - Help</title>
+>>>>>>> Stashed changes
 	<meta charset="UTF-8">
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< Updated upstream
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
@@ -21,23 +25,72 @@
 
 	<title>SmartRover - Settings</title>
 
+=======
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" rel="stylesheet" />
+>>>>>>> Stashed changes
 </head>
 
 <body id="manual-control">
-	<header class="header">
-		<div id="navbar">
-			<div class="logo">
-				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
-			</div>
-			<div class="nav-menu">
-				<a href="index.html">Home</a>
-				<a href="manual.html">Manual control</a>
-				<a href="mission.html">Mission</a>
-				<a href="mqtt.html">MQTT</a>
-				<a class="active" href="settings.html">Settings</a>
-				<a href="help.html">Help</a>
-			</div>
+<header class="header">
+	<div id="navbar">
+		<div class="logo">
+			<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
 		</div>
+		<div class="nav-menu">
+			<a href="index.html">Home</a>
+			<a href="manual.html">Manual control</a>
+			<a href="mission.html">Mission</a>
+			<a class="active" href="settings.html">Settings</a>
+			<a href="help.html">Help</a>
+		</div>
+	</div>
+</header>
+<div class="container">
+	<div class="page-title" style="margin-bottom: 20px;">
+		<h1>Settings</h1>
+	</div>
+	<div class="settings-page-row">
+	  <div>
+		<!-- Tab navs -->
+			<div id="settings-page" class="nav flex-column nav-tabs text-center"
+		  			id="v-tabs-tab" role="tablist"
+		  			aria-orientation="vertical">
+				<a class="nav-link active"
+				id="v-tabs-home-tab" data-mdb-toggle="tab"
+				href="#v-tabs-home" role="tab"
+				aria-controls="v-tabs-home" aria-selected="true">MQTT settings</a>
+				
+				<a class="nav-link" id="v-tabs-settings-tab"
+				data-mdb-toggle="tab" href="#v-tabs-settings" role="tab"
+				   aria-controls="v-tabs-settings" aria-selected="false">Database settings</a>
+				
+				<a class="nav-link" id="v-tabs-accounts-tab"
+				data-mdb-toggle="tab" 
+				href="#v-tabs-accounts" role="tab"
+				aria-controls="v-tabs-accounts" aria-selected="false">User accounts</a>
+				
+				<a class="nav-link" id="v-tabs-manual-tab"
+				data-mdb-toggle="tab" 
+				href="#v-tabs-manual" role="tab"
+				aria-controls="v-tabs-manual" aria-selected="false">Manual control</a>
+				
+				<a class="nav-link" id="v-tabs-mission-tab"
+				data-mdb-toggle="tab" 
+				href="#v-tabs-mission" role="tab"
+				aria-controls="v-tabs-mission" aria-selected="false">Mission control</a>
+				
+				<a class="nav-link" id="v-tabs-faq-tab"
+				data-mdb-toggle="tab" 
+				href="#v-tabs-faq" role="tab"
+				aria-controls="v-tabs-faq" aria-selected="false">Troubleshooting</a>
+			</div>
+		<!-- Tab navs -->
+		</div>
+<<<<<<< Updated upstream
 	</header>
 	<div class="container-5">
 		<nav class="side-navbar">
@@ -76,10 +129,324 @@
 	</div>
 	<script>
 		window.onscroll = function () { myFunction() };
+=======
+		<div>
+		<!-- Tab content -->
+		<div id="settings-page" class="tab-content settings-tab-content" id="v-tabs-tabContent">
+		  <div
+			class="tab-pane fade show active"
+			id="v-tabs-home"
+			role="tabpanel"
+			aria-labelledby="v-tabs-home-tab">
+			  	<h3 class="ms-5 mt-4 mb-4">MQTT Broker settings</h3>
+				<form>
+					<!-- Hostname -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						MQTT broker
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-hostname" class="form-control" placeholder="Hostname" />
+							</div>
+						</div>
+					</div>
+					<!-- Port -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						Port number
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-port" class="form-control w-25" placeholder="Port" />
+							</div>
+						</div>
+					</div>
+					<!-- Username -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						Username
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-username" class="form-control" placeholder="Username" />
+							</div>
+						</div>
+					</div>
+					<!-- Password -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						Password
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-password" class="form-control" placeholder="Password" />
+							</div>
+						</div>
+					</div>
+					<!-- clientId -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						Client ID
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-clientid" class="form-control" placeholder="Client ID" />
+							</div>
+						</div>
+					</div>
+					<!-- clientId -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						Receiving topic
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-receive-topic" class="form-control" placeholder="Client ID" />
+							</div>
+						</div>
+					</div>
+					<!-- clientId -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						Publishing topic
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-publish-topic" class="form-control" placeholder="Client ID" />
+							</div>
+						</div>
+					</div>
 
-		var navbar = document.getElementById("navbar");
-		var sticky = navbar.offsetTop;
+					<!-- Checkbox -->
+					<div class="form-check d-flex justify-content-center mb-4 p-3">
+						<input class="form-check-input me-2"
+						  type="checkbox" value=""
+						  id="form6Example8" checked/>
+						<label class="form-check-label" for="form6Example8">Default broker?</label>
+					</div>
+					<!-- Form buttons -->
+					<div class="d-flex justify-content-center">
+						<button id="mqttSaveBtn" type="button" class="btn btn-outline-success me-3">
+							Save settings
+						</button>
+						<button id="mqttReloadBtn" type="button" class="btn btn-outline-danger" data-mdb-ripple-color="dark">
+  							Reload
+						</button>
+					</div>
+				</form>
+		  </div>
+		  <div
+			class="tab-pane fade"
+			id="v-tabs-settings"
+			role="tabpanel"
+			aria-labelledby="v-tabs-settings-tab"
+		  >
+			<div class="scrolledText">
+				<h4>Settings - How to setup your app</h4>
+				<img src="assets/images/Control-Pad.png">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Phasellus urna purus, sollicitudin sagittis porttitor eu,
+					volutpat nec lectus. Duis tincidunt pulvinar ipsum et
+					vulputate. Nullam sed tempor mauris. Proin et nibh velit.
+					Duis gravida velit ullamcorper sagittis volutpat. Praesent
+					dignissim tempor augue, ac semper orci ultricies at. Quisque
+					leo ante, euismod aliquam augue nec, tincidunt volutpat ex.
+					Mauris varius lorem eu sapien molestie, ut sollicitudin orci
+					posuere. Nulla vestibulum convallis vestibulum. In sagittis
+					dapibus tortor, vitae placerat odio tincidunt ac. Donec quis
+					felis sem. Nam eu arcu cursus, scelerisque massa id, convallis
+					eros. Nullam eu molestie ex. Proin sed tempus purus. Cras ac
+					mi consectetur, consequat justo in, luctus orci.
+				</p>
+			</div>
+		  </div>
+		  <div
+			class="tab-pane fade"
+			id="v-tabs-accounts"
+			role="tabpanel"
+			aria-labelledby="v-tabs-accounts-tab"
+		  >
+			<div class="scrolledText">
+				<h3>
+					Registration and user login
+				</h3>
+				<p>
+					<img align="right" src="assets/images/Manual-Control-Telemetry.png" width="320">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Phasellus urna purus, sollicitudin sagittis porttitor eu,
+					volutpat nec lectus. Duis tincidunt pulvinar ipsum et
+					vulputate. Nullam sed tempor mauris. Proin et nibh velit.
+					Duis gravida velit ullamcorper sagittis volutpat. Praesent
+					dignissim tempor augue, ac semper orci ultricies at. Quisque
+					leo ante, euismod aliquam augue nec, tincidunt volutpat ex.
+					Mauris varius lorem eu sapien molestie, ut sollicitudin orci
+					posuere. Nulla vestibulum convallis vestibulum. In sagittis
+					dapibus tortor, vitae placerat odio tincidunt ac. Donec quis
+					felis sem. Nam eu arcu cursus, scelerisque massa id, convallis
+					eros. Nullam eu molestie ex. Proin sed tempus purus. Cras ac
+					mi consectetur, consequat justo in, luctus orci.
+				</p>
+			</div>
+		  </div>
+			
+			<div
+			class="tab-pane fade" id="v-tabs-manual"
+			role="tabpanel" aria-labelledby="v-tabs-manual-tab">
+				<div class="scrolledText">
+				<h3>Manual Control</h3>
+				<p>
+					In the manual control page you are able to control
+					the rover using your mouse and the keyboard,
+					you can get serial feed of the SmartRover current action,
+					visual feedback and the
+					<a href="https://github.com/DIT112-V21/group-09">
+					   SmartRover</a> current statues as well.
+				</p>
+				<p>
+					Manual control page contains six parts:
+				</p>
+				<div>
+					<h5>Live stream</h5>
+					<p><img align="right" src="assets/images/manual-streams.png"> 
+						is a visual feedback from the camera that is located in the front of the
+						<a href="https://github.com/DIT112-V21/group-09"> SmartRover</a>. Which makes it easier to avoid
+						obstacles that are in the rover's way.
+					</p>
+					<p>When you are not connected to the Mars Orbiter satellite, the live stream will stream
+					NASA TV channel. And once you are connected to the satellite, the stream will automatically switch
+					to the live stream from the SmartRover and show you video stream. The live stream quality is the best
+					when you are using a local MQTT broker such as Mosquitto or EMQX client. However, when using a remote
+					MQTT broker over the internet, then video feed can be delayed and slow.</p>
+				</div>
+				<div>
+					<p>
+						<strong>
+							CONTROL PAD
+						</strong>
+					</p>
+					<img src="assets/images/Control-Pad.png">
+					<p>
+						It's never been easier to control another
+						thing than our control pad. In the control
+						pad it's easy to start/shut down the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>, direct the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a>, take screenshot from
+						the camera feedback, connect  the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a> to the server and
+						enable/disable obstacle avoidance.
+					</p>
+				</div>
+				<div>
+					<p>
+						<strong>
+							TELEMETRY
+						</strong>
+					</p>
+					<img src="assets/images/Manual-Control-Telemetry.png">
+					<p>
+						In the telemetry you can get the current and actual
+						heading, speed, throttle, turn angle and the total
+						distance that the
+						<a href="https://github.com/DIT112-V21/group-09">
+							SmartRover</a> cross.
+					</p>
+				</div>
+				<div>
+					<p>
+						<strong>
+							TERMINAL
+						</strong>
+					</p>
+					<img src="assets/images/Manual-Control-Terminal.png">
+					<p>
+						In the SmartRover's Terminal you are able to control
+						the rover by typing commands using your keyboard,
+						and here is the executable command list:
+					<ul>
+						<li>help</li>
+						<li>hi</li>
+						<li>.</li>
+						<li>.</li>
+						<li>.</li>
+					</ul>
+					</p>
+				</div>
+				<div>
+					<p>
+						<strong>
+							SERIAL FEED
+						</strong>
+					</p>
+					<img src="assets/images/Manual-Control-Serial-Feed.png">
+					<p>
+						Serial feed is updating you with serial feed of the
+						actions that the rover taking at the same moment.
+					</p>
+				</div>
+			</div>
+		  </div>
+			
+			<div
+			class="tab-pane fade"
+			id="v-tabs-mission"
+			role="tabpanel"
+			aria-labelledby="v-tabs-mission-tab">
+				<div class="scrolledText">
+					<h4>Live Streaming</h4>
+					<div>
+					<p>You can get live visual feedback from the <strong>SmartRover</strong>.
+						The live streaming makes it easier to see the
+						environment in Mars planet and avoid obstacles while
+						controlling the <strong>SmartRover</strong>.</p>
+					</div>
+				</div>
+			</div>
+			<div
+			class="tab-pane fade"
+			id="v-tabs-faq"
+			role="tabpanel"
+			aria-labelledby="v-tabs-faq-tab">
+				<div class="scrolledText">
+					<h4>Live Streaming</h4>
+					<div>
+					<p>You can get live visual feedback from the <strong>SmartRover</strong>.
+						The live streaming makes it easier to see the
+						environment in Mars planet and avoid obstacles while
+						controlling the <strong>SmartRover</strong>.</p>
+					</div>
+				</div>
+			</div>
+			
+       </div>
+    <!-- Tab content -->
+  </div>
+	</div>
+</div>
+>>>>>>> Stashed changes
 
+<footer class="footer">
+	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+		Discover more at <a href="https://github.com/DIT112-V21/group-09" target="_blank">@github.com</a>.
+	</div>
+</footer><script>
+	window.onscroll = function() {myFunction()};
+
+	var navbar = document.getElementById("navbar");
+	var sticky = navbar.offsetTop;
+
+<<<<<<< Updated upstream
 		function myFunction() {
 			if (window.pageYOffset >= sticky) {
 				navbar.classList.add("sticky")
@@ -96,6 +463,23 @@
 	<!-- Main File-->
 	<script src="js/front.js"></script>
 	<script src="assets/js/settings.js"></script>
+=======
+	function myFunction() {
+		if (window.pageYOffset >= sticky) {
+			navbar.classList.add("sticky")
+		} else {
+			navbar.classList.remove("sticky");
+		}
+	}
+</script>
+<script type="text/javascript" src="assets/js/settings.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+	<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
+>>>>>>> Stashed changes
 
 </body>
 

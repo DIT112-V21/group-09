@@ -880,12 +880,16 @@ img.rover-model {
 	padding-top: 10px;
 }
 
+#settings-page .form-check-input[type=checkbox]:checked:focus,
+#settings-page .form-check-input[type=checkbox]:checked,
 .map-layer-checkboxes .form-check-input[type=checkbox]:checked:focus,
-.map-layer-checkboxes .form-check-input[type=checkbox]:checked {
+.map-layer-checkboxes .form-check-input[type=checkbox]:checked
+{
     background-color: #282828;
-	
 }
 
+#settings-page .form-check-input:checked,
+#settings-page .form-check-input:checked:focus,
 .map-layer-checkboxes .form-check-input:checked,
 .map-layer-checkboxes .form-check-input:checked:focus {
     border-color: #282828;
@@ -1014,6 +1018,7 @@ thead cell{
 
 
 /* CSS style for Help Menu */
+<<<<<<< Updated upstream
 .accordion-button {
   background-color: black;
   color: white;
@@ -1025,4 +1030,76 @@ thead cell{
 .accordion-item {
   border-color: #852401;
   color: white;
+=======
+
+.settings-page-row,
+.help-page-row {
+	display: grid;
+	grid-template-columns: 260px 900px;
+	gap: 0;
+	padding: 0 auto;
+	width: auto;
+	margin: 0 !important;
+	margin-right: 0 !important;
+	margin-left: 0 !important;
+}
+
+/*side tabs*/
+#settings-page ul.nav-tabs, 
+#help-page ul.nav-tabs {
+	margin-bottom: 0 !important;
+}
+
+#settings-page .nav-link.active,
+#help-page .nav-link.active,
+#settings-page .nav-link.active:hover,
+#help-page .nav-link.active:hover {
+    color: #282828;
+    background: rgb(239, 239, 239);
+	border-right: 2px rgb(239, 239, 239) solid;
+	border-left: 3px #ffaa00 solid;
+}
+
+#settings-page .nav-link,
+#help-page .nav-link {
+	text-align: left;
+    color: #282828;
+    background-color: rgb(204, 204, 204);
+	border-right: 2px #b8b4a8 solid;
+	border-bottom: none;
+}
+
+#settings-page .nav-link:hover,
+#help-page .nav-link:hover {
+    color: #282828;
+    background-color: rgb(220, 220, 220);
+}
+
+#settings-page .tab-pane,
+#help-page .tab-pane {
+    height: 720px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#settings-page .tab-pane.active,
+#help-page .tab-pane.active {
+    background: rgb(239, 239, 239);
+	border: none;
+	padding: 10px;
+	color: #1b1b3d;
+}
+
+/* Seetings section */
+
+#settings-page .form-control {
+	background: rgb(242, 242, 242);
+	border: 1px #393939 solid;
+	padding: 3px;
+}
+
+#settings-page .form-label {
+	background: rgb(239, 239, 239);
+	border-top: 1px #393939 solid;
+>>>>>>> Stashed changes
 }
