@@ -1017,21 +1017,6 @@ thead cell{
 }
 
 
-/* CSS style for Help Menu */
-<<<<<<< Updated upstream
-.accordion-button {
-  background-color: black;
-  color: white;
-}
-.accordion-collapse {
-  background-color: rgba(225, 225, 225, 0.7);
-  color: black;
-}
-.accordion-item {
-  border-color: #852401;
-  color: white;
-=======
-
 .settings-page-row,
 .help-page-row {
 	display: grid;
@@ -1090,8 +1075,7 @@ thead cell{
 	color: #1b1b3d;
 }
 
-/* Seetings section */
-
+/* Settings section */
 #settings-page .form-control {
 	background: rgb(242, 242, 242);
 	border: 1px #393939 solid;
@@ -1101,5 +1085,4 @@ thead cell{
 #settings-page .form-label {
 	background: rgb(239, 239, 239);
 	border-top: 1px #393939 solid;
->>>>>>> Stashed changes
 }
