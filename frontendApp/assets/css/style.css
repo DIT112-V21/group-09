@@ -1029,6 +1029,16 @@ thead cell{
 	margin-left: 0 !important;
 }
 
+#settings-msg {
+	display: block;
+	width: 100%;
+	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: 14pt;
+}
+
 /*side tabs*/
 #settings-page ul.nav-tabs, 
 #help-page ul.nav-tabs {
