@@ -7,7 +7,7 @@
   "homepage": "https://github.com/DIT112-V21/group-09#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DIT112-V21/group-09.git"
+    "url": "https://github.com/DIT112-V21/group-09.git"
   },
   "main": "main.js",
   "scripts": {
@@ -18,8 +18,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
+    "electron": "^12.0.7",
     "electron-chromedriver": "^12.0.0",
     "electron-node-config": "^1.1.0",
     "eslint": "^7.24.0",
@@ -27,7 +26,7 @@
     "mqtt": "^4.2.6",
     "node-client": "^0.1.17",
     "node-postgres": "^0.6.2",
-    "spectron": "^14.0.0"
+    "sequelize": "^6.6.2"
   },
   "bugs": {
     "url": "https://github.com/DIT112-V21/group-09/issues"
@@ -37,6 +36,8 @@
   },
   "keywords": [],
   "devDependencies": {
-    "electron": "^12.0.7"
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "spectron": "^14.0.0"
   }
 }

@@ -1,28 +1,3 @@
-
-//Notifications
-let button1 = document.querySelector("#button1");
-let button2 = document.querySelector("#button2");
-let button3 = document.querySelector("#button3");
-
-document.getElementById("button1").onclick = function () {
-    let newToast = document.getElementById('toast1');//select id of toast
-    let newNotification = new bootstrap.Toast(newToast);//inizialize it
-    newNotification.show();//show it
-}
-
-document.getElementById("button2").onclick = function () {
-    let newToast = document.getElementById('toast2');//select id of toast
-    let newNotification = new bootstrap.Toast(newToast);//inizialize it
-    newNotification.show();//show it
-}
-
-document.getElementById("button3").onclick = function () {
-    let newToast = document.getElementById('toast3');//select id of toast
-    let newNotification = new bootstrap.Toast(newToast);//inizialize it
-    newNotification.show();//show it
-}
-
-
 //commandsTable
 function addRow(commandTable) {
     var table = document.getElementById(commandTable);
