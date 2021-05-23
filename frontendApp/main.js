@@ -1,6 +1,14 @@
 const { app, BrowserWindow, globalShortcut } = require('electron')
+const Store = require('electron-store');
+
+const store = new Store({
+  configName: 'user-store',
+  defaults: {
+  }
+});
 
 const path = require('path')
+require('@electron/remote/main').initialize()
 
 function createWindow () {
 	const mainWindow = new BrowserWindow({
