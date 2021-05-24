@@ -1,211 +1,126 @@
-('#makeEditable').SetEditable({ 
-    $addButton: ('#but_add')
-  });
+let config = require('electron-node-config');
+const { Pool, Client } = require('node-postgres');
+const fs = require('fs');
 
+const mqttSaveBtn = document.getElementById('mqttSaveBtn')
+const mqttReloadBtn = document.getElementById('mqttReloadBtn')
+const dbSaveBtn = document.getElementById('dbSaveBtn')
+const dbReloadBtn = document.getElementById('dbReloadBtn')
 
-  // TableToCSV(tabId, separator)
-var data = TableToCSV('makeEditable', ',');
+document.addEventListener("DOMContentLoaded", function() { loadMqttSettings(); }, false);
+document.addEventListener("DOMContentLoaded", function() { loadDbSettings(); }, false);
+document.addEventListener("DOMContentLoaded", function() { connectPg(); }, false);
+mqttSaveBtn.addEventListener('click', function(){ saveMqttSettings(); }, false)
+mqttReloadBtn.addEventListener('click', function(){ loadMqttSettings(); }, false)
+dbSaveBtn.addEventListener('click', function(){ saveDbSettings(); }, false)
+dbReloadBtn.addEventListener('click', function(){ loadDbSettings(); }, false)
 
-('#makeEditable').SetEditable({ 
-    $addButton: ('#but_add'),
-    columnsEd: null  // Ex.: "1,2,3,4,5"
-  });
-
-('#makeEditable').SetEditable({
-    onEdit: function() {}, 
-    onDelete: function() {}, 
-    onBeforeDelete: function() {},
-    onAdd: function() {} 
-  });
-
-
-
-
-
-
-  $(document).ready(function () {
-
-    // ------------------------------------------------------- //
-    // Custom Scrollbar
-    // ------------------------------------------------------ //
-
-    if ($(window).outerWidth() > 992) {
-        $("nav.side-navbar").mCustomScrollbar({
-            scrollInertia: 200
-        });
-    }
-
-    // Main Template Color
-    var brandPrimary = '#33b35a';
-
-    // ------------------------------------------------------- //
-    // Side Navbar Functionality
-    // ------------------------------------------------------ //
-    $('#toggle-btn').on('click', function (e) {
-
-        e.preventDefault();
-
-        if ($(window).outerWidth() > 1194) {
-            $('nav.side-navbar').toggleClass('shrink');
-            $('.page').toggleClass('active');
-        } else {
-            $('nav.side-navbar').toggleClass('show-sm');
-            $('.page').toggleClass('active-sm');
-        }
-    });
-
-    // ------------------------------------------------------- //
-    // Tooltips init
-    // ------------------------------------------------------ //    
-
-    $('[data-toggle="tooltip"]').tooltip()
-
-    // ------------------------------------------------------- //
-    // Universal Form Validation
-    // ------------------------------------------------------ //
-
-    $('.form-validate').each(function() {  
-        $(this).validate({
-            errorElement: "div",
-            errorClass: 'is-invalid',
-            validClass: 'is-valid',
-            ignore: ':hidden:not(.summernote),.note-editable.card-block',
-            errorPlacement: function (error, element) {
-                // Add the `invalid-feedback` class to the error element
-                error.addClass("invalid-feedback");
-                //console.log(element);
-                if (element.prop("type") === "checkbox") {
-                    error.insertAfter(element.siblings("label"));
-                } 
-                else {
-                    error.insertAfter(element);
-                }
-            }
-        });
-    });
-    // ------------------------------------------------------- //
-    // Material Inputs
-    // ------------------------------------------------------ //
-
-    var materialInputs = $('input.input-material');
-
-    // activate labels for prefilled values
-    materialInputs.filter(function () {
-        return $(this).val() !== "";
-    }).siblings('.label-material').addClass('active');
-
-    // move label on focus
-    materialInputs.on('focus', function () {
-        $(this).siblings('.label-material').addClass('active');
-    });
-
-    // remove/keep label on blur
-    materialInputs.on('blur', function () {
-        $(this).siblings('.label-material').removeClass('active');
-
-        if ($(this).val() !== '') {
-            $(this).siblings('.label-material').addClass('active');
-        } else {
-            $(this).siblings('.label-material').removeClass('active');
-        }
-    });
-
-    // ------------------------------------------------------- //
-    // Jquery Progress Circle
-    // ------------------------------------------------------ //
-    var progress_circle = $("#progress-circle").gmpc({
-        color: brandPrimary,
-        line_width: 5,
-        percent: 80
-    });
-    progress_circle.gmpc('animate', 80, 3000);
-
-    // ------------------------------------------------------- //
-    // External links to new window
-    // ------------------------------------------------------ //
-
-    $('.external').on('click', function (e) {
-
-        e.preventDefault();
-        window.open($(this).attr("href"));
-    });
-
-    // ------------------------------------------------------ //
-    // For demo purposes, can be deleted
-    // ------------------------------------------------------ //
-
-    var stylesheet = $('link#theme-stylesheet');
-    $("<link id='new-stylesheet' rel='stylesheet'>").insertAfter(stylesheet);
-    var alternateColour = $('link#new-stylesheet');
-
-    if ($.cookie("theme_csspath")) {
-        alternateColour.attr("href", $.cookie("theme_csspath"));
-    }
-
-    $("#colour").change(function () {
-
-        if ($(this).val() !== '') {
-
-            var theme_csspath = 'css/style.' + $(this).val() + '.css';
-
-            alternateColour.attr("href", theme_csspath);
-
-            $.cookie("theme_csspath", theme_csspath, {
-                expires: 365,
-                path: document.URL.substr(0, document.URL.lastIndexOf('/'))
-            });
-
-        }
-
-        return false;
-    });
-
-});
-
-
-
-
-
-
-
-// Script to show modal alert box
-var modalWrap = null;
-const showModal = (title, description, yesBtnLabel = 'Yes', noBtnLabel = 'Cancel') => {
-  if (modalWrap !== null) {
-    modalWrap.remove();
-  }
-
-  modalWrap = document.createElement('div');
-  modalWrap.innerHTML = `
-    <div class="modal fade" id="warningPower">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-warning">
-            <h5 class="modal-title"><strong>${title}</strong></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>${description}</p>
-          </div>
-          <div class="modal-footer bg-light">
-            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">${noBtnLabel}</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  document.body.append(modalWrap);
-
-  var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
-  modal.show();
+function loadMqttSettings() {
+	let mqttConfig = config.get('mqtt.brokerConfig');
+	
+	document.getElementById("mqtt-hostname").value = mqttConfig.host;
+	document.getElementById("mqtt-port").value = mqttConfig.port;
+	document.getElementById("mqtt-username").value = mqttConfig.username;
+	document.getElementById("mqtt-password").value = mqttConfig.password;
+	document.getElementById("mqtt-clientid").value = mqttConfig.clientId;
 }
 
+function loadDbSettings() {
+	var db = null;
+	try {
+		const jsonString = fs.readFileSync("./config/dbConfig.json");
+		db = JSON.parse(jsonString);
+		document.getElementById('settings-msg').style.display = "block";
+		document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully loaded.</span>";
+		
+		document.getElementById("db-hostname").value = db.host;
+		document.getElementById("db-port").value = db.port;
+		document.getElementById("db-username").value = db.dbUser;
+		document.getElementById("db-password").value = db.dbPassword;
+		document.getElementById("db-name").value = db.dbName;
+		
+	} catch (err) {
+		document.getElementById('settings-msg').style.display = "block";
+		document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error loading settings</span>";
+		return;
+	}
 
-var consoleCommands = document.getElementById('showConsoleCommands')
-consoleCommands.addEventListener('click', function(){onShowConsoleCommands(); }, false)
-function onShowConsoleCommands() {
-    
-        var desc = "somethings"
-        showModal("Console Commands Adjustments", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
+	setTimeout(function(){
+				document.getElementById('settings-msg').style.display = "none";
+			}, 5000);
+}
+
+function saveDbSettings() {
+	const newDbSettings = {
+    	host: document.getElementById("db-hostname").value,
+    	port: parseInt(document.getElementById("db-port").value),
+    	dbUser: document.getElementById("db-username").value,
+		dbPassword: document.getElementById("db-password").value, 
+		dbName: document.getElementById("db-name").value
+	}
+	const jsonString = JSON.stringify(newDbSettings, null, 2)
+	fs.writeFile("./config/dbConfig.json", jsonString, err => {
+    	if (err) {
+			document.getElementById('settings-msg').style.display = "block";
+			document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error updating settings</span>";
+		} else {
+			document.getElementById('settings-msg').style.display = "block";
+			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";
+		}
+		setTimeout(function(){
+				document.getElementById('settings-msg').style.display = "none";
+			}, 5000);
+	})
+}
+
+function saveMqttSettings() {
+	var connectionUrl = "mqtt://" + document.getElementById("mqtt-hostname").value 
+						+ ":" + document.getElementById("mqtt-port").value;
+		
+	const newMqttSettings = {
+		"mqtt": {
+			"_comment": "MQTT Broker connection settings here",
+			"brokerConfig": {
+				"connectUrl": connectionUrl,
+				"host": document.getElementById("mqtt-hostname").value,
+				"port": parseInt(document.getElementById("mqtt-port").value),
+				"username": document.getElementById("mqtt-username").value,
+				"password": document.getElementById("mqtt-password").value,
+				"clientId": document.getElementById("mqtt-clientid").value
+    		}
+		}
+	}
+
+	const jsonString = JSON.stringify(newMqttSettings, null, 2)
+	fs.writeFile("./config/default.json", jsonString, err => {
+    	if (err) {
+			document.getElementById('settings-msg').style.display = "block";
+			document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error updating settings</span>";
+		} else {
+			document.getElementById('settings-msg').style.display = "block";
+			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";
+		}
+		setTimeout(function(){
+				document.getElementById('settings-msg').style.display = "none";
+			}, 5000);
+	})
+}
+
+function connectPg() {
+	const jsonString = fs.readFileSync("./config/dbConfig.json");
+	db = JSON.parse(jsonString);
+	
+	(async () => {
+  		const pool = new Pool({
+    	user: db.dbUser,
+    	host: db.host,
+    	database: db.dbName,
+    	password: db.dbPassword,
+    	port: db.port
+  	});
+  
+  		const res = await pool.query('SELECT * from topics');
+  		console.log(res);
+		
+	})().catch(console.error);
 }

@@ -209,8 +209,3 @@ function onShowConsoleCommands() {
         var desc = "somethings"
         showModal("Console Commands Adjustments", desc, yesBtnLabel = 'Yes', noBtnLabel = 'Close', false)
 }
-
-
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})

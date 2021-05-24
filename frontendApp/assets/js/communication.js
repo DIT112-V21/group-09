@@ -10,8 +10,8 @@ var canvas;
 var ctx;
 var subscribed = false;
 var cruiseControl = false;
-const receivingChannel = mqttConfig.receivingChannel;
-const sendingChannel = mqttConfig.sendingChannel;
+const receivingChannel = "marsOrbiter/#";
+const sendingChannel = "smartRover/";
 var frameCount = 0;
 
 const options = {

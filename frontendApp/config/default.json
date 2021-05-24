@@ -1,25 +1,13 @@
 {
-	"database": {
-		"_comment": "PostgreSQL database connection settings here",
-		"dbConfig": {
-			"host": "altansukh.com",
-			"port": 5432,
-			"dbName": "altansuk_rover",
-			"dbUser": "altansuk_group9",
-			"dbPassword": "SmartRover"
-    	}
-  	},
-	"mqtt": {
-		"_comment": "MQTT Broker connection settings here",
-		"brokerConfig": {
-			"connectUrl": "mqtt://localhost:1883",
-			"host": "localhost",
-			"port": 1883,
-			"username": "user",
-			"password": "password",
-			"clientId": "clientId_Hes24TQfz",
-			"receivingChannel": "marsOrbiter/#",
-			"sendingChannel": "smartRover/"
-    	}
-	}
+  "mqtt": {
+    "_comment": "MQTT Broker connection settings here",
+    "brokerConfig": {
+      "connectUrl": "mqtt://localhost:1883",
+      "host": "localhost",
+      "port": 1883,
+      "username": "user",
+      "password": "password",
+      "clientId": "clientId_Hes24TQfz"
+    }
+  }
 }

@@ -1,146 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<title>SmartRover - Settings</title>
+	<meta charset="UTF-8">
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/settings.css">
-	<link rel="stylesheet" href="settings /css/fontastic.css">
-	
-	<title>SmartRover - Mission control</title>
-
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
 </head>
+
 <body id="manual-control">
-	<header class="header">
-		<div id="navbar">
-			<div class="logo">
-				<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
-			</div>
-			<div class="nav-menu">
-				<a href="index.html">Home</a>
-				<a href="manual.html">Manual control</a>
-				<a href="mission.html">Mission</a>
-				<a href="mqtt.html">MQTT</a>
-				<a class="active" href="settings.html">Settings</a>
-				<a href="help.html">Help</a>
-			</div>
+<header class="header">
+	<div id="navbar">
+		<div class="logo">
+			<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
 		</div>
-	
-	</header>
-	<div class="container-5">
-		<nav class="side-navbar">
-			<div class="side-navbar-wrapper">
-			  <!-- Sidebar Header    -->
-			  <div class="sidenav-header d-flex align-items-center justify-content-center">
-				<!-- User Info-->
-				<div class="sidenav-header-inner text-center"><img src="assets/images/mars.jpeg" alt="person" class="img-fluid rounded-circle">
-				  <h2 class="h5">Group-9</h2><span> Developers</span>
-				</div>
-				<!-- Small Brand information, appears on minimized sidebar-->
-				<div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
-			  </div>
-			  <div class="main-menu">
-					<h5 class="sidenav-heading">Settings</h5>
-					<ul id="side-main-menu" class="side-menu list-unstyled ">  
-						<li><a href="#"> <i class="fas fa-sign-in-alt fa-3x"></i></a></li>            
-						<li><a href="pages/mqtt_setting.html"><i class="fas fa-satellite-dish fa-3x"></i></a></li>
-						<li><a href="pages/mission_setting.html" ><i class="fas fa-tasks"></i></a></li>
-						<li><a href="pages/rover_setting.html" ><i class="fas fa-cogs"></i></a></li>
-						<li><a href="pages/manual_setting.html" > <i class="fas fa-gamepad"></i></a></li>
-					</ul>
-			</div>
-			</div>
-		</nav>
-		<section class="wrapper">
-			<table class="table table-dark table-hover table table-striped" >
-				<thead>
-					<h1>List of Registered Servers</h1>
-					<tr style="color: rgb(255, 255, 255);" class="">
-						<th>#</th>
-						<th>connectUrl</th>
-						<th>username</th>
-						<th>clientId </th>
-						<th>Status </th>
-						<th>Edit</th>
-					</tr>
-				  </thead>
-				  <tbody>
-					<tr class="">
-						<th scope="row">1</th>
-						<td class="">http</td>
-						<td  >user</td>
-						<td class="">client</td>
-						<th> <label for="status" class="connected">connected </label> </th>
-                  		<td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button> <button type="button" data-dismiss="modal" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button></td>
-                    </tr>
-					<tr class="">
-						<th scope="row">2</th>
-						<td class="">Larry the Bird</td>
-						<td>@twitter</td>
-						<td>@twitter</td>
-						<th> <label for="status" class="connected" >connected </label> </th>
-                 		<td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button> <button type="button" data-dismiss="modal" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button></td>
-                   	</tr>
-					<tr>
-					  	<th scope="row">3</th>
-					  	<td  class="">Larry the Bird</td>
-					 	<td>@twitter</td>
-					 	<td>@twitter</td>
-					  	<th> <label for="status" class="banned">banned</label> </th>
-                  	  	<td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button> <button type="button" data-dismiss="modal" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button></td>
-                   	</tr>
-				  </tbody>
-			  </table>
-				<div>
-					<button type="button" class="btn btn-primary"><i class="fas fa-plus"></i></button>	
-				</div>
-				<div class="modal-footer">
-					<button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-		</section>
+		<div class="nav-menu">
+			<a href="index.html">Home</a>
+			<a href="manual.html">Manual control</a>
+			<a href="mission.html">Mission</a>
+			<a class="active" href="settings.html">Settings</a>
+			<a href="help.html">Help</a>
+		</div>
 	</div>
-		<footer class="footer">
-				<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
-					Please contact us <a href="#">@github.com</a>.
-				</div>
-				<div class="footer-menu"></div>
-		</footer>
-    </div>
-<script>
-		window.onscroll = function() {myFunction()};
+</header>
+<div class="container">
+	<div class="page-title" style="margin-bottom: 20px;">
+		<h1>Settings</h1>
+	</div>
+	<div class="settings-page-row">
+	  <div>
+		<!-- Tab navs -->
+			<div id="settings-page" class="nav flex-column nav-tabs text-center"
+		  			id="v-tabs-tab" role="tablist"
+		  			aria-orientation="vertical">
+				<!-- Database -->
+				<a class="nav-link active" id="v-tabs-database-tab"
+				data-mdb-toggle="tab" href="#v-tabs-database" role="tab"
+				   aria-controls="v-tabs-database" aria-selected="false">Database settings</a>
+				<!-- MQTT -->
+				<a class="nav-link"
+				id="v-tabs-mqtt-tab" data-mdb-toggle="tab"
+				href="#v-tabs-mqtt" role="tab"
+				aria-controls="v-tabs-mqtt" aria-selected="true">MQTT settings</a>
+			</div>
+		<!-- Tab navs -->
+		</div>
+		<div>
+		<!-- Tab content -->
+		<div id="settings-page" class="tab-content settings-tab-content" id="v-tabs-tabContent">
+		  <div class="tab-pane fade show active" id="v-tabs-mqtt"
+			   role="tabpanel" aria-labelledby="v-tabs-mqtt-tab">
+			  	<h3 class="ms-5 mt-4 mb-4">MQTT Broker settings</h3>
+				<form>
+					<!-- Hostname -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">
+								MQTT broker
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-hostname" class="form-control" placeholder="Hostname" />
+							</div>
+						</div>
+					</div>
+					<!-- Port -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">					
+								Port number
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-port" class="form-control w-25" placeholder="Port" />
+							</div>
+						</div>
+					</div>
+					<!-- Username -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">					
+								Username
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-username" class="form-control" placeholder="Username" />
+							</div>
+						</div>
+					</div>
+					<!-- Password -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">					
+								Password
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-password" class="form-control" placeholder="Password" />
+							</div>
+						</div>
+					</div>
+					<!-- clientId -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">					
+								Client ID
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="mqtt-clientid" class="form-control" placeholder="Client ID" />
+							</div>
+						</div>
+					</div>
+					<!-- Checkbox -->
+					<div class="form-check d-flex justify-content-center mb-4 p-3">
+						<input class="form-check-input me-2"
+						  type="checkbox" value=""
+						  id="form6Example8" checked/>
+						<label class="form-check-label" for="form6Example8">Default broker?</label>
+					</div>
+					<!-- Form buttons -->
+					<div class="d-flex justify-content-center">
+						<button id="mqttSaveBtn" type="button" class="btn btn-outline-success me-3">
+							Save settings
+						</button>
+						<button id="mqttReloadBtn" type="button" class="btn btn-outline-danger" data-mdb-ripple-color="dark">
+  							Reload
+						</button>
+					</div>
+					<div id="settings-msg"></div>
+				</form>
+		  </div>
+		  <div class="tab-pane fade" id="v-tabs-database"
+			role="tabpanel" aria-labelledby="v-tabs-database-tab">
+				<h3 class="ms-5 mt-4 mb-4">Database settings</h3>
+				<form>
+					<!-- Database hostname -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">
+								Database hostname
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="db-hostname" class="form-control" placeholder="Hostname" />
+							</div>
+						</div>
+					</div>
+					<!-- Port -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						
+								Port number
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="db-port" class="form-control w-25" placeholder="Port" />
+							</div>
+						</div>
+					</div>
+					<!-- Username -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						
+								Database user
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="db-username" class="form-control" placeholder="Username" />
+							</div>
+						</div>
+					</div>
+					<!-- Password -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						
+								Password
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="db-password" class="form-control" placeholder="Password" />
+							</div>
+						</div>
+					</div>
+					<!-- clientId -->
+					<div class="row justify-content-start align-items-center p-1">
+						<div class="col-4">
+							<div class="form-outline d-flex justify-content-end align-items-center">						
+								Database name
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-outline">
+								<input type="text" id="db-name" class="form-control" placeholder="Client ID" />
+							</div>
+						</div>
+					</div>
+					<!-- Checkbox -->
+					<!--<div class="form-check d-flex justify-content-center mb-4 p-3">
+						<input class="form-check-input me-2"
+						  type="checkbox" value=""
+						  id="form6Example8" checked/>
+						<label class="form-check-label" for="form6Example8">Default broker?</label>
+					</div>-->
+					<!-- Form buttons -->
+					<div class="d-flex justify-content-center mt-3">
+						<button id="dbSaveBtn" type="button" class="btn btn-outline-success me-3">Save settings</button>
+						<button id="dbReloadBtn" type="button" class="btn btn-outline-danger" data-mdb-ripple-color="dark">Reload</button>
+					</div>
+					<div id="settings-msg"></div>
+				</form>
+		  </div>
+       </div>
+    <!-- Tab content finish -->
+	</div>
+</div>
 
-		var navbar = document.getElementById("navbar");
-		var sticky = navbar.offsetTop;
+<footer class="footer">
+	<div class="copyright-text">Copyright @ 2021. License: MIT.<br>
+		Discover more at <a href="https://github.com/DIT112-V21/group-09" target="_blank">@github.com</a>.
+	</div>
+</footer><script>
+	window.onscroll = function() {myFunction()};
 
-		function myFunction() {
-		  if (window.pageYOffset >= sticky) {
+	var navbar = document.getElementById("navbar");
+	var sticky = navbar.offsetTop;
+	function myFunction() {
+		if (window.pageYOffset >= sticky) {
 			navbar.classList.add("sticky")
-		  } else {
+		} else {
 			navbar.classList.remove("sticky");
-		  }
 		}
+	}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
-<!-- JavaScript files-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-<script src="vendor/chart.js/Chart.min.js"></script>
-<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="js/charts-home.js"></script>
-<!-- Main File-->
-<script src="js/front.js"></script>
-<script src="assets/js/settings.js"></script>
+<script type="text/javascript" src="./assets/js/settings.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+	<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
 
 </body>
 </html>

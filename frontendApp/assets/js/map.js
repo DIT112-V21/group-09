@@ -4,11 +4,16 @@ var spawnCheck 	 = document.getElementById('spawnCheck');
 var targetCheck  = document.getElementById('targetCheck');
 var rockCheck 	 = document.getElementById('rockCheck');
 var routeCheck 	 = document.getElementById('routeCheck');
+var routeSelector = document.getElementById('routeSelector');
+var reloadBtn = document.getElementById('reloadBtn');
+var executeBtn = document.getElementById('executeBtn');
 showAllCheck.addEventListener('change', function () { showAll()}, false);
 spawnCheck.addEventListener('change', 	function () { showSpawn()}, false);
 targetCheck.addEventListener('change', 	function () { showTarget()}, false);
 rockCheck.addEventListener('change', 	function () { showRock()}, false);
 routeCheck.addEventListener('change', 	function () { showRoute()}, false);
+routeSelector.addEventListener('change',function () { plotRoute()}, false);
+executeBtn.addEventListener('click',function () { executeMission()}, false);
 
 // Map variables
 var map;
@@ -17,17 +22,22 @@ var spawnLayer = L.layerGroup();
 var rocks = L.layerGroup();
 var routeLayer = L.layerGroup();
 var targetAreas = L.layerGroup();
+var routePlotter = L.layerGroup();
+var routePlot;
+let routeWaypoints = [];
 
 // Coordinate fixing to x, y
 var yx = L.latLng;
-	var xy = function(x, y) {
+var xy = function(x, y) {
 		if (L.Util.isArray(x)) {    // If array given as xy([x, y]);
 			return yx(x[1], x[0]);
 		}
 		return yx(y, x);  // Or just coors as xy(x, y);
 };
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function() { loadMap()}, false);
+						  
+function loadMap() {						  
 	// Load Mars map document onload
 	var spawnPoint = xy(777,690);
 	var spawn = L.circle(spawnPoint, {
@@ -97,7 +107,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	var route3 = L.polyline([spawnPoint, gascogne_wp1, gascognePoint], routeStyle).addTo(routeLayer);
 	var route4 = L.polyline([spawnPoint, timan_wp1, timan_wp2, timan_wp3, timanPoint], routeStyle).addTo(routeLayer);
 	var route5 = L.polyline([spawnPoint, katmai_wp1, katmai_wp2, katmaiPoint], routeStyle).addTo(routeLayer);
-
+	
+	// Route plotter
 	map = L.map('marsMap', {
     	crs: L.CRS.Simple,
 		center: xy([1664, 1024]),
@@ -121,7 +132,14 @@ document.addEventListener("DOMContentLoaded", function(){
 	map.fitBounds(bounds);
 	map.setView( xy([1664,1024]), -5);
 	
-});
+	// Add layers
+	spawnLayer.addTo(map);
+	targetAreas.addTo(map);
+};
+
+function eachLayer(layer) {
+        // map.removeLayer(layer);
+    }
 
 // Show or hide all layers
 function showAll() {
@@ -184,3 +202,162 @@ function centerLeafletMapOnMarker(map, marker) {
   var markerBounds = L.latLngBounds(latLngs);
   map.fitBounds(markerBounds);
 }
+
+function plotRoute() {
+	var routeSelected = routeSelector.value;
+	var routeSpawn = [690,770];
+	var sierraPoint = [100,220];
+	var steigerwaldRoute = [
+		[690,770],
+		[1221.33,1080.00],
+		[1520.00,824.00],
+		[1734.67,781.33],
+		[1900, 360]
+	];
+	var gascogneRoute = [
+		[690,770],
+		[722.67,1390.67],
+		[901.33,1930.67],
+		[1408.00,1944.00],
+		[1689.33,1800.00],
+		[1900, 1620]
+	];
+	var timanRoute 	= [
+		[690,770],
+		[710.67,1346.67],
+		[858.67,1920.00],
+		[960.00,2597.33],
+		[1022.67,3056.00],
+		[1436.00,2896.00],
+		[1800, 3020]
+	];
+	var katmaiRoute = [
+		[690,770],
+		[677.33,1200.00],
+		[898.67,1884.00],
+		[898.67,2242.67],
+		[509.33,2738.67],
+		[529.33,3138.67],
+		[432.00,3085.33],
+		[350, 3120]
+	];
+	var selectedRoute = [];
+	
+	switch(routeSelected) {
+		case "sierra":
+			selectedRoute = [ routeSpawn, sierraPoint ]
+			break;
+		case "steigerwald":
+			selectedRoute = steigerwaldRoute;
+			break;
+		case "gascogne":
+			selectedRoute = gascogneRoute;
+			break;
+		case "timan":
+			selectedRoute = timanRoute;
+			break;
+		case "katmai":
+			selectedRoute = katmaiRoute
+			break;
+		default:
+			map.removeControl(routePlotter);
+			routePlotter.clearLayers();
+	}
+	
+	/*routeSelector.disabled = true;
+	reloadBtn.disabled = false;
+	routePlot = L.Polyline.Plotter([routeSpawn,routeDestination],{ weight: 5 }).addTo(routePlotter);
+	routePlotter.addTo(map);
+	routePlot.bringToFront();
+		
+	var reloadDesc = "If you reload map, it will reset the entire map and your current route will be deleted. Are you sure to reload?"
+	reloadBtn.addEventListener('click',function () { showModal("Clear map", reloadDesc, yesBtnLabel = 'Reload', noBtnLabel = 'Cancel', false)}, false);*/
+	
+	routeSelector.disabled = true;
+	reloadBtn.disabled = false;
+	executeBtn.disabled = false;
+	
+	routePlot = L.Polyline.PolylineEditor(selectedRoute, {maxMarkers: 50});
+	routePlot.addTo(map);
+	
+	map.fitBounds(routePlot.getBounds());
+	
+	// Reload confirmation
+	var reloadDesc = "If you reload map, it will reset the entire map and your current route will be deleted. Are you sure to reload?"
+	reloadBtn.addEventListener('click',function () { showModal("Clear map", reloadDesc, yesBtnLabel = 'Reload', noBtnLabel = 'Cancel', false)}, false);
+	
+}
+
+function reloadMap() {
+	location.reload();
+}
+
+var modalWrap = null;
+const showModal = (title, description, yesBtnLabel, noBtnLabel) => {
+  if (modalWrap !== null) {
+    modalWrap.remove();
+  }
+
+  modalWrap = document.createElement('div');
+  modalWrap.innerHTML = `
+    <div class="modal fade" id="reloadWarning">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-warning">
+            <h5 class="modal-title"><strong>${title}</strong></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>${description}</p>
+          </div>
+          <div class="modal-footer bg-light">
+			<button id="modalYesBtn" type="button" class="btn btn-outline-success" onclick="reloadMap()">${yesBtnLabel}</button>
+        	<button id="modalNoBtn" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" >${noBtnLabel}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.append(modalWrap);
+
+  var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+  modal.show();
+
+}
+
+function dismissModal() {
+	console.log("hiding ..")
+	var modalW = document.getElementById('reloadWarning');
+	var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+	modalW.modal().hide();
+}
+
+function executeMission() {
+	var routePlotArea = document.getElementById('routePlotArea');
+    routePlotArea.innerHTML = '';
+	
+	map.getEditablePolylines().forEach(function(polyline) {
+		var points = polyline.getPoints();
+		var wp = 1;
+		points.forEach(function(point) {
+			var latLng = point.getLatLng();
+			console.log(latLng);
+
+			routePlotArea.innerHTML += 'waypoint ' + wp + ': '  
+						+ ' (' + latLng.lat.toFixed(2) + ',' + latLng.lng.toFixed(2) + ')\n';
+						+ '\n';
+			wp++;
+		});
+	});
+	
+	/*const triggerEl = document.querySelector('#missionTabs a[href="#stream"]');
+	mdb.Tab.getInstance(triggerEl).show(); // Select tab by name*/
+	document.getElementById("stream-tab").classList.add("active")
+	document.getElementById("stream-tab").classList.add("show")
+	document.getElementById("map-tab").classList.remove("active");
+	document.getElementById("map-tab").classList.remove("show");
+	document.getElementById("missionTabs-stream-tab").classList.add("active")
+	document.getElementById("missionTabs-map-tab").classList.remove("active")
+
+};
