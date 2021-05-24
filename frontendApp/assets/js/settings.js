@@ -1,6 +1,4 @@
-let config = require('electron-node-config');
-const { Pool, Client } = require('node-postgres');
-const fs = require('fs');
+const config = require('electron-node-config');
 
 const mqttSaveBtn = document.getElementById('mqttSaveBtn')
 const mqttReloadBtn = document.getElementById('mqttReloadBtn')
@@ -9,7 +7,6 @@ const dbReloadBtn = document.getElementById('dbReloadBtn')
 
 document.addEventListener("DOMContentLoaded", function() { loadMqttSettings(); }, false);
 document.addEventListener("DOMContentLoaded", function() { loadDbSettings(); }, false);
-document.addEventListener("DOMContentLoaded", function() { connectPg(); }, false);
 mqttSaveBtn.addEventListener('click', function(){ saveMqttSettings(); }, false)
 mqttReloadBtn.addEventListener('click', function(){ loadMqttSettings(); }, false)
 dbSaveBtn.addEventListener('click', function(){ saveDbSettings(); }, false)
@@ -26,6 +23,7 @@ function loadMqttSettings() {
 }
 
 function loadDbSettings() {
+	let fs = require('fs');
 	var db = null;
 	try {
 		const jsonString = fs.readFileSync("./config/dbConfig.json");
@@ -51,6 +49,8 @@ function loadDbSettings() {
 }
 
 function saveDbSettings() {
+	let fs = require('fs');
+	updateTimestamp();
 	const newDbSettings = {
     	host: document.getElementById("db-hostname").value,
     	port: parseInt(document.getElementById("db-port").value),
@@ -64,8 +64,9 @@ function saveDbSettings() {
 			document.getElementById('settings-msg').style.display = "block";
 			document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error updating settings</span>";
 		} else {
-			document.getElementById('settings-msg').style.display = "block";
-			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";
+			/*document.getElementById('settings-msg').style.display = "block";
+			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";*/
+			systemToast('dbSettingsSaveSuccess');
 		}
 		setTimeout(function(){
 				document.getElementById('settings-msg').style.display = "none";
@@ -74,6 +75,8 @@ function saveDbSettings() {
 }
 
 function saveMqttSettings() {
+	let fs = require('fs');
+	updateTimestamp();
 	var connectionUrl = "mqtt://" + document.getElementById("mqtt-hostname").value 
 						+ ":" + document.getElementById("mqtt-port").value;
 		
@@ -97,30 +100,12 @@ function saveMqttSettings() {
 			document.getElementById('settings-msg').style.display = "block";
 			document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error updating settings</span>";
 		} else {
-			document.getElementById('settings-msg').style.display = "block";
-			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";
+			/*document.getElementById('settings-msg').style.display = "block";
+			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";*/
+			systemToast('mqttSettingsSaveSuccess');
 		}
 		setTimeout(function(){
 				document.getElementById('settings-msg').style.display = "none";
 			}, 5000);
 	})
-}
-
-function connectPg() {
-	const jsonString = fs.readFileSync("./config/dbConfig.json");
-	db = JSON.parse(jsonString);
-	
-	(async () => {
-  		const pool = new Pool({
-    	user: db.dbUser,
-    	host: db.host,
-    	database: db.dbName,
-    	password: db.dbPassword,
-    	port: db.port
-  	});
-  
-  		const res = await pool.query('SELECT * from topics');
-  		console.log(res);
-		
-	})().catch(console.error);
 }

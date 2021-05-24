@@ -8,22 +8,30 @@ const store = new Store({
 
 const jsonString = fs.readFileSync("./config/dbConfig.json");
 	db = JSON.parse(jsonString);
-	
-client = new Client({
+
+const clientConfig = {
     	user: db.dbUser,
     	host: db.host,
     	database: db.dbName,
     	password: db.dbPassword,
     	port: db.port
-  	});
-client.connect();
+  	};
 
 document.addEventListener("DOMContentLoaded", function() { initializeUser()}, false);
 
 function initializeUser() {
-
+	var loggedTime = store.get('loggedTimestamp');
+	const currentDate = new Date();
+	const currentTime = currentDate.getTime();
+	var timeDiff = 	(currentTime - loggedTime)/60000;
+	if (timeDiff > 720) {
+		store.delete('loggedUserid');
+		store.delete('loggedUsername');
+		store.delete('loggedName');
+		store.delete('loggedTimestamp');
+	}
+	
 	var loggedUser = store.get('loggedName');
-
 	var loginMenu = `<li><a class="dropdown-item" href="#" onclick="userModal('login')"
 							style="text-decoration: none;"><i class="fas fa-sign-in-alt mini-icon" style="padding-right: 5px;"></i>Log In</a></li>
 					<li><a class="dropdown-item" href="#" onclick="userModal('register')" 
@@ -46,7 +54,6 @@ function initializeUser() {
 		userMenuContainer.innerHTML = userMenu;
 	}
 }
-
 
 // Script to show modal alert box
 var modalWrap = null;
@@ -161,59 +168,86 @@ function registerUser() {
 		text: 'SELECT username FROM accounts'
 	}
 	
-	client.query(checkQuery, (err, res) => {
-		console.log(err, res)
-		res.rows.forEach(row => {
-    		if (username == row.username) {
-				document.getElementById("formMessage").innerHTML = "Username &ldquo;" + username + "&rdquo; already exists. Please try again.";
-				document.getElementById("registerUsername").classList.add('custom-error');
-				valid = false;
-			} 
-		});
-		
+	const client = new Client(clientConfig);
+	client.connect()
+	client
+  		.query(checkQuery)
+  		.then(result => 
+			 result.rows.forEach(row => {
+				if (username == row.username) {
+					document.getElementById("formMessage").innerHTML = "Username &ldquo;" + username + "&rdquo; already exists. Please try again.";
+					document.getElementById("registerUsername").classList.add('custom-error');
+					valid = false;
+				} 
+			}))
+  		.catch(e => {
+				console.error(e.stack);
+				systemToast('dbError');
+			})
+  		.then(() => client.end());
+
 		if (valid) {
 			let name = document.getElementById("registerName").value;
 			let email = document.getElementById("registerEmail").value;
 			let password = document.getElementById("registerPassword").value;
-			const query = {
+			const registerQuery = {
 				name: 'user-register',
 				text: 'INSERT INTO accounts (name, username, password, email) VALUES ($1, $2, $3, $4)',
 				values: [name, username, password, email]
 			}
 	
-			client.query(query, (err, res) => {
-				console.log(err, res)
+		const client = new Client(clientConfig);
+		client.connect();
+		client
+  			.query(registerQuery)
+  			.then(result => {
+				hideModal("userModal");
+				systemToast('registerSuccess');
 			})
-	
-			hideModal("userModal");
-			systemToast('registerSuccess');
+  			.catch(e => {
+				console.error(e.stack);
+				systemToast('dbError');
+			})
+  			.then(() => client.end())
 		}
-	})
 }
 
 function userLogin() {
 	let username = document.getElementById("loginUsername").value;
 	let password = document.getElementById("loginPassword").value;
 	
-	const query = {
+	const loginQuery = {
 		name: 'user-login',
 		text: 'SELECT * FROM accounts WHERE username = $1 AND password = $2',
 		values: [username, password]
 	}
 	
-	client.query(query, (err, result) => {
-		if (result.rowCount == 0) {
-			document.getElementById("formMessage").innerHTML = "Invalid username or password! Please try again.";
-		} else {
-			store.set('loggedUserid', result.rows[0].id);
-			store.set('loggedUsername', result.rows[0].username);
-			store.set('loggedName', result.rows[0].name);
+	const client = new Client(clientConfig);
+	
+	client.connect()
+	client
+	  .query(loginQuery)
+	  .then(result => {
+			if (result.rowCount == 0) {
+				document.getElementById("formMessage").innerHTML = "Invalid username or password! Please try again.";
+			} else {
+				const currentDate = new Date();
+				const timestamp = currentDate.getTime();
+				store.set('loggedUserid', result.rows[0].id);
+				store.set('loggedUsername', result.rows[0].username);
+				store.set('loggedName', result.rows[0].name);
+				store.set('loggedTimestamp', timestamp);
 			
-			hideModal('userModal');
-			initializeUser();
-			systemToast('loginSuccess');
-		}
-	})
+				hideModal('userModal');
+				initializeUser();
+				systemToast('loginSuccess');
+			}
+		})
+	  .catch(e => {
+				console.error(e.stack);
+				systemToast('dbError');
+			})
+	  .then(() => client.end())
 }
 
 function logout() {
@@ -221,6 +255,7 @@ function logout() {
 	store.delete('loggedUserid');
 	store.delete('loggedUsername');
 	store.delete('loggedName');
+	store.delete('loggedTimestamp');
 	
 	initializeUser();
 	systemToast('logoutSuccess');
@@ -230,13 +265,6 @@ function logout() {
 function hideModal(modalId) {
 	document.getElementById(modalId).classList.remove('show');
 	document.querySelector(".modal-backdrop").classList.remove('show');
-}
-
-function connectPg() {
-	const sql = `SELECT * from accounts`
-	client.query(sql, (err, res) => {
-		console.log(err, res)
-	})
 }
 
 function validateForm(name) {
@@ -254,7 +282,6 @@ function validateForm(name) {
 				event.preventDefault();
 				event.stopPropagation();
 				document.getElementById("formMessage").innerHTML = "Please fill-in all required fields.";
-				
 			} else if (name == 'login') {
 				userLogin();
 			} else if (name == 'register') {
@@ -263,12 +290,6 @@ function validateForm(name) {
 
 			form.classList.add('was-validated');
 		}, false);
-}
-
-function systemToast(name) {
-	let newToast = document.getElementById(name);//select id of toast
-    let newNotification = new bootstrap.Toast(newToast);//inizialize it
-    newNotification.show();//show it
 }
 
 function setCustomValidityMsg() {
@@ -304,4 +325,26 @@ function setCustomValidityMsg() {
 			}
 		});
 	}
+}
+
+function systemToast(name) {
+	var systemMessages = {
+		'loginSuccess': 'Login successful!',
+		'logoutSuccess': 'Successfully logged out!',
+		'registerSuccess': 'User account<br />successfully created!',
+		'dbSettingsSaveSuccess': 'Database settings<br />successfully saved.',
+		'mqttSettingsSaveSuccess': 'MQTT Broker settings<br/>successfully saved.',
+		'dbError': 'Database query error.<br />Please check connection settings.'
+	}
+	
+	document.getElementById('system-toast-body').innerHTML = systemMessages[name];
+	let newToast = document.getElementById('system-toast');//select id of toast
+    let newNotification = new bootstrap.Toast(newToast);//inizialize it
+    newNotification.show();//show it
+}
+
+function updateTimestamp() {
+	const currentDate = new Date();
+	const timestamp = currentDate.getTime();
+	store.set('loggedTimestamp', timestamp);
 }

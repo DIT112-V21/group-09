@@ -37,7 +37,7 @@
 	font-size: 20pt;
 }
 
-h3.popover-header {
+#homepage h3.popover-header {
 	text-transform: uppercase;
 	font-family: 'Lato', 'Open Sans', sans-serif;
 	font-size: 12pt;
@@ -45,7 +45,7 @@ h3.popover-header {
 	text-shadow: 2px 0 5px #ffffff;
 }
 
-.popover-body {
+#homepage .popover-body {
 	font-family: 'Lato', 'Open Sans', sans-serif;
 	font-size: 1rem;
 	font-weight: 500;
@@ -54,7 +54,7 @@ h3.popover-header {
 	text-shadow: 1px 1px 2px #000;
 }
 
-.popover-body .highlight {
+#homepage .popover-body .highlight {
 	color: #FFAE00;
 	text-shadow: 1px 1px 2px #000;
 }
