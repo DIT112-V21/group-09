@@ -1,45 +1,140 @@
 <!DOCTYPE html>
 <html id="homepage">
+
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<title>SmartRover - Home</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" type = "text/css" href="assets/css/style.css">
-	<link rel="stylesheet" type = "text/css" href="assets/css/typography.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+
+
+
+	<link rel="stylesheet" href="assets/css/login.css">
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <div class="home-wrapper">
-        <header class="header">
+	<div class="home-wrapper">
+		<header class="header">
 			<div id="navbar">
 				<div class="logo">
 					<img src="assets/images/rover-logo.png" alt="SmartRover Logo">
 				</div>
 				<div class="nav-menu">
-					<a  class="active"href="index.html">Home</a>
+					<a class="active" href="index.html">Home</a>
 					<a href="manual.html">Manual control</a>
 					<a href="mission.html">Mission</a>
 					<a href="settings.html">Settings</a>
 					<a href="help.html">Help</a>
+
+					<a href="#optionList">
+
+						<!-- Button trigger modal -->
+
+						<div id="optionsButton" class="dropdown" style="margin: auto;">
+							<button style="color: rgb(255, 255, 255); margin-bottom: auto; padding-bottom: 5px; "
+								class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<i class="fas fa-user-astronaut fa-3x "></i>
+							</button>
+							<ul id="optionList" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+								<li><a class="dropdown-item" data-mdb-toggle="modal" data-mdb-target="#loginModal" href="#"
+										style="text-decoration: none;">Log In</a></li>
+								<li><a class="dropdown-item" href="#" style="text-decoration: none;">Register</a></li>
+								<li><a class="dropdown-item" href="#" style="text-decoration: none;">Something else here</a></li>
+							</ul>
+						</div>
+
+
+					</a>
+
+				</div>
+
+			</div>
+
+
+			<!-- Modal -->
+			<div style="z-index: 9;" class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">User Login</h5>
+							<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<input type="text" class="form-control" name="" id="userName" placeholder="User Name">
+							</div>
+							<div>
+								<input type="password" class="form-control" name="" id="passWord" placeholder="Password">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+								Close
+							</button>
+							<button type="button" class="btn btn-primary" id="loginBtn">Log In</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Register Modal -->
+			<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">User Registration</h5>
+							<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<input type="text" class="form-control" name="" id="" placeholder="Enter a User Name">
+							</div>
+							<div>
+								<input type="password" class="form-control" name="" id="" placeholder="Enter a Password">
+							</div>
+							<div>
+								<input type="password" class="form-control" name="" id="" placeholder="Enter Password again">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+								Close
+							</button>
+							<button type="button" class="btn btn-primary">Register</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</header>
-        <section class="rover-intro">
+
+		<section class="rover-intro">
 			<div>
 				<img class="home-logo" src="assets/images/rover-logo.png" alt="SmartRover logo">
 				<img class="rover-model" src="assets/images/home-rover-model.png">
 			</div>
 			<div class="tooltip-row">
-				<div class="intro-tooltip1" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" title="The Rover's &quot;Body&quot;" data-bs-html="true"
-				data-bs-content="<p align='justify'>The SmartRover's body is called the warm electronics box, or <span class='highlight'>&quot;WEB&quot;</span> for short. Like a car body, the rover body is a strong, outer layer that protects the rover's computer and electronics (which are basically the equivalent of the rover's brains and heart). The rover body thus keeps the rover's vital organs protected and temperature-controlled.</p>
+				<div class="intro-tooltip1" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top"
+					title="The Rover's &quot;Body&quot;" data-bs-html="true" data-bs-content="<p align='justify'>The SmartRover's body is called the warm electronics box, or <span class='highlight'>&quot;WEB&quot;</span> for short. Like a car body, the rover body is a strong, outer layer that protects the rover's computer and electronics (which are basically the equivalent of the rover's brains and heart). The rover body thus keeps the rover's vital organs protected and temperature-controlled.</p>
 				<ul>
 					<li>Length: 3 meters</li>
 					<li>Width: 2.7 meters</li>
 					<li>Height: 2.2 meters</li>
 					<li>Weight: 1025 kilograms</li>
 				</ul>">BODY</div>
-				<div class="intro-tooltip2" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="The Rover's &quot;Brains&quot;" data-bs-html="true"
-				data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>Unlike people and most animals, the rover's brains - its computer - are in its boxy body. The computer module is called the <span class='highlight'>Rover Compute Element (RCE)</span> - there are actually two identical RCEs in the body so there is always a spare &quot;<strong>brain</strong>&quot;.</p>
+				<div class="intro-tooltip2" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+					title="The Rover's &quot;Brains&quot;" data-bs-html="true" data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>Unlike people and most animals, the rover's brains - its computer - are in its boxy body. The computer module is called the <span class='highlight'>Rover Compute Element (RCE)</span> - there are actually two identical RCEs in the body so there is always a spare &quot;<strong>brain</strong>&quot;.</p>
 				<ul>
 					<strong>Processor:</strong>
 					<li>Radiation-hardened central processor with PowerPC 750 Architecture: a BAE RAD 750</li>
@@ -48,23 +143,23 @@
 					<li>256 MB DRAM</li>
 					<li>256 KB programmable ROM</li>
 				</ul>">BRAINS</div>
-				<div class="intro-tooltip3" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="The Rover's &quot;eyes&quot;" data-bs-html="true"
-				data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>The Perseverance rover has several cameras focused on engineering and science tasks. Some help us land on Mars, while others serve as our &quot;<strong>eyes</strong>&quot; on the surface to drive around. SuperCam identifies minerals and rock compositions, and it seeks organic compounds that could be related to past life on Mars. It has a <span class='highlight'><strong>LASER</strong></span> that can zap and study areas on a rock as small as the period at the end of this sentence. The microphone on SuperCam gives scientists another &quot;sense&quot; with which to probe the rock targets they are studying.</p>
+				<div class="intro-tooltip3" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+					title="The Rover's &quot;eyes&quot;" data-bs-html="true" data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>The Perseverance rover has several cameras focused on engineering and science tasks. Some help us land on Mars, while others serve as our &quot;<strong>eyes</strong>&quot; on the surface to drive around. SuperCam identifies minerals and rock compositions, and it seeks organic compounds that could be related to past life on Mars. It has a <span class='highlight'><strong>LASER</strong></span> that can zap and study areas on a rock as small as the period at the end of this sentence. The microphone on SuperCam gives scientists another &quot;sense&quot; with which to probe the rock targets they are studying.</p>
 				<ul>
 					<li>Total cameras: 23</li>
 					<li>Engineering cameras: 9</li>
 					<li>Science cameras: 7</li>
 					<li>Landing cameras: 7</li>
 				</ul>">CAMERAS</div>
-				<div class="intro-tooltip4" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Robotic Arm" data-bs-html="true"
-				data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>The 7-foot-long robotic arm on Perseverance can move a lot like yours. It has a shoulder, elbow and wrist &quot;joints&quot; for maximum flexibility. The arm lets the rover work as a human geologist would: by holding and using science tools with its &quot;hand&quot; or turret. The rover's own &quot;hand tools&quot; extract cores from rocks, takes microscopic images and analyzes the elemental composition and mineral makeup of Martian rocks and soil.</p>
+				<div class="intro-tooltip4" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+					title="Robotic Arm" data-bs-html="true" data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>The 7-foot-long robotic arm on Perseverance can move a lot like yours. It has a shoulder, elbow and wrist &quot;joints&quot; for maximum flexibility. The arm lets the rover work as a human geologist would: by holding and using science tools with its &quot;hand&quot; or turret. The rover's own &quot;hand tools&quot; extract cores from rocks, takes microscopic images and analyzes the elemental composition and mineral makeup of Martian rocks and soil.</p>
 				<ul>
 					<li>Length: 2.1 meters</li>
 					<li>Joints: 5 joints</li>
 					<li>Hand turrent: SHERLOC and WATSON, PIXL, GDRT (Gaseous Dust Removal Tool), Ground Contact Sensor, Drill</li>
 				</ul>">ARM</div>
-				<div class="intro-tooltip5" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Wheels and Legs" data-bs-html="true"
-				data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>The SmartRover has six wheels, each with its own individual motor.<br><br>
+				<div class="intro-tooltip5" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+					title="Wheels and Legs" data-bs-html="true" data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>The SmartRover has six wheels, each with its own individual motor.<br><br>
 				The two front and two rear wheels also have individual steering motors. This steering capability allows the vehicle to turn in place, a full 360 degrees. The four-wheel steering also allows the rover to swerve and curve, making arcing turns.</p>
 				<ul>
 					<li>Leg materials: Titanium tubing form</li>
@@ -73,8 +168,8 @@
 					<li>Wheel size: 52.5 cm in diameter</li>
 					<li>Drive: One full turn is 1.65 meters travelled</li>
 				</ul>">WHEELS</div>
-				<div class="intro-tooltip6" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top" title="Electrical Power" data-bs-html="true"
-				data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>SmartRover carries a radioisotope power system called a <span class='highlight'>&quot;Multi-Mission Radioisotope Thermoelectric Generator&quot;</span> or MMRTG for short. This power system produces a dependable flow of electricity using the heat of plutonium's radioactive decay as its <span class='highlight'>&quot;fuel.&quot;</span> The MMRTG converts heat from the natural radioactive decay of plutonium into electricity. This power system charges the rover's two primary batteries.</p>
+				<div class="intro-tooltip6" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+					title="Electrical Power" data-bs-html="true" data-bs-content="<p style='text-align: justify; text-justify: inter-word;'>SmartRover carries a radioisotope power system called a <span class='highlight'>&quot;Multi-Mission Radioisotope Thermoelectric Generator&quot;</span> or MMRTG for short. This power system produces a dependable flow of electricity using the heat of plutonium's radioactive decay as its <span class='highlight'>&quot;fuel.&quot;</span> The MMRTG converts heat from the natural radioactive decay of plutonium into electricity. This power system charges the rover's two primary batteries.</p>
 				<ul>
 					<li>Size: 64cm diameter by 66cm long</li>
 					<li>Weight: 45 kilograms</li>
@@ -82,14 +177,27 @@
 					<li>Batteries: 2 lithium-ion rechargeable batteries</li>
 				</ul>">POWER</div>
 			</div>
-        </section>
+		</section>
 
-    </div> <!--wrapper ends-->
-   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script></script>
+	</div>
+	<!--wrapper ends-->
+
+
+	<!-- MDB -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+		crossorigin="anonymous"></script>
+	</script>
+
+
 	<script type="text/javascript">
 		var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 		var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  			return new bootstrap.Popover(popoverTriggerEl)
+			return new bootstrap.Popover(popoverTriggerEl)
 		})
 	</script>
 	<script type='text/javascript'>
@@ -101,5 +209,8 @@
 			});
 		});
 	</script>
+
+
 </body>
+
 </html>
