@@ -21,14 +21,18 @@ document.addEventListener("DOMContentLoaded", function() { initializeUser()}, fa
 
 function initializeUser() {
 	var loggedTime = store.get('loggedTimestamp');
-	const currentDate = new Date();
-	const currentTime = currentDate.getTime();
-	var timeDiff = 	(currentTime - loggedTime)/60000;
-	if (timeDiff > 720) {
-		store.delete('loggedUserid');
-		store.delete('loggedUsername');
-		store.delete('loggedName');
-		store.delete('loggedTimestamp');
+	if (loggedTime != null) {
+		console.log("Checking time diff ...")
+		const currentDate = new Date();
+		const currentTime = currentDate.getTime();
+		var timeDiff = 	(currentTime - loggedTime)/60000;
+		if (timeDiff > 720) {
+			store.delete('loggedUserid');
+			store.delete('loggedUsername');
+			store.delete('loggedName');
+			store.delete('loggedTimestamp');
+			store.delete('currentPage');
+		}	
 	}
 	
 	var loggedUser = store.get('loggedName');
@@ -52,6 +56,9 @@ function initializeUser() {
 	} else {
 		console.log(loggedUser)
 		userMenuContainer.innerHTML = userMenu;
+		var path = window.location.pathname;
+		var page = path.split("/").pop();
+		store.set('currentPage', page);
 	}
 }
 
@@ -256,6 +263,7 @@ function logout() {
 	store.delete('loggedUsername');
 	store.delete('loggedName');
 	store.delete('loggedTimestamp');
+	store.delete('currentPage');
 	
 	initializeUser();
 	systemToast('logoutSuccess');

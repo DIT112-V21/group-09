@@ -23,6 +23,7 @@
     "electron-node-config": "^1.1.0",
     "electron-store": "^8.0.0",
     "eslint": "^7.24.0",
+    "jquery": "^3.6.0",
     "mocha": "^8.3.2",
     "mqtt": "^4.2.6",
     "node-client": "^0.1.17",
