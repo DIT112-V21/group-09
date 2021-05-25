@@ -24,7 +24,25 @@ function createWindow () {
   	})
 	
 	mainWindow.menuBarVisible = false
-	mainWindow.loadFile('index.html')
+	
+	var loggedTime = store.get('loggedTimestamp');
+	if (loggedTime != null) {
+		const currentDate = new Date();
+		const currentTime = currentDate.getTime();
+		var timeDiff = 	(currentTime - loggedTime)/60000;
+		if (timeDiff < 5) {
+			var page = store.get('currentPage');
+			mainWindow.loadFile(page);
+		} else {
+			mainWindow.loadFile('index.html');
+		}
+	} else {
+		mainWindow.loadFile('index.html');
+	}
+	
+	/*
+	
+	mainWindow.loadFile('index.html')*/
 	
 	/* Global shortcut for F5 to reload window */
 	globalShortcut.register('f5', function() {
