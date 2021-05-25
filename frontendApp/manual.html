@@ -9,7 +9,6 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
 	<link rel="stylesheet" href="assets/css/user-profile.css">
-
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
 	<!-- Google Fonts -->
@@ -33,14 +32,14 @@
 			</div>
 		</div>
 		<div class="user-profile dropdown">
-				  <button
-					class="btn btn-primary dropdown-toggle"
-					type="button"
-					id="dropdownMenuButton"
-					data-mdb-toggle="dropdown"
-					aria-expanded="false" style="overflow: visible;"><i class="fas fa-user-astronaut profile-icon fa-3x"></i>
-				  </button>
-				  <ul id="user-menu" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1"></ul>
+			  <button
+				class="btn btn-primary dropdown-toggle"
+				type="button"
+				id="dropdownMenuButton"
+				data-mdb-toggle="dropdown"
+				aria-expanded="false" style="overflow: visible;"><i class="fas fa-user-astronaut profile-icon fa-3x"></i>
+			  </button>
+			  <ul id="user-menu" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1"></ul>
 		</div>
 	</header>
 	<div class="container">
@@ -88,7 +87,6 @@
 										style="padding: 28px 25px 30px 27px;"></i></span>
 							</a>
 						</div>
-
 						<!-- Control buttons Row 2 -->
 						<div class="control-button-container">
 							<a id="leftBtn" class="control-button" topic="control/turnAngle" step="-10">
@@ -127,8 +125,9 @@
 						</div>
 						<div class="control-button-container">
 							<a id="cruiseBtn" class="control-button" topic="cruiseControl" step="0">
-								<span id="cruiseButton" class="disconnected"><i class="fas fa-car-crash fa-2x"
-										style="padding: 28px 25px 25px 18px;"></i></span>
+								<span id="cruiseButton" class="disconnected">
+									<i class="fas fa-car-crash fa-2x" style="padding: 28px 25px 25px 18px;"></i>
+								</span>
 							</a>
 						</div>
 					</div>
@@ -190,48 +189,21 @@
 		</div>
 	</footer>
 	<div id="sm-notification" class="position-fixed top-0 end-0 p-0 sm-notification">
-		<div id="loginSuccess" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
+		<div id="system-toast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
 			<div class="toast-header">
-				<img src="./assets/images/favicon.ico" class="rounded me-2" alt="..." width="32" height="32">
+				<img src="./assets/images/favicon.ico" class="rounded me-2" width="32" height="32">
 				<strong class="me-auto toast-title">New Notification</strong>
 				<small class="toast-timer">just now</small>
 				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 			</div>
-			<div class="toast-body">
-				Login successful!
-			</div>
-		</div>
-		<div id="logoutSuccess" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
-			<div class="toast-header">
-				<img src="./assets/images/favicon.ico" class="rounded me-2" alt="..." width="32" height="32">
-				<strong class="me-auto toast-title">New Notification</strong>
-				<small class="toast-timer">just now</small>
-				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-			</div>
-			<div class="toast-body">
-				Successfully logged out!
-			</div>
-		</div>
-		<div id="registerSuccess" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
-			<div class="toast-header">
-				<img src="./assets/images/favicon.ico" class="rounded me-2" alt="..." width="32" height="32">
-				<strong class="me-auto toast-title">New Notification</strong>
-				<small class="toast-timer">just now</small>
-				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-			</div>
-			<div class="toast-body">
-				User account<br />successfully created!
+			<div id="system-toast-body" class="pt-3 pb-3">
 			</div>
 		</div>
 	</div>
-	</div>
-
 	<script src="./assets/js/communication.js"></script>
 	<script src="./assets/js/user.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 	<!-- MDB -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
-
 </body>
-
 </html>

@@ -10,7 +10,7 @@ body, body .container-1 {
   min-width: 100%;
 }
 
-body {
+body, #homepage body {
   font-family: "Open Sans", "Inter", "Roboto", sans-serif;
   background-image: url("../images/PIA22316.jpeg");
   background-blend-mode: overlay(rgba(218, 212, 212, 0.4));
@@ -297,7 +297,7 @@ img.rover-model {
 	
 }
 
-.tooltip-row {
+#roverIntro .tooltip-row {
 	position: relative;
 	z-index: 500;
 	margin: 0 auto;
@@ -308,32 +308,32 @@ img.rover-model {
 	padding-bottom: 20px;
 }
 
-.intro-tooltip1 {
+#roverIntro .intro-tooltip1 {
 	z-index: 1;
 	grid-area: roverTip1;
 }
 
-.intro-tooltip2 {
+#roverIntro .intro-tooltip2 {
   grid-area: roverTip2;
 }
 
-.intro-tooltip3 {
+#roverIntro .intro-tooltip3 {
   grid-area: roverTip3;
 }
 
-.intro-tooltip4 {
+#roverIntro .intro-tooltip4 {
   grid-area: roverTip4;
 }
 
-.intro-tooltip5 {
+#roverIntro .intro-tooltip5 {
   grid-area: roverTip5;
 }
 
-.intro-tooltip6 {
+#roverIntro .intro-tooltip6 {
   grid-area: roverTip6;
 }
 
-.popover {
+#homepage .popover {
 	z-index: 100;
 	width: 400px;
 	max-width: 480px;
@@ -341,7 +341,7 @@ img.rover-model {
 	background-color: rgb(0,0,0,0.6);
 }
 
-.popover-header {
+#homepage .popover-header {
 	background: #feccb1; /* Old browsers */
 	background: -moz-linear-gradient(-45deg,  #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(-45deg,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); /* Chrome10-25,Safari5.1-6 */
@@ -349,14 +349,14 @@ img.rover-model {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feccb1', endColorstr='#fb955e',GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
 
-.bs-popover-auto[data-popper-placement^=top]>.popover-arrow::before, .bs-popover-top>.popover-arrow::before {
+#homepage .bs-popover-auto[data-popper-placement^=top]>.popover-arrow::before, #homepage .bs-popover-top>.popover-arrow::before {
     background-color: rgb(0,0,0,0.8);
 	bottom: 0;
     border-width: .5rem .5rem 0;
     border-top-color:  rgba(255, 158, 0, 1);
 }
 
-.popover .popover-arrow::before {
+#homepage .popover .popover-arrow::before {
     position: absolute;
     display: block;
     content: "";
@@ -364,7 +364,7 @@ img.rover-model {
 	background-color: transparent;
 }
 
- .popover .popover-arrow::after {
+ #homepage .popover .popover-arrow::after {
     position: absolute;
     display: block;
     content: "";
@@ -858,7 +858,7 @@ img.rover-model {
 #mission-control .container {
   display: block;
   position: relative;
-  margin: 30px auto 30px;
+  margin: 120px auto 30px;
   color: #fff;
   background-color: #1c2329;
   padding: 0 50px 50px 50px;
@@ -869,7 +869,6 @@ img.rover-model {
 	grid-template-columns: auto 320px;
 	grid-column-gap: 6px;
 }
-
 
 #marsMap { 
 	width: 100%;
@@ -964,29 +963,6 @@ thead cell {
 
 /*<!--Manual Control layout>*/
 
-/*for header .JS is used for this*/
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.sticky + .content {
-  padding-top: 100px;
-}
-
-.middle {
-  grid-gap: 0.3em;
-  display: grid;
-  width: auto;
-  background-size: cover;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  background-position: center;
-  border: 2px green solid;
-  height: relative;
-  background: rgba(255, 255, 255, 0.4);
-}
 
 .snapshot {
   color: rgb(0, 0, 0);
@@ -1131,12 +1107,13 @@ thead cell {
 	
 }
 
-#sm-notification .toast-body {
+#system-toast-body {
 	color: #006400;
 	font-size: 16pt;
 	font-weight: 700;
 	text-align: center;
-
+}
+	
 #settings-page .nav-link.active,
 #help-page .nav-link.active,
 #settings-page .nav-link.active:hover,

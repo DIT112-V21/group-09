@@ -13,6 +13,8 @@ var cruiseControl = false;
 const receivingChannel = "marsOrbiter/#";
 const sendingChannel = "smartRover/";
 var frameCount = 0;
+var currentThrottle = 0;
+var currentTurnAngle = 0;
 
 const options = {
 	keepalive: 30,
@@ -70,6 +72,7 @@ function onConnect () {
 				console.log('Client connected:' + options.clientId)
 			  	addTextToSerial('Rover powered up!');
 				// connectBtn.innerText = 'Connected';
+			  	updateTimestamp();
 				document.getElementById("connectbutton").classList.remove('disconnected');
 				document.getElementById("connectbutton").classList.add('connected');
 				document.getElementById("connectbutton").style.setProperty('--connection-btn-color', '#18ff00', 'important');
@@ -87,12 +90,14 @@ function onConnect () {
 			  } else if (topic.includes("telemetry/throttle")) {
 				  var data = parseInt(message)
 				  document.getElementById("throttle").innerHTML = data;
+				  currentThrottle = data;
 			  } else if (topic.includes("telemetry/speed")) {
 				  var data = parseFloat(message).toFixed(3)
 				  document.getElementById("speed").innerHTML = data;
 			  } else if (topic.includes("telemetry/turnAngle")) {
 				  var data = parseInt(message)
 				  document.getElementById("angle").innerHTML = data;
+				  currentTurnAngle = data;
 			  } else if (topic.includes("telemetry/totalDistance")) {
 				  var data = parseInt(message)
 				  document.getElementById("distance").innerHTML = data;
@@ -120,12 +125,15 @@ function onConnect () {
 				  
 				  frameCount++;
 				  
-				  if (frameCount > 30) {
+				  if (frameCount > 20) {
 					  var scanData = canvas.toDataURL('image/bmp');
 					  QrScanner.scanImage(scanData)
 						  .then(result => {
 						  	var qrMessage = "Found target area: " + result;
 						  	addTextToSerial(qrMessage);
+						  
+						    // MQTT publish QR CODE found string
+						  
 						  })
 						  .catch(error => console.log(error || 'No QR code found.'));
 					  frameCount = 0;
@@ -186,10 +194,11 @@ function onSub () {
 				addTextToSerial('<span style="color: #f7e062">Mars Orbiter</span> connected.');
 			}
 		})
-		subscribed = true;
-		document.getElementById("satelliteButton").classList.add('connected');
-		document.getElementById("satelliteButton").classList.remove('disconnected');
-		document.getElementById("satelliteButton").style.setProperty('color', '#18ff00', 'important');
+			subscribed = true;
+			document.getElementById("satelliteButton").classList.add('connected');
+			document.getElementById("satelliteButton").classList.remove('disconnected');
+			document.getElementById("satelliteButton").style.setProperty('color', '#18ff00', 'important');
+			updateTimestamp();
 		} else {
 			onUnsub();
 		}
@@ -223,6 +232,7 @@ function manualControl(elmnt) {
 
 		var channel = sendingChannel + elmnt.getAttribute("topic");
 		var command = elmnt.getAttribute("step");
+		var skip = false;
 
 		if (elmnt == cruiseBtn) {
 			if (command == "1") {
@@ -242,23 +252,47 @@ function manualControl(elmnt) {
 			}
 		} else {
 			let commandType;
-			switch (elmnt) {
-				case upBtn:
-				case downBtn:
-					commandType = "Throttle: " + command;
-					break;
-				case leftBtn:
-				case rightBtn:
-					commandType = "Turn angle: " + command;
-					break;
-				case stopBtn:
-					commandType = "Stop the Rover.";
-				default:
-					// Print nothing;
+
+			if (currentThrottle >= 100 && elmnt == upBtn) {
+				commandType = "Throttle is maximum at 100%";
+				currentThrottle = 100;
+				channel = 'console/throttle';
+				command = "100";
+				client.publish( 'console/turnAngle', '0', {qos: 0, retain: false })
+			} else if (currentThrottle <= -100  && elmnt == downBtn) {
+				commandType = "Reverse is maximum at -100%";
+				currentThrottle = -100;
+				channel = 'console/throttle';
+				command = "-100";
+				client.publish( 'console/turnAngle', '0', {qos: 0, retain: false })
+			} else if (currentTurnAngle >= 180 && elmnt == rightBtn) {
+				commandType = "Right turn is maximum at 180 degrees";
+				currentTurnAngle = 180;
+				channel = 'console/turnAngle';
+				command = "180";
+			} else if (currentTurnAngle <= -180 && elmnt == leftBtn) {
+				commandType = "Left turn is maximum at -180 degrees";
+				currentTurnAngle = -180;
+				channel = 'console/turnAngle';
+				command = "-180";
+			} else if ((currentThrottle < 100 && currentThrottle > -100) || (currentTurnAngle < 180 && currentTurnAngle > -180)) {
+				switch (elmnt) {
+					case upBtn:
+					case downBtn:
+						commandType = "Throttle: " + command;
+						break;
+					case leftBtn:
+					case rightBtn:
+						commandType = "Turn angle: " + command;
+						break;
+					case stopBtn:
+						commandType = "Stop the Rover.";
+					default:
+						// Do nothing;
+				}
 			}
 			addTextToSerial(commandType);
 		}
-	  
 		client.publish( channel, command, {
 			qos: 0,
 			retain: false

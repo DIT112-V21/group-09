@@ -12,7 +12,7 @@ spawnCheck.addEventListener('change', 	function () { showSpawn()}, false);
 targetCheck.addEventListener('change', 	function () { showTarget()}, false);
 rockCheck.addEventListener('change', 	function () { showRock()}, false);
 routeCheck.addEventListener('change', 	function () { showRoute()}, false);
-routeSelector.addEventListener('change',function () { plotRoute()}, false);
+routeSelector.addEventListener('change', function () { plotRoute()}, false);
 executeBtn.addEventListener('click',function () { executeMission()}, false);
 
 // Map variables
@@ -264,15 +264,6 @@ function plotRoute() {
 			routePlotter.clearLayers();
 	}
 	
-	/*routeSelector.disabled = true;
-	reloadBtn.disabled = false;
-	routePlot = L.Polyline.Plotter([routeSpawn,routeDestination],{ weight: 5 }).addTo(routePlotter);
-	routePlotter.addTo(map);
-	routePlot.bringToFront();
-		
-	var reloadDesc = "If you reload map, it will reset the entire map and your current route will be deleted. Are you sure to reload?"
-	reloadBtn.addEventListener('click',function () { showModal("Clear map", reloadDesc, yesBtnLabel = 'Reload', noBtnLabel = 'Cancel', false)}, false);*/
-	
 	routeSelector.disabled = true;
 	reloadBtn.disabled = false;
 	executeBtn.disabled = false;
@@ -326,14 +317,8 @@ const showModal = (title, description, yesBtnLabel, noBtnLabel) => {
 
 }
 
-function dismissModal() {
-	console.log("hiding ..")
-	var modalW = document.getElementById('reloadWarning');
-	var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
-	modalW.modal().hide();
-}
-
 function executeMission() {
+	updateTimestamp();
 	var routePlotArea = document.getElementById('routePlotArea');
     routePlotArea.innerHTML = '';
 	
