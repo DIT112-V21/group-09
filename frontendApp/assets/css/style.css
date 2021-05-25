@@ -440,10 +440,6 @@ img.rover-model {
 	text-transform: uppercase;
 }
 
-#manual-control .panel-body, #mission-control .panel-body {
-	padding: 5px;
-}
-
 .nasa-stream {
 	display: flex;
 	visibility: visible;
@@ -895,71 +891,6 @@ img.rover-model {
     border-color: #282828;
 }
 
-#mission-map ul.nav-tabs {
-	margin-bottom: 0 !important;
-}
-
-#mission-map .nav-link.active,
-#mission-map .nav-link.active:hover {
-    color: #282828;
-    background: rgb(239, 239, 239);
-	border-top: 2px #282828 solid;
-	border-left: 1px #fff solid;
-	border-right: 1px #fff solid;
-	border-bottom: none;
-}
-
-#mission-map .nav-link {
-    color: #282828;
-    background-color: rgb(204, 204, 204);
-	border-right: 2px #b8b4a8 solid;
-	border-bottom: none;
-}
-
-#mission-map .nav-link:hover {
-    color: #282828;
-    background-color: rgb(220, 220, 220);
-}
-
-#mission-map .tab-pane {
-    min-height: 600px;
-}
-
-#mission-map .tab-pane.active {
-    background: rgb(239, 239, 239);
-	border: 1px #fff solid;
-	padding: 10px;
-}
-
-#mission-guide .input-group-button {
-    padding: 0 0 0 5px;
-    border-color: transparent;
-    background: none;
-}
-
-#mission-control img.mission-map-waypoint {
-	margin: 3px 3px 0 0;
-}
-
-/* Page content */
-.content {
-  padding: 16px;
-}
-
-/*
-Commands Table*/
-.commandTable {
-  background-color: rgba(225,225,225, 0.2);
-}
-
-thead cell {
-  background-color: rgba(225,225,225,0.4);
-  font-size: 13px;
-}
-
-.data-cell {
-  width: 100px;
-}
 
 /*<!--Manual Control layout>*/
 

@@ -267,6 +267,7 @@ function plotRoute() {
 	routeSelector.disabled = true;
 	reloadBtn.disabled = false;
 	executeBtn.disabled = false;
+	mapSaveBtn.disabled = false;
 	
 	routePlot = L.Polyline.PolylineEditor(selectedRoute, {maxMarkers: 50});
 	routePlot.addTo(map);
@@ -276,7 +277,6 @@ function plotRoute() {
 	// Reload confirmation
 	var reloadDesc = "If you reload map, it will reset the entire map and your current route will be deleted. Are you sure to reload?"
 	reloadBtn.addEventListener('click',function () { showModal("Clear map", reloadDesc, yesBtnLabel = 'Reload', noBtnLabel = 'Cancel', false)}, false);
-	
 }
 
 function reloadMap() {
@@ -288,7 +288,6 @@ const showModal = (title, description, yesBtnLabel, noBtnLabel) => {
   if (modalWrap !== null) {
     modalWrap.remove();
   }
-
   modalWrap = document.createElement('div');
   modalWrap.innerHTML = `
     <div class="modal fade" id="reloadWarning">
@@ -314,7 +313,63 @@ const showModal = (title, description, yesBtnLabel, noBtnLabel) => {
 
   var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
   modal.show();
+}
 
+function saveMissionMap() {
+	var userId = store.get('loggedUserid');
+	if (userId != null) {
+		updateTimestamp();
+		var missionContent = {};	
+		var steps;
+		const timestamp = new Date(Date.now()).toISOString();
+
+		map.getEditablePolylines().forEach(function(polyline) {
+		var missionRoute = polyline.getPoints();
+		steps = missionRoute.length;	
+		
+		var i = 0;
+		missionContent.waypoints = [];
+
+		missionRoute.forEach(function(point) {
+				var latLng = point.getLatLng();
+				var wp = {
+					waypoint: i,
+					coord: {
+						lat: latLng.lat.toFixed(2),
+						lng: latLng.lng.toFixed(2)
+					}
+				}
+				
+				console.log(wp);
+			
+				missionContent.waypoints.push(wp);
+				i++;
+			});
+		});
+		
+				
+		const saveMapQuery = {
+			name: 'save-mission-plot',
+			text: 'INSERT INTO missions (userid, date, source, steps, content) VALUES ($1, $2, $3, $4, $5)',
+			values: [userId, timestamp, 'map', steps, missionContent]
+		}
+		
+		const client = new Client(clientConfig);
+		client.connect();
+		client
+  			.query(saveMapQuery)
+  			.then(result => {
+				systemToast('missionSaveSuccess');
+			})
+  			.catch(e => {
+				console.error(e.stack);
+				systemToast('dbError');
+			})
+  			.then(() => client.end())
+	} else {
+		var desc = 'You need to login in order to save your mission.'
+		saveModal('Save mission', desc, 'OK')
+	}
 }
 
 function executeMission() {
@@ -346,3 +401,67 @@ function executeMission() {
 	document.getElementById("missionTabs-map-tab").classList.remove("active")
 
 };
+
+function loadMission(missionId) {
+	updateTimestamp();
+	hideModal('missionLoadList');
+	
+	if (missionId != null) {
+		const loadQuery = {
+				name: 'list-missions',
+				text: 'SELECT * FROM missions WHERE id = $1',
+				values: [missionId]
+			}
+
+			const client = new Client(clientConfig);
+			client.connect();
+			client
+				.query(loadQuery)
+				.then(result => {
+					// Switch to Mission table tab
+					switchPane('map');
+					document.getElementById("map-tab").classList.add("active");
+					document.getElementById("map-tab").classList.add("show");
+					document.getElementById("table-tab").classList.remove("active")
+					document.getElementById("table-tab").classList.remove("show")
+					document.getElementById("stream-tab").classList.remove("active");
+					document.getElementById("stream-tab").classList.remove("show");
+					document.getElementById("missionTabs-map-tab").classList.add("active")	
+					document.getElementById("missionTabs-table-tab").classList.remove("active")
+					document.getElementById("missionTabs-stream-tab").classList.remove("active")
+
+					console.log("Time to load map ...")
+					var selectedRoute = [];
+					var wpCount = result.rows[0].steps;
+					var json = result.rows[0].content.waypoints;
+				
+					for (var i = 0; i < wpCount; i++) {
+						selectedRoute.push([json[i].coord.lat, json[i].coord.lng]);
+					}
+				
+					routeSelector.disabled = true;
+					reloadBtn.disabled = false;
+					executeBtn.disabled = false;
+					mapSaveBtn.disabled = false;
+
+					routePlot = L.Polyline.PolylineEditor(selectedRoute, {maxMarkers: 50});
+					routePlot.addTo(map);
+
+					map.fitBounds(routePlot.getBounds());
+
+					// Reload confirmation
+					var reloadDesc = "If you reload map, it will reset the entire map and your current route will be deleted. Are you sure to reload?"
+					reloadBtn.addEventListener('click',function () { showModal("Clear map", reloadDesc, yesBtnLabel = 'Reload', noBtnLabel = 'Cancel', false)}, false);
+					
+					systemToast('missionLoadSuccess');
+				
+				})
+				.catch(e => {
+					console.error(e.stack);
+					systemToast('dbError');
+				})
+				.then(() => client.end())
+	} else {
+		systemToast('missionLoadError');
+	}
+}

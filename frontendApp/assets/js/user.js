@@ -43,7 +43,7 @@ function initializeUser() {
 	
 	var userMenu = `<li><a class="dropdown-item" href="#" onclick=""
 							style="text-decoration: none;"><i class="fas fa-smile mini-icon" style="padding-right: 5px;"></i>Hello, ` + loggedUser + `</a></li>
-					<li><a class="dropdown-item" href="#" onclick="" 
+					<li><a class="dropdown-item" href="#" onclick="loadMissionList()" 
 						   style="text-decoration: none;"><i class="fas fa-tasks mini-icon"></i>My missions</a></li>
 					<li><a class="dropdown-item" href="#" onclick="logout()" 
 						   style="text-decoration: none;"><i class="fas fa-sign-out-alt mini-icon"></i>Logout</a></li>`;
@@ -64,7 +64,6 @@ function initializeUser() {
 
 // Script to show modal alert box
 var modalWrap = null;
-
 let type;
 function userModal(type) {
 	if (modalWrap !== null) {
@@ -335,6 +334,136 @@ function setCustomValidityMsg() {
 	}
 }
 
+function loadMissionList() {
+	var path = window.location.pathname;
+	var page = path.split("/").pop();
+
+	if (page == 'mission.html') {
+	var userId = store.get('loggedUserid');
+	
+	const listQuery = {
+		name: 'list-missions',
+		text: 'SELECT id, date, source, steps FROM missions WHERE userid = $1',
+		values: [userId]
+	}
+	
+	const client = new Client(clientConfig);
+	client.connect()
+	client
+	  .query(listQuery)
+	  .then(result => {
+			if (result.rowCount == 0) {
+				saveModal('Load missions', 'You have no saved missions', 'OK');
+			} else {
+				//Create a HTML Table element.
+				var table = document.createElement("table");
+				table.id = 'missionListTable';
+				table.classList = 'commandTable table table-hover'
+
+				//Get the count of columns.
+				var columnCount = 4;
+				//Add the header row.
+				var row = table.insertRow(-1);
+				var headerTitles = [' ','Saved date','Plot type','Steps']
+				var headerClasses = ['checkbox','date','type','steps']
+				for (var i = 0; i < columnCount; i++) {
+					var headerCell = document.createElement("th");
+					headerCell.innerHTML = headerTitles[i];
+					row.appendChild(headerCell);
+				}
+
+				//Add the data rows.
+				for (var i = 0; i < result.rowCount; i++) {
+					row = table.insertRow(-1);
+						var checkCell = row.insertCell(-1);
+						var dateCell = row.insertCell(-1);
+						var typeCell = row.insertCell(-1);
+						var stepsCell = row.insertCell(-1);
+						// Checkbox
+						var radio = document.createElement('input');
+						radio.type = "radio";
+						radio.name = "missionSelect"
+						radio.class = "form-check-input";
+						radio.source = result.rows[i].source;
+						radio.value = result.rows[i].id;
+						radio.id = result.rows[i].id;
+						checkCell.appendChild(radio);
+					
+						// Date cell
+						var date = result.rows[i].date.toISOString().split("T")[0];
+						dateCell.innerHTML = date;
+						
+						// Mission type cell
+						if (result.rows[i].source == 'map') {
+							typeCell.innerHTML = 'Map';
+						} else {
+							typeCell.innerHTML = 'Table';
+						}
+					
+						// Number of steps cell
+						stepsCell.innerHTML = result.rows[i].steps;
+				}
+
+				modalWrap = document.createElement('div');
+				modalWrap.innerHTML = `
+					<div class="modal fade" id="missionLoadList" tabindex="-1" data-bs-keyboard="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<form class="needs-validation" novalidate>
+									<div class="modal-header">
+										<h5 class="modal-title">Load mission</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>Please select a mission to load</p>
+										<div id="mission-table-list"></div>
+										<div id="formMessage" class="form-message"></div>
+									</div>
+									<div class="modal-footer d-flex justify-content-center">
+										<button id="loadMissionBtn" type="button" class="btn btn-outline-success me-5" onClick="processMission('load')"> Load </button>
+										<button id="loadMissionBtn" type="button" class="btn btn-outline-danger me-5" onClick="processMission('delete')"> Delete </button>
+										<button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> Cancel </button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>`;
+				
+				document.body.append(modalWrap);
+				var missionsModal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+				var dvTable = document.getElementById("mission-table-list");
+				dvTable.innerHTML = "";
+				dvTable.appendChild(table);
+				
+				missionsModal.show();
+				
+				var $ = require('jquery');
+				$('.commandTable tr').click(function (event) {
+					if (event.target.type !== 'radio') {
+						$(':radio', this).trigger('click');
+					}
+				});
+
+				$("input[type='radio']").change(function (e) {
+					e.stopPropagation();
+					$('.commandTable tr').removeClass("highlight_row");        
+					if ($(this).is(":checked")) {
+						$(this).closest('tr').addClass("highlight_row");
+					}     
+				});
+
+					}
+				})
+	  .catch(e => {
+				console.error(e.stack);
+				systemToast('dbError');
+			})
+	  .then(() => client.end())
+	} else {
+		saveModal('Load missions', 'Please load missions within<br />Mission control page.', 'OK');
+	}
+}
+
 function systemToast(name) {
 	var systemMessages = {
 		'loginSuccess': 'Login successful!',
@@ -342,7 +471,11 @@ function systemToast(name) {
 		'registerSuccess': 'User account<br />successfully created!',
 		'dbSettingsSaveSuccess': 'Database settings<br />successfully saved.',
 		'mqttSettingsSaveSuccess': 'MQTT Broker settings<br/>successfully saved.',
-		'dbError': 'Database query error.<br />Please check connection settings.'
+		'dbError': 'Database query error.<br />Please check connection settings.',
+		'missionSaveSuccess': 'Mission successfully saved.',
+		'missionLoadSuccess': 'Mission successfully loaded.',
+		'missionDeleteSuccess': 'Mission deleted.',
+		'missionLoadError': 'Error loading mission.<br>Please refresh the page and try again.'
 	}
 	
 	document.getElementById('system-toast-body').innerHTML = systemMessages[name];
@@ -355,4 +488,34 @@ function updateTimestamp() {
 	const currentDate = new Date();
 	const timestamp = currentDate.getTime();
 	store.set('loggedTimestamp', timestamp);
+}
+
+const saveModal = (title, description, closeBtnLabel) => {
+  if (modalWrap !== null) {
+    modalWrap.remove();
+  }
+  modalWrap = document.createElement('div');
+  modalWrap.innerHTML = `
+    <div class="modal fade" id="saveWarning">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-warning">
+            <h5 class="modal-title"><strong>${title}</strong></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>${description}</p>
+          </div>
+          <div class="modal-footer bg-light d-flex justify-content-center">
+        	<button id="modalNoBtn" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">${closeBtnLabel}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.append(modalWrap);
+
+  var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+  modal.show();
 }

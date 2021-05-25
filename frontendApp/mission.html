@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/typography.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/user-profile.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/mission.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
@@ -71,7 +72,8 @@
 							  href="#map-tab"
 							  role="tab"
 							  aria-controls="map"
-							  aria-selected="true">
+							  aria-selected="true" 
+							   onclick="switchPane('map')" >
 								Mission map</a>
 						  </li>
 						  <li class="nav-item" role="presentation">
@@ -81,7 +83,8 @@
 							  href="#table-tab"
 							  role="tab"
 							  aria-controls="table"
-							  aria-selected="false">
+							  aria-selected="false"
+							   onclick="switchPane('table')">
 								Mission table</a>
 						  </li>
 						  <li class="nav-item" role="presentation">
@@ -91,7 +94,8 @@
 							  href="#stream-tab"
 							  role="tab"
 							  aria-controls="stream"
-							  aria-selected="false">
+							  aria-selected="false"
+							   onclick="switchPane('stream')">
 								Status feed</a>
 						  </li>
 						</ul>
@@ -123,31 +127,47 @@
 								  <label class="form-check-label map-check-label" for="routeCheck">Suggested routes</label>
 								</div>
 							</div>
+							<div class="d-flex justify-content-center mt-4 mb-4">
+									<button id="executeBtn" type="button" class="me-3" disabled>
+										<i class="fas fa-rocket"></i>&nbsp;&nbsp;<strong>Execute Commands</strong>
+									</button>
+									<button id="mapSaveBtn" type="button" onclick="saveMissionMap()" disabled>
+										<i class="far fa-save"></i>&nbsp;&nbsp;<strong>Save mission</strong>
+									</button>
+							</div>  
 						  </div>
 						  <div class="tab-pane fade" id="table-tab" role="tabpanel" aria-labelledby="table">
 							<div>
 								<h2>Configure you mission</h2>
-								<form id="missionForm">
-									<input type="button" value="Add Step" onclick="addRow('commandTable')" />
-									<input type="button" value="Delete Step" onclick="deleteRow('commandTable')"/>
-									<table class="commandTable" id="commandTable">
+								<div class="d-flex justify-content-end mb-2">
+									<button type="button" onclick="addRow()">
+										<i class="fas fa-plus"></i> Add step
+									</button>
+								</div>
+								<div class="mission-table-scroll">
+									<table class="commandTable table table-hover" id="commandTable">
 										<thead>
-										<th class="step">Step</th>
-										<th class="number">no.</th>
-										<th class="data">Heading</th>
-										<th class="data">Speed</th>
-										<th class="data">Distance</th>
+											<th class="number">Step No.</th>
+											<th class="data">Heading</th>
+											<th class="data">Speed</th>
+											<th class="data">Distance</th>
+											<th class="data">Action</th>
 										</thead>
-										<tr id="row1">
-											<td><input type="checkbox" name="chk"/></td>
-											<td id="numbering">1</td>
-											<td id="heading"><input type="number" value="0" step="5" min="0" max="360" class="data-cell" /></td>
-											<td id="speed"><input type="number" value="0" step="10" min="-100" max="100" class="data-cell" /></td>
-											<td id="distance"><input type="number" value="0" step="100" class="data-cell" min="0" /></td>
-										</tr>
+										<tbody id="commandTableBody">
+											<tr id="row1">
+												<td class="number">1</td>
+												<td id="heading"><input type="number" value="0" step="5" min="0" max="360" class="data-cell" /></td>
+												<td id="speed"><input type="number" value="30" step="10" min="-100" max="100" class="data-cell" /></td>
+												<td id="distance"><input type="number" value="0" step="100" class="data-cell" min="0" /></td>
+												<td></td>
+											</tr>
+										</tbody>
 									</table>
-									<button type="submit" value="" onclick="missionTableToArray()">Execute Commands</button>
-								</form>
+								</div>
+								<div class="d-flex justify-content-center mt-4 mb-4">
+									<button type="button" class="me-3" onclick="missionTableToArray()"><i class="fas fa-rocket"></i>&nbsp;&nbsp;<strong>Execute Commands</strong></button>
+									<button type="button" onclick="saveMissionTable()"><i class="far fa-save"></i>&nbsp;&nbsp;<strong>Save mission</strong></button>
+								</div>
 							</div>
 						  </div>
 						  <div class="tab-pane fade" id="stream-tab" role="tabpanel" aria-labelledby="stream">
@@ -178,8 +198,10 @@
 						<section id="mapPlotter" class="border p-3 d-flex justify-content-center" style="border: 1px red solid;">
 							<div id="select-wrapper-158016" class="select-wrapper">
 								<div class="mission-control-text">
-									<h5>STEP 1. </h5>
-									<p>Select destination target area</p>
+									<p>Mission map allows you to plot your mission on the map and execute. 
+										Please use provided checkboxes to show or hide map features to aid in your planning. When plotting, please refrain from changing original pointer from landing site.
+									</p>
+									<p>Select destination target area:</p>
 									<div class="input-group">
 										<select id="routeSelector" class="form-select select select-initialized">
 											<option value="none" selected disabled>&lt;Select target&gt;</option>
@@ -193,21 +215,30 @@
 										  data-mdb-ripple-color="dark" data-toggle="modal" data-target="#reloadWarning" disabled><i class="fas fa-sync-alt"></i></button>
 									</div>
 									<br />
-									<h5>STEP 2. </h5>
 									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-waypoint.png"><strong>Drag-and-drop</strong> these waypoints to change its location.<br /><strong>Click</strong> on these waypoints, to delete it from the route. <strong>Right-click</strong> to delete a waypoint.</p>
 									<p><img align="left" class="mission-map-waypoint" src="assets/images/map-plot-midpoint.png"><strong>Click-hold (drag around)</strong> these midpoints to change it to a new waypoint and add one more step to the mission.<br /></p>
 									
 									<i class="fas fa-sync-alt"></i> Click <strong>Reload</strong> button in Step 1 to reset everything.</p>
-									
-									<h5>STEP 3. </h5>
-									<p>Ready to launch? Click below:</p>
-									<div style="text-align:center">
-										<button id="executeBtn" type="button" class="btn btn-success btn-rounded input-group-addon input-group-button"
-										  data-mdb-ripple-color="dark" data-toggle="modal" data-target="#reloadWarning" disabled><i class="fas fa-rocket"></i>&nbsp;&nbsp;<strong>Execute mission</strong></button>
-									</div>
 								</div>
 						  </div>
 						</section>
+					</div>
+					<div id="table-guide panel-body" style="padding: 3px;">
+						<section class="border p-3 d-flex justify-content-center" style="border: 1px red solid;">
+							<div id="select-wrapper-158016" class="select-wrapper">
+								<div class="table-guide-text">
+									<p>On the Mission table you can define your mission parameters step by step. 
+									It is harder way to plan a mission and this is the way scientists at NASA plan.
+									</p>
+									<p><strong>Heading.</strong> The Rover lands and starts facing 180 degrees. Please enter values from 0 to 360 degrees of heading.</p>
+									<p><strong>Speed.</strong> Throttle percentage to be applied during the mission. We recommend modest 30-40 as it allows rover to avoid obstacles much smoother.</p>
+									<p><strong>Distance.</strong> Define for how many meters should the rover travel within that mission step. Please get approx. idea from the mission map.</p>
+									<p>You can delete a step by clicking red cross button. Also you can add a step by clicking "Add step" button.</p>
+								</div>
+							</div>
+						</section>
+					</div>
+					<div id="stream-guide panel-body" style="padding: 3px;">Stream guide
 					</div>
 				</div>
 			</div>

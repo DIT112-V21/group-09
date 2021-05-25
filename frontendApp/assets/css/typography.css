@@ -124,8 +124,9 @@ div[class^="intro-tooltip"]:hover {
 	font-weight: 500;
 }
 
-#mission-control .mission-control-text {
-	text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+#mission-control .mission-control-text, #mission-control .table-guide-text {
+	color: #282828;
+	text-shadow: 1px 1px 0px rgba(255,255,255,0.1);
 }
 
 #settings-page .nav-link, #settings-page .nav-link.active,
