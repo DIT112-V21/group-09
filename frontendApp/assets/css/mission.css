@@ -1,0 +1,129 @@
+#mission-map ul.nav-tabs {
+	margin-bottom: 0 !important;
+}
+
+#mission-map .nav-link.active,
+#mission-map .nav-link.active:hover {
+    color: #282828;
+    background: rgb(239, 239, 239);
+	border-top: 2px #282828 solid;
+	border-left: 1px #fff solid;
+	border-right: 1px #fff solid;
+	border-bottom: none;
+}
+
+#mission-map .nav-link {
+    color: #282828;
+    background-color: rgb(204, 204, 204);
+	border-right: 2px #b8b4a8 solid;
+	border-bottom: none;
+}
+
+#mission-map .nav-link:hover {
+    color: #282828;
+    background-color: rgb(220, 220, 220);
+}
+
+#mission-map .tab-pane {
+    min-height: 400px;
+}
+
+#mission-map .tab-pane.active {
+    background: rgb(239, 239, 239);
+	border: 1px #fff solid;
+	padding: 10px;
+}
+
+#mission-guide .input-group-button {
+    padding: 0 0 0 5px;
+    border-color: transparent;
+    background: none;
+}
+
+#mission-control img.mission-map-waypoint {
+	margin: 3px 3px 0 0;
+}
+
+/*
+Commands Table*/
+#table-tab .mission-table-scroll {
+	overflow-y: scroll;	
+	height: 500px;
+}
+
+#mission-table-list {
+	overflow-y: scroll;	
+}
+
+#commandTable .commandTable {
+	background-color: rgba(225,225,225, 0.2);
+}
+
+#commandTable > thead {
+	background-color: rgba(200,200,200,0.8);
+	font-family: 'Lato', 'Open Sans', Helvetica, Arial, "sans-serif";
+	font-size: 12pt;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+#commandTable td.number {
+	text-align: center;
+	font-family: 'Lato', 'Open Sans', Helvetica, Arial, "sans-serif";
+	font-size: 11pt;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.data-cell {
+  width: 100px;
+}
+
+/* Right guide panel  */
+#manual-control .panel-body, #mission-control .panel-body {
+	padding: 5px;
+}
+
+div[id='mission-guide panel-body'] {
+	display: block;
+}
+
+div[id='table-guide panel-body'] {
+	display: none;
+}
+div[id='stream-guide panel-body'] {
+	display: none;
+}
+
+/* Load mission */
+#mission-table-list {
+	height: 360px;
+}
+
+#missionListTable {
+	width: 100%;
+}
+
+#missionListTable th {
+	height: 40px;
+}
+
+#missionListTable td {
+	height: 25px;
+}
+
+#missionListTable th.checkbox {
+	width: 80px;
+}
+
+#missionListTable th.date {
+	width: 200px;
+}
+
+#missionListTable th.type {
+	width: 120px;
+}
+
+#missionListTable th.steps {
+	width: 80px;
+}
