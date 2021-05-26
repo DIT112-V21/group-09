@@ -36,8 +36,9 @@
   double  missionDistance =0;
   const auto missionHeading = 0;
   float missionSpeed = 0;
-  int steps = 7;
-  int columns = 4;
+  const int steps = 7;
+  const int columns = 4;
+  int mission[steps][columns]= {};
   String content;
   int stepDistance = 0;
   
@@ -130,8 +131,7 @@
         /*currentMode = MISSION_CONTROL;
   
           if (topic == "mission/content") {
-  
-  
+          missionExecution(content, steps); 
           detectionTime = currentTime;
           turnAngle = 0;
           cruiseControl = false;
@@ -148,7 +148,7 @@
   
   
     // String content = "1;120;30;500&2;120;30;500&3;120;30;500&4;120;30;500&5;120;30;500&6;120;30;500&7;120;30;500";
-    String content = "1;10;30;100;2;12;70;200;3;10;30;300;4;12;30;400;5;12;30;500;6;30;30;600;7;40;30;700";
+    String content = "1;0;30;100;2;12;100;200;3;10;99;300;4;12;10;400;5;12;100;500;6;3;100;600;7;4;100;700";
   
     //String getValue(String data, char separator, int index)
   
@@ -162,35 +162,7 @@
        {4, 3, 40, 400}
       };
     */
-  
-  /*
-    int stepDistance = 0;
-    
-  
-    for (int stepNum = 0; stepNum < steps; stepNum++) { //rows
-  
-      int j = 1;
-      stepDistance = 0;
-      car.setAngle(mission[stepNum][j]);  //stepHeading;
-      car.setSpeed(mission[stepNum][j + 1]);
-  
-  
-      while (stepDistance <= mission[stepNum][j + 2]) { //currentDistance< stepDistance
-        stepDistance = + getMedianDistance();
-  
-      }
- 
-      Serial.print("step ");
-      Serial.print(stepNum);
-      Serial.println(" completed ");
-      Serial.print("Measured Distance ");
-      Serial.println(stepDistance);
-  
-  
-      delay(200);
-  
-  
-    }*/
+
   
   }
   
@@ -254,28 +226,13 @@
   
   void missionExecution(String content, int steps) {
     // int mission[][] = {{stepNum, stepHeading, stepSpeed, stepDistance},{},{}, ...}
-     content = "1;10;30;1000;2;12;70;2000;3;10;30;3000;4;12;30;4000;5;12;30;5000;6;30;30;6000;7;40;30;7000";
+     content = "1;0;30;300;2;12;100;400;3;10;99;300;4;1;10;400;5;2;100;500;6;3;100;600;7;4;100;700";
+
+    saveContentToArray(content); 
+
+    int estimatedDistance = getEstimatedDistance();
+    unsigned long estimatedTime =getEstimatedTime();
      
-    int mission[7][4];
-  
-    for ( int i = 0; i < steps; i++) {
-      for ( int j = 0; j < columns; j++) {
-        String value = getValue(content, ';', (j + (4 * i)));
-        mission[i][j] = (value).toInt();
-        
-      }
-    }
-
-    int estimatedDistance = 0;
-    unsigned long estimatedTime =0;
-    
-    
-    for (int stepNum = 0; stepNum < steps; stepNum++) {        
-         estimatedDistance =+ mission[stepNum][3];
-         estimatedTime =+ (mission[stepNum][3]/mission[stepNum][2]) ;
-      }
-
-      
 
       Serial.println("Mission has started");
       Serial.println("Estimated time: ");
@@ -284,9 +241,6 @@
       Serial.println("distance  ");      
       Serial.println(estimatedDistance);  
       Serial.print("----- ");
-
-      
-
   
     for (int stepNum = 0; stepNum < steps; stepNum++) { //rows
   
@@ -310,7 +264,22 @@
     }
   
   }
+
+
   
+ void saveContentToArray(String content){
+   for ( int i = 0; i < steps; i++) {
+      for ( int j = 0; j < columns; j++) {
+        String value = getValue(content, ';', (j + (4 * i)));
+        mission[i][j] = (value).toInt();
+        
+      }
+    }
+ }
+
+   
+
+
   
   boolean isConnected()
   {
@@ -330,27 +299,27 @@
   }  
   
     
-  double estimatedDistance(int missionArray[7][4]) {  
+  int getEstimatedDistance() {  
     
-    long missionTotalDistance = 0;
-    int arraySize = steps;
+    int missionTotalDistance = 0;
+   
     
     for (int stepNum = 0; stepNum < steps; stepNum++) {        
-         missionTotalDistance =+ missionArray[stepNum][3];
+         missionTotalDistance =+ mission[stepNum][3];
       }
     return missionTotalDistance;
   }
 
-  double estimatedTime(int missionArray[7][4]) {  
+  int getEstimatedTime() {  
     
-    long missionTotalDistance = 0;
+    int missionTotalDistance = 0;
     unsigned long estimatedTime =0;
     
     int arraySize = steps;
     
     for (int stepNum = 0; stepNum < steps; stepNum++) {        
-        missionTotalDistance =+ missionArray[stepNum][3];
-        estimatedTime =+ missionArray[stepNum][3]/missionArray[stepNum][2] ;
+        missionTotalDistance =+ mission[stepNum][3];
+        estimatedTime =+ mission[stepNum][3]/mission[stepNum][2] ;
       }
       
     return estimatedTime;
@@ -393,27 +362,7 @@
     return driveMode;
   }
   
-  void startupMove() {
-  
-    turnAngle = startAngle;
-    car.setAngle(turnAngle);
-    car.setSpeed(startSpeed);
-    long distanceLeft = leftOdometer.getDistance();
-    long distanceRight = rightOdometer.getDistance();
-  
-    if (distanceLeft > startDistance || distanceRight > startDistance) {
-      turnAngle = 0;
-      car.setAngle(turnAngle);
-      initialTurn = false;
-  
-      if (cruiseControl) {
-        currentMode = EXPLORE;
-      } else {
-        currentMode = MANUAL;
-      }
-    }
-  }
-  
+
   String getValue(String data, char separator, int index)
   {
     int found = 0;
@@ -429,4 +378,73 @@
     }
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
   }
+
+  void avoidFront() {
+  monitorFrontAvoidance();
+  throttle = -20;
+  car.setSpeed((float) throttle);
+  turnAngle = 45;
+  car.setAngle(turnAngle);
+}
+
+DrivingMode monitorFrontAvoidance() {
+  currentMode = AVOIDFRONT;
+  int sensorFrontUS = getSensorData(FRONTUS);
+  int sensorFrontIR = getSensorData(FRONTIR);
+  int sensorLeftIR = getSensorData(LEFTIR);
+  int sensorRightIR = getSensorData(RIGHTIR);
+  int sensorBackIR = getSensorData(BACKIR);
+
+  if (sensorFrontUS == 0 && sensorFrontIR == 0 && sensorLeftIR == 0 && sensorRightIR == 0) {
+    delay(1200);
+    currentMode = MISSION_CONTROL;
+  }
+
+  if (sensorFrontIR > 0 && sensorFrontIR < 50) {
+    currentMode = REVERSE;
+     
+  }
+
+  if (sensorFrontUS > 350 || (sensorBackIR > 0 && sensorBackIR < 50)) {
+    currentMode = SLOW;
+  }
+
+  if (sensorFrontUS > 0 && sensorFrontUS < 2500 && sensorLeftIR == 0 && sensorRightIR > 0 && sensorRightIR < 35) {
+    currentMode = AVOIDLEFT;
+  }
+
+  if (sensorFrontUS > 0 && sensorFrontUS < 2500 && sensorRightIR == 0 && sensorLeftIR > 0 && sensorLeftIR < 35) {
+    currentMode = AVOIDRIGHT;
+  }
+
+  return currentMode;
+}
+
+int getSensorData(CarSensor sensorName) {
+  int detectedDistance;
+  switch (sensorName)
+  {
+    case FRONTUS:
+      detectedDistance = frontUS.getDistance();
+      break;
+    case FRONTIR:
+      detectedDistance = frontIR.getDistance();
+      break;
+    case BACKIR:
+      detectedDistance = backIR.getDistance();
+      break;
+    case LEFTIR:
+      detectedDistance = leftIR.getDistance();;
+      break;
+    case RIGHTIR:
+      detectedDistance = rightIR.getDistance();
+      break;
+    default:
+      detectedDistance = 0;
+      break;
+  }
+  return detectedDistance;
+}
+
+  
   
