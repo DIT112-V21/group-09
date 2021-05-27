@@ -13,7 +13,6 @@ targetCheck.addEventListener('change', 	function () { showTarget()}, false);
 rockCheck.addEventListener('change', 	function () { showRock()}, false);
 routeCheck.addEventListener('change', 	function () { showRoute()}, false);
 routeSelector.addEventListener('change', function () { plotRoute()}, false);
-executeBtn.addEventListener('click',function () { executeMission()}, false);
 
 // Map variables
 var map;
@@ -206,7 +205,7 @@ function centerLeafletMapOnMarker(map, marker) {
 function plotRoute() {
 	var routeSelected = routeSelector.value;
 	var routeSpawn = [690,770];
-	var sierraPoint = [100,220];
+	var sierraPoint = [100,769];
 	var steigerwaldRoute = [
 		[690,770],
 		[1221.33,1080.00],
@@ -276,7 +275,10 @@ function plotRoute() {
 	
 	// Reload confirmation
 	var reloadDesc = "If you reload map, it will reset the entire map and your current route will be deleted. Are you sure to reload?"
-	reloadBtn.addEventListener('click',function () { showModal("Clear map", reloadDesc, yesBtnLabel = 'Reload', noBtnLabel = 'Cancel', false)}, false);
+	reloadBtn.addEventListener('click',function () { missionModal('Clear map', reloadDesc, 'Reload', 'Cancel', 'reloadMap()')}, false);
+	
+	var executeDesc = "It is highly recommended to save your mission before executing it. There is a good chance of loosing your mission details due to communication errors or other unforeseen errors. Also it is useful to save if you would like to revise it and execute again. Any unsaved missions would be reset after mission completion.<br /><br /><strong>Are you sure to execute the mission now?</strong>";
+	executeBtn.addEventListener('click',function () { missionModal('Execute mission', executeDesc, 'Execute', 'Cancel', 'executeMission()')}, false);
 }
 
 function reloadMap() {
@@ -284,13 +286,14 @@ function reloadMap() {
 }
 
 var modalWrap = null;
-const showModal = (title, description, yesBtnLabel, noBtnLabel) => {
+const missionModal = (title, description, yesBtnLabel, noBtnLabel, action) => {
   if (modalWrap !== null) {
     modalWrap.remove();
   }
-  modalWrap = document.createElement('div');
+	modalWrap = document.createElement('div');
+	
   modalWrap.innerHTML = `
-    <div class="modal fade" id="reloadWarning">
+    <div class="modal fade" id="missionWarning">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-warning">
@@ -301,7 +304,7 @@ const showModal = (title, description, yesBtnLabel, noBtnLabel) => {
             <p>${description}</p>
           </div>
           <div class="modal-footer bg-light">
-			<button id="modalYesBtn" type="button" class="btn btn-outline-success" onclick="reloadMap()">${yesBtnLabel}</button>
+			<button id="modalYesBtn" type="button" class="btn btn-outline-success" onclick="` + action + `">${yesBtnLabel}</button>
         	<button id="modalNoBtn" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" >${noBtnLabel}</button>
           </div>
         </div>
@@ -319,35 +322,10 @@ function saveMissionMap() {
 	var userId = store.get('loggedUserid');
 	if (userId != null) {
 		updateTimestamp();
-		var missionContent = {};	
-		var steps;
+		var missionContent = extractPolys();	
+		var steps = missionContent.waypoints.length;
 		const timestamp = new Date(Date.now()).toISOString();
 
-		map.getEditablePolylines().forEach(function(polyline) {
-		var missionRoute = polyline.getPoints();
-		steps = missionRoute.length;	
-		
-		var i = 0;
-		missionContent.waypoints = [];
-
-		missionRoute.forEach(function(point) {
-				var latLng = point.getLatLng();
-				var wp = {
-					waypoint: i,
-					coord: {
-						lat: latLng.lat.toFixed(2),
-						lng: latLng.lng.toFixed(2)
-					}
-				}
-				
-				console.log(wp);
-			
-				missionContent.waypoints.push(wp);
-				i++;
-			});
-		});
-		
-				
 		const saveMapQuery = {
 			name: 'save-mission-plot',
 			text: 'INSERT INTO missions (userid, date, source, steps, content) VALUES ($1, $2, $3, $4, $5)',
@@ -372,33 +350,91 @@ function saveMissionMap() {
 	}
 }
 
-function executeMission() {
-	updateTimestamp();
-	var routePlotArea = document.getElementById('routePlotArea');
-    routePlotArea.innerHTML = '';
-	
-	map.getEditablePolylines().forEach(function(polyline) {
-		var points = polyline.getPoints();
-		var wp = 1;
-		points.forEach(function(point) {
-			var latLng = point.getLatLng();
-			console.log(latLng);
+function extractPolys() {
+	var missionContent = {};	
 
-			routePlotArea.innerHTML += 'waypoint ' + wp + ': '  
-						+ ' (' + latLng.lat.toFixed(2) + ',' + latLng.lng.toFixed(2) + ')\n';
-						+ '\n';
-			wp++;
+	map.getEditablePolylines().forEach(function(polyline) {
+		var missionRoute = polyline.getPoints();
+		var i = 0;
+		missionContent.waypoints = [];
+
+		missionRoute.forEach(function(point) {
+			var latLng = point.getLatLng();
+			var wp = {
+				waypoint: i,
+				coord: {
+					lat: latLng.lat.toFixed(2),
+					lng: latLng.lng.toFixed(2)
+				}
+			}
+
+			missionContent.waypoints.push(wp);
+			i++;
 		});
 	});
 	
-	/*const triggerEl = document.querySelector('#missionTabs a[href="#stream"]');
-	mdb.Tab.getInstance(triggerEl).show(); // Select tab by name*/
-	document.getElementById("stream-tab").classList.add("active")
-	document.getElementById("stream-tab").classList.add("show")
+	return missionContent;
+}
+
+function executeMission() {
+	updateTimestamp();
+	hideModal('missionWarning');
+	var missionWaypoints = extractPolys();
+	var missionContent = {};
+	var steps = missionWaypoints.waypoints.length;
+	missionContent.steps = [];
+	
+	var gdMultiplier = 5.5281385;
+
+	for (var i = 0; i < steps-1; i++) {
+		// Calculate heading and distance from waypoints
+		var a2 = missionWaypoints.waypoints[i].coord.lat, 
+			a1 = missionWaypoints.waypoints[i].coord.lng,
+			b2 = missionWaypoints.waypoints[i+1].coord.lat, 
+			b1 = missionWaypoints.waypoints[i+1].coord.lng;
+	
+		console.log([a1,a2,b1,b2])
+		
+		// Heading calculator
+		const twoPi = 6.2831853071795865;
+    	const RAD2DEG = 57.2957795130823209;
+    	// if (a1 = b1 and a2 = b2) throw an error 
+    	var theta = Math.atan2(b1 - a1, a2 - b2);
+    	if (theta < 0)
+        	theta += twoPi;
+    	var brng = Math.round(360 - (RAD2DEG * theta));
+		
+		// distance
+		var sq1 = Math.pow(b2-a2,2);
+		var sq2 = Math.pow(b1-a1,2);
+		var distance = (Math.sqrt(sq1+sq2)) * gdMultiplier;
+		distance = parseInt(distance);
+		
+		// Capture result
+		var step = {
+				step: i,
+				parameters: {
+					heading: brng,
+					speed: 30,
+					distance: distance
+				}
+		}
+		missionContent.steps.push(step);
+	}
+	
+	document.getElementById("stream-tab").classList.add("active");
+	document.getElementById("stream-tab").classList.add("show");
 	document.getElementById("map-tab").classList.remove("active");
 	document.getElementById("map-tab").classList.remove("show");
-	document.getElementById("missionTabs-stream-tab").classList.add("active")
-	document.getElementById("missionTabs-map-tab").classList.remove("active")
+	document.getElementById("missionTabs-stream-tab").classList.add("active");
+	document.getElementById("missionTabs-map-tab").classList.remove("active");
+	
+	switchPane('stream');
+	
+	sendMission(missionContent)
+	.catch((e) =>
+		console.log(e)
+	);
 
 };
 

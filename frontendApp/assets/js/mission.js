@@ -1,3 +1,7 @@
+var executeTableBtn = document.getElementById('executeTableBtn');
+var executeTableDesc = "It is highly recommended to save your mission before executing it. There is a good chance of loosing your mission details due to communication errors or other unforeseen errors. Also it is useful to save if you would like to revise it and execute again. Any unsaved missions would be reset after mission completion.<br /><br /><strong>Are you sure to execute the mission now?</strong>";
+executeTableBtn.addEventListener('click',function () { missionModal('Execute mission', executeTableDesc, 'Execute', 'Cancel', 'executeMissionTable()')}, false);
+
 //commandsTable
 function addRow() {
     var table = document.getElementById('commandTable');
@@ -111,7 +115,6 @@ function saveMissionTable() {
 			
 			missionContent.waypoints.push(wp);
         }
-		
 				
 		const saveTableQuery = {
 			name: 'save-mission-plot',
@@ -135,6 +138,45 @@ function saveMissionTable() {
 		var desc = 'You need to login in order to save your mission.'
 		saveModal('Save mission', desc, 'OK')
 	}
+}
+
+function executeMissionTable() {
+	hideModal('missionWarning');
+	var missionContent = {};	
+	var steps;
+
+	var table = document.getElementById('commandTable');
+	steps = table.rows.length - 1;
+	missionContent.steps = [];
+
+	for (var i = 0; i < steps; i++) {
+		var row = table.rows[i+1];
+		let cell2 = row.cells[0];
+
+		var step = {
+				step: i,
+				parameters: {
+					heading: row.cells[1].getElementsByTagName('input')[0].value,
+					speed: row.cells[2].getElementsByTagName('input')[0].value,
+					distance: row.cells[3].getElementsByTagName('input')[0].value
+				}
+			}
+
+		missionContent.steps.push(step);
+	}
+	
+	document.getElementById("stream-tab").classList.add("active");
+	document.getElementById("stream-tab").classList.add("show");
+	document.getElementById("table-tab").classList.remove("active");
+	document.getElementById("table-tab").classList.remove("show");
+	document.getElementById("missionTabs-stream-tab").classList.add("active");
+	document.getElementById("missionTabs-table-tab").classList.remove("active");
+	
+	switchPane('stream');
+	sendMission(missionContent)
+	.catch((e) =>
+		console.log(e)
+	);
 }
 
 function switchPane(pane) {

@@ -96,7 +96,7 @@
 							  aria-controls="stream"
 							  aria-selected="false"
 							   onclick="switchPane('stream')">
-								Status feed</a>
+								Live Streams</a>
 						  </li>
 						</ul>
 						<!-- Tabs navs -->
@@ -138,7 +138,7 @@
 						  </div>
 						  <div class="tab-pane fade" id="table-tab" role="tabpanel" aria-labelledby="table">
 							<div>
-								<h2>Configure you mission</h2>
+								<h2>Configure your mission</h2>
 								<div class="d-flex justify-content-end mb-2">
 									<button type="button" onclick="addRow()">
 										<i class="fas fa-plus"></i> Add step
@@ -165,24 +165,21 @@
 									</table>
 								</div>
 								<div class="d-flex justify-content-center mt-4 mb-4">
-									<button type="button" class="me-3" onclick="missionTableToArray()"><i class="fas fa-rocket"></i>&nbsp;&nbsp;<strong>Execute Commands</strong></button>
+									<button id="executeTableBtn" type="button" class="me-3"><i class="fas fa-rocket"></i>&nbsp;&nbsp;<strong>Execute Commands</strong></button>
 									<button type="button" onclick="saveMissionTable()"><i class="far fa-save"></i>&nbsp;&nbsp;<strong>Save mission</strong></button>
 								</div>
 							</div>
 						  </div>
 						  <div class="tab-pane fade" id="stream-tab" role="tabpanel" aria-labelledby="stream">
-							<h2>Mission status</h2>
-								<ul>
-									<li>00:10 Mission has started</li>
-									<li>00:10 Step 1 has started</li>
-									<li>00:15 Step 1 has completed</li>
-									<li>00:20 Step 2 has started</li>
-									<li>00:25 Step 2 has completed</li>
-									<li>00:30 Step 3 has started</li>
-									<li>00:35 Step 3 has completed</li>
-									<li>00:40 Step 4 has started</li>
-								</ul>
-							  	<textarea id="routePlotArea" rows="10" cols="70"></textarea>
+							<div id="nasaStream" class="nasa-stream panel-body">
+								<iframe style="display: block; margin: 0 auto;"
+								width="640" height="403" align="middle"
+								src="http://ustream.tv/embed/6540154?forced-quality=high&html5ui=1" scrolling="no" allowfullscreen
+								webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+							</div>
+							<div id="roverStream" class="camera-stream panel-body">
+								<canvas id="missionStream" width="640" height="480"></canvas>
+							</div>
 						  </div>
 						</div>
 						<!-- Tabs content -->
@@ -224,7 +221,7 @@
 						</section>
 					</div>
 					<div id="table-guide panel-body" style="padding: 3px;">
-						<section class="border p-3 d-flex justify-content-center" style="border: 1px red solid;">
+						<section class="border p-3 d-flex justify-content-center">
 							<div id="select-wrapper-158016" class="select-wrapper">
 								<div class="table-guide-text">
 									<p>On the Mission table you can define your mission parameters step by step. 
@@ -238,7 +235,32 @@
 							</div>
 						</section>
 					</div>
-					<div id="stream-guide panel-body" style="padding: 3px;">Stream guide
+					<div id="stream-guide panel-body" style="padding: 3px;">
+						<div id="missionControlPad">
+							<div class="mission-guide-text">Power on the Rover and connect to the Mars Orbiter satellite to observe your mission!</div>
+							<div class="stream-button-container d-flex justify-content-center">
+								<div class="me-4">
+									<a id="powerBtn" class="stream-button">
+										<span id="powerbutton" class="disconnected">
+											<i class="fas fa-power-off fa-2x" style="padding: 17px 18px 18px 16px;"></i>
+										</span>
+									</a>
+								</div>
+								<form name='subscriber'>
+									<input name="topic" class="input" type="hidden" value="marsOrbiter/#">
+									<input name="qos" type="hidden" value="1">
+										<a id="streamBtn" class="stream-button">
+											<span id="streamButton" class="disconnected">
+												<i class="fas fa-satellite-dish fa-2x"
+													style="padding: 16px 18px 18px 16px;"></i>
+											</span>
+										</a>
+								</form>
+							</div>
+						</div>
+						<div class="mission-status-info">
+							<div id="mission-serial-updates"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -263,6 +285,7 @@
 	</div>
 	<script src="./assets/js/map.js"></script>
 	<script src="./assets/js/mission.js"></script>
+	<script src="./assets/js/missionControl.js"></script>
 	<script src="./assets/js/user.js"></script>
 	<!-- MDB -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
