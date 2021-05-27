@@ -76,10 +76,10 @@ function onConnect () {
 				document.getElementById("connectbutton").classList.remove('disconnected');
 				document.getElementById("connectbutton").classList.add('connected');
 				document.getElementById("connectbutton").style.setProperty('--connection-btn-color', '#18ff00', 'important');
-			  	document.getElementById("nasaStream").style.setProperty('visibility', 'hidden', 'important')
+			  	// document.getElementById("nasaStream").style.setProperty('visibility', 'hidden', 'important')
 			  	document.getElementById("nasaStream").style.setProperty('display', 'none', 'important')
 			    document.getElementById("roverStream").style.setProperty('display', 'flex', 'important')
-				document.getElementById("roverStream").style.setProperty('visibility', 'visible', 'important')
+				//document.getElementById("roverStream").style.setProperty('visibility', 'visible', 'important')
 			  	document.getElementById("satelliteButton").style.setProperty('color', 'red', 'important');
 			  	document.getElementById("cruiseButton").style.setProperty('color', 'red', 'important');
 		  })
@@ -158,8 +158,8 @@ function onConnect () {
 		  document.getElementById("connectbutton").classList.add('disconnected');
 		  document.getElementById("connectbutton").classList.remove('connected');
 		  document.getElementById("connectbutton").style.setProperty('--connection-btn-color', '#ff0000', 'important');
-		  document.getElementById("nasaStream").style.setProperty('visibility', 'visible', 'important');
-		  document.getElementById("roverStream").style.setProperty('visibility', 'hidden', 'important');
+		  /*document.getElementById("nasaStream").style.setProperty('visibility', 'visible', 'important');
+		  document.getElementById("roverStream").style.setProperty('visibility', 'hidden', 'important');*/
 		  document.getElementById("nasaStream").style.setProperty('display', 'flex', 'important')
 		  document.getElementById("roverStream").style.setProperty('display', 'none', 'important')
 		  document.getElementById("satelliteButton").style.setProperty('color', '#3A474D', 'important');

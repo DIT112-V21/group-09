@@ -442,12 +442,10 @@ img.rover-model {
 
 .nasa-stream {
 	display: flex;
-	visibility: visible;
 }
 
 .camera-stream {
 	display: none;
-	visibility: hidden;
 	justify-content: center;
   	align-items: center;
 }

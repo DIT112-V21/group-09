@@ -1,3 +1,8 @@
+:root {
+	--power-btn-color: red;
+	--offline-btn-color: #3A474D;
+}
+
 #mission-map ul.nav-tabs {
 	margin-bottom: 0 !important;
 }
@@ -25,7 +30,8 @@
 }
 
 #mission-map .tab-pane {
-    min-height: 400px;
+    min-height: 500px;
+	height: 680px;
 }
 
 #mission-map .tab-pane.active {
@@ -44,6 +50,11 @@
 	margin: 3px 3px 0 0;
 }
 
+#stream-tab .tab-pane {
+	min-height: 500px;
+	height: 680px;
+}
+
 /*
 Commands Table*/
 #table-tab .mission-table-scroll {
@@ -52,7 +63,8 @@ Commands Table*/
 }
 
 #mission-table-list {
-	overflow-y: scroll;	
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 #commandTable .commandTable {
@@ -126,4 +138,213 @@ div[id='stream-guide panel-body'] {
 
 #missionListTable th.steps {
 	width: 80px;
+}
+
+/* Streams and control */
+.stream-button-container {
+	display: flex;
+	width: 240px;
+	margin: 0 auto;
+}
+
+.stream-button {
+    position: relative;
+    display: inline-block;
+	width: 80px;
+	height: 80px;
+    margin: 0 auto;
+    
+    -webkit-border-radius: 10px;
+    
+    -webkit-box-shadow: 
+        0px 3px rgba(128,128,128,1), /* gradient effects */
+        0px 4px rgba(118,118,118,1),
+        0px 5px rgba(108,108,108,1),
+        0px 6px rgba(98,98,98,1),
+        0px 7px rgba(88,88,88,1),
+        0px 8px rgba(78,78,78,1),
+        0px 14px 6px -1px rgba(128,128,128,1); /* shadow */
+    
+    -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+} 
+
+.stream-button:active {
+	-webkit-box-shadow: 
+	0px 3px rgba(128,128,128,1),
+	0px 4px rgba(118,118,118,1),
+	0px 5px rgba(108,108,108,1),
+	0px 6px rgba(98,98,98,1),
+	0px 7px rgba(88,88,88,1),
+	0px 8px rgba(78,78,78,1),
+	0px 10px 2px 0px rgba(128,128,128,.6); /* shadow */
+}
+
+.stream-button:active span{
+	-webkit-transform: translate(0, 5px); /* depth of button press */
+}
+
+.stream-button span:after {
+	display: block;
+	width: 6px;
+	height: 6px;
+	position: absolute;
+	right: 10px;
+	top: 8px;    
+
+	font-family: 'Cabin';
+	font-weight: 700;
+	color: #AEBF3B;
+	text-shadow: 0px 1px #fff, 0px -1px #97A63A;
+	font-size: 26px;
+}
+
+.stream-button span {
+    background-color: #E8E8E8;
+    
+    background-image: 
+        /* gloss gradient */
+        -webkit-gradient(
+            linear, 
+            left bottom, 
+            left top, 
+            color-stop(50%,rgba(255,255,255,0)), 
+            color-stop(50%,rgba(255,255,255,0.3)), 
+            color-stop(100%,rgba(255,255,255,0.2))),
+        
+        /* dark outside gradient */
+        -webkit-gradient(
+            linear, 
+            left top, 
+            right top, 
+            color-stop(0%,rgba(210,210,210,0.3)), 
+            color-stop(20%,rgba(210,210,210,0)), 
+            color-stop(80%,rgba(210,210,210,0)), 
+            color-stop(100%,rgba(210,210,210,0.3))),
+        
+        /* light inner gradient */
+        -webkit-gradient(
+            linear, 
+            left top, 
+            right top, 
+            color-stop(0%,rgba(255,255,255,0)), 
+            color-stop(20%,rgba(255,255,255,0.5)), 
+            color-stop(80%,rgba(255,255,255,0.5)), 
+            color-stop(100%,rgba(255,255,255,0))),        
+        
+        /* diagonal line pattern */
+   
+        -webkit-box-shadow:
+            0px -1px #fff, /* top highlight */
+            0px 1px 1px #FFFFFF; /* bottom edge */
+    
+    -webkit-background-size: 100%, 100%, 100%, 4px 4px;
+    
+    -webkit-border-radius: 10px;
+    -webkit-transition: -webkit-transform .1s ease-in-out;
+    
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+
+    display: inline-block;
+	width: 80px;
+	height: 80px;
+    
+    color: #3A474D;
+    text-transform: uppercase;
+    font-family: 'TradeGothicLTStd-BdCn20','PT Sans Narrow';
+    font-weight: 700;
+    font-size: 24px;
+    text-shadow: 0px 1px #fff, 0px -1px #262F33;
+}
+
+.connected:hover {
+	color: #18ff00;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(24,255,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(24,255,0,0.9);
+}
+
+.disconnected:hover {
+	color: var(--power-btn-color);
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+}
+
+.stream-button #powerbutton {
+	color: var(--power-btn-color);
+}
+
+#streamButton .disconnected {
+	color: red;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+}
+
+#streamButton .disconnected:hover {
+	color: red;
+	text-shadow: 0px -1px #97A63A;
+	cursor: pointer;
+	-webkit-box-shadow:0px 0px 2px 2px rgba(255,0,0,0.9);
+	-moz-box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+	box-shadow: 0px 0px 2px 2px rgba(255,0,0,0.9);
+}
+
+/* Mission serial feed */
+
+.mission-status-info {
+	background: rgba(0, 0, 0, 0.8);
+	height: 500px;
+	min-height: 460px;
+	border: 1px solid black;
+	padding: 2px;
+	margin: 2px;
+	margin-top: 15px;
+}
+
+#mission-serial-updates {
+	display: block;
+	width: 100%;
+	height: 494px;
+	min-height: 460px;
+	overflow-y: scroll;
+	font-size: 14px;
+	line-height: 2px;
+	border: 1px white solid;
+	margin: 0;
+}
+
+.mission-status-output {
+	font-size: 14px;
+	font-weight: 200;
+	color: white;
+	margin: 2px 5px 2px 5px;
+	padding: 10px 0;
+	line-height: normal;
+}
+
+.mission-status-output p {
+	line-height: normal;
+}
+
+.mission-guide-text {
+	padding: 10px;
+	color: #282828;
+	font-weight: 300;
+	font-size: 12pt;
+	text-shadow: 1px 1px 0px rgba(255,255,255,0.1);
+}
+
+.mission-status-output p {
+	line-height: normal;
 }
