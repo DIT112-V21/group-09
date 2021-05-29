@@ -4,7 +4,7 @@
 
 [Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.4.5...v0.4.6)
 
-### Bug fixes
+### Enhancements
 
 - Implement beta release build [\#123](https://github.com/DIT112-V21/group-09/pull/123)
 
