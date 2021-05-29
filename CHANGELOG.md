@@ -1,11 +1,20 @@
 #
 
+## [###](https://github.com/DIT112-V21/group-09/tree/HEAD)
+
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.4.5...HEAD)
+
+### Enhancements
+
+- Implement beta release build [\#123](https://github.com/DIT112-V21/group-09/pull/123)
+
 ## [v0.4.5](https://github.com/DIT112-V21/group-09/tree/v0.4.5) (2021-05-29)
 
 [Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.3.0-alpha...v0.4.5)
 
 ### Enhancements
 
+- BETA release packaging, building and delivery [\#111](https://github.com/DIT112-V21/group-09/issues/111)
 - Detect mission targets [\#107](https://github.com/DIT112-V21/group-09/issues/107)
 - Initial config files [\#87](https://github.com/DIT112-V21/group-09/issues/87)
 - The SmartRover 3D model [\#79](https://github.com/DIT112-V21/group-09/issues/79)
