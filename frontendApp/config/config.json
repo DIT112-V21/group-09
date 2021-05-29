@@ -1,0 +1,32 @@
+{
+	"loggedUser": null,
+	"loggedTimestamp": 1622281144975,
+	"missionContent": {
+		"steps": [
+			{
+				"step": 0,
+				"parameters": {
+					"heading": "0",
+					"speed": "30",
+					"distance": "0"
+				}
+			}
+		]
+	},
+	"localDbSettings": {
+		"host": "altansukh.com",
+		"port": 5432,
+		"dbUser": "altansuk_group9",
+		"dbPassword": "SmartRover",
+		"dbName": "altansuk_rover",
+		"local": true
+	},
+	"localMqttSettings": {
+		"connectUrl": "mqtt://localhost:1883",
+		"host": "localhost",
+		"port": 1883,
+		"username": "user",
+		"password": "password",
+		"clientId": "clientId_Hes24TQfz"
+	}
+}

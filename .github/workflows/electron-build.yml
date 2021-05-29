@@ -1,0 +1,33 @@
+name: Electron Build
+
+on: [push, pull_request]
+  branches:
+    - master
+
+defaults:
+  run:
+    working-directory: frontendApp
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: |
+          npm install
+          npm install -g yarn
+      - run: yarn add electron-builder --dev
+      - run: yarn dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

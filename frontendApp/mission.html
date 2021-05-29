@@ -239,23 +239,30 @@
 						<div id="missionControlPad">
 							<div class="mission-guide-text">Power on the Rover and connect to the Mars Orbiter satellite to observe your mission!</div>
 							<div class="stream-button-container d-flex justify-content-center">
-								<div class="me-4">
+								<div class="me-3 mb-3 mt-1">
 									<a id="powerBtn" class="stream-button">
 										<span id="powerbutton" class="disconnected">
-											<i class="fas fa-power-off fa-2x" style="padding: 17px 18px 18px 16px;"></i>
+											<i class="fas fa-power-off" style="padding: 17px 18px 18px 16px;"></i>
 										</span>
 									</a>
 								</div>
-								<form name='subscriber'>
+								<form name='subscriber' class="me-3 mb-3 mt-1">
 									<input name="topic" class="input" type="hidden" value="marsOrbiter/#">
 									<input name="qos" type="hidden" value="1">
 										<a id="streamBtn" class="stream-button">
 											<span id="streamButton" class="disconnected">
-												<i class="fas fa-satellite-dish fa-2x"
+												<i class="fas fa-satellite-dish"
 													style="padding: 16px 18px 18px 16px;"></i>
 											</span>
 										</a>
 								</form>
+								<div class="mb-3 mt-1">
+									<a id="sendBtn" class="stream-button" disabled>
+										<span id="sendbutton" class="disconnected">
+											<i class="fas fa-rocket" style="padding: 17px 18px 18px 16px;"></i>
+										</span>
+									</a>
+								</div>
 							</div>
 						</div>
 						<div class="mission-status-info">
