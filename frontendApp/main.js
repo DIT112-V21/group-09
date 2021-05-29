@@ -80,14 +80,17 @@ function initializeSettings() {
 	let dbConfig = config.get('database.dbConfig');
 	let mqttConfig = config.get('mqtt.brokerConfig');
 	
+	if (store.has('missionContent')) {
+		store.delete('missionContent');
+	}
+	
 	if (!store.has('localDbSettings')) {
-		
 		localDbSettings = {
-    		"user": dbConfig.dbUser,
     		"host": dbConfig.host,
-    		"database": dbConfig.dbName,
+			"port": dbConfig.port,
+			"user": dbConfig.dbUser,
     		"password": dbConfig.dbPassword,
-    		"port": dbConfig.port,
+			"database": dbConfig.dbName,
 			"local": true
   		};
 		

@@ -102,7 +102,7 @@ information.
 We appreciate everyone who had supported us during this project, including the creators of various plugins, addons, 
 creative materials, medias, 3D models and much more.
 
-Please visit [Credits](https://github.com/DIT112-V21/group-09/wiki/Credits) for our special thanks, credits and 
+Please visit [CREDITS](https://github.com/DIT112-V21/group-09/wiki/Credits) for our special thanks, credits and 
 attributions. While we made our best effort to include everyone, if we are missing something feel free to notify us. 
 We will make an immediate updates. Thank you again. 
 
