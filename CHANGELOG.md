@@ -1,11 +1,20 @@
 #
 
+## [v0.4.6](https://github.com/DIT112-V21/group-09/tree/v0.4.6) (2021-05-29)
+
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.4.5...v0.4.6)
+
+### Enhancements
+
+- Implement beta release build [\#123](https://github.com/DIT112-V21/group-09/pull/123)
+
 ## [v0.4.5](https://github.com/DIT112-V21/group-09/tree/v0.4.5) (2021-05-29)
 
 [Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.3.0-alpha...v0.4.5)
 
 ### Enhancements
 
+- BETA release packaging, building and delivery [\#111](https://github.com/DIT112-V21/group-09/issues/111)
 - Detect mission targets [\#107](https://github.com/DIT112-V21/group-09/issues/107)
 - Initial config files [\#87](https://github.com/DIT112-V21/group-09/issues/87)
 - The SmartRover 3D model [\#79](https://github.com/DIT112-V21/group-09/issues/79)
@@ -18,7 +27,6 @@
 - Update changelog generator [\#98](https://github.com/DIT112-V21/group-09/pull/98)
 - Implement changelog workflow [\#97](https://github.com/DIT112-V21/group-09/pull/97)
 - Implement Electron config [\#92](https://github.com/DIT112-V21/group-09/pull/92)
-- Update README.md [\#91](https://github.com/DIT112-V21/group-09/pull/91)
 
 ### Bug fixes
 
@@ -75,6 +83,7 @@
 
 - \[Task\] Manual control page update [\#63](https://github.com/DIT112-V21/group-09/issues/63)
 - Create issue templates [\#51](https://github.com/DIT112-V21/group-09/issues/51)
+- Update README.md [\#91](https://github.com/DIT112-V21/group-09/pull/91)
 - Update Readme with badges and logo [\#56](https://github.com/DIT112-V21/group-09/pull/56)
 - Update workflow files [\#22](https://github.com/DIT112-V21/group-09/pull/22)
 
