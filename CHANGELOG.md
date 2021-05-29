@@ -1,8 +1,8 @@
 #
 
-## [###](https://github.com/DIT112-V21/group-09/tree/HEAD)
+## [v0.4.5](https://github.com/DIT112-V21/group-09/tree/v0.4.5) (2021-05-29)
 
-[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.3.0-alpha...HEAD)
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.3.0-alpha...v0.4.5)
 
 ### Enhancements
 
