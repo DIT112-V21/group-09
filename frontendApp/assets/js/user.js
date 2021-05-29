@@ -1,7 +1,6 @@
 const { Client } = require('pg');
 const Store = require('electron-store');
 let config = require('electron-node-config');
-const fs = require('fs');
 const store = new Store({
   configName: 'user-store'
 });
@@ -31,20 +30,11 @@ function initializeSettings() {
 	var localDbSettings = store.get('localDbSettings');
 	if (localDbSettings.local) {
 		clientConfig = {
-    		user: localDbSettings.dbUser,
+    		user: localDbSettings.user,
     		host: localDbSettings.host,
-    		database: localDbSettings.dbName,
-    		password: localDbSettings.dbPassword,
+    		database: localDbSettings.database,
+    		password: localDbSettings.password,
     		port: localDbSettings.port
-  		};
-	} else if (localDbSettings.local == false || localDbSettings == null || localDbSettings == undefined) {
-		let dbConfig = config.get('database.dbConfig');
-		clientConfig = {
-    		user: dbConfig.dbUser,
-    		host: dbConfig.host,
-    		database: dbConfig.dbName,
-    		password: dbConfig.dbPassword,
-    		port: dbConfig.port
   		};
 	} else {
 		console.log('DB settings missing ...');

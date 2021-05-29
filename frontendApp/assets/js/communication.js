@@ -1,6 +1,6 @@
 const mqtt = require('mqtt')
 //let mqttConfig = config.get('mqtt.brokerConfig');
-let mqttConfig = = store.get('localMqttSettings');
+var mqttConfig = store.get('localMqttSettings');
 const QrScanner = require('./assets/js/qr-scanner.umd.min.js');
 QrScanner.WORKER_PATH = './assets/js/qr-scanner-worker.min.js';
 
