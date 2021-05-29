@@ -171,12 +171,9 @@ function executeMissionTable() {
 	document.getElementById("table-tab").classList.remove("show");
 	document.getElementById("missionTabs-stream-tab").classList.add("active");
 	document.getElementById("missionTabs-table-tab").classList.remove("active");
-	
 	switchPane('stream');
-	sendMission(missionContent)
-	.catch((e) =>
-		console.log(e)
-	);
+	
+	store.set('missionContent', missionContent);
 }
 
 function switchPane(pane) {

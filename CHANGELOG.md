@@ -1,25 +1,67 @@
 #
 
-## [###](https://github.com/DIT112-V21/group-09/tree/HEAD)
+## [v0.4.5](https://github.com/DIT112-V21/group-09/tree/v0.4.5) (2021-05-29)
 
-[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.3.0-alpha...HEAD)
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.3.0-alpha...v0.4.5)
 
 ### Enhancements
 
+- Detect mission targets [\#107](https://github.com/DIT112-V21/group-09/issues/107)
 - Initial config files [\#87](https://github.com/DIT112-V21/group-09/issues/87)
+- The SmartRover 3D model [\#79](https://github.com/DIT112-V21/group-09/issues/79)
 - Custom Mars terrain package [\#78](https://github.com/DIT112-V21/group-09/issues/78)
 - Release and test alpha-1 version [\#57](https://github.com/DIT112-V21/group-09/issues/57)
+- Implement Mission save, load [\#121](https://github.com/DIT112-V21/group-09/pull/121)
+- User registration and login [\#116](https://github.com/DIT112-V21/group-09/pull/116)
+- Implement SmartRover 3D model [\#105](https://github.com/DIT112-V21/group-09/pull/105)
+- Update changelog-generator.yml [\#99](https://github.com/DIT112-V21/group-09/pull/99)
+- Update changelog generator [\#98](https://github.com/DIT112-V21/group-09/pull/98)
 - Implement changelog workflow [\#97](https://github.com/DIT112-V21/group-09/pull/97)
 - Implement Electron config [\#92](https://github.com/DIT112-V21/group-09/pull/92)
 - Update README.md [\#91](https://github.com/DIT112-V21/group-09/pull/91)
 
+### Bug fixes
+
+- \[BUGFIX\] Throttle and turn angle limits [\#101](https://github.com/DIT112-V21/group-09/issues/101)
+- Implement bugfixes [\#117](https://github.com/DIT112-V21/group-09/pull/117)
+
+### Deprecated
+
+- Frontend theme settings [\#35](https://github.com/DIT112-V21/group-09/issues/35)
+
+### Documentation
+
+- Instructions for users [\#33](https://github.com/DIT112-V21/group-09/issues/33)
+- Add Setup Guides [\#104](https://github.com/DIT112-V21/group-09/pull/104)
+
 ###
 
+- Mission target area signpost [\#90](https://github.com/DIT112-V21/group-09/issues/90)
 - \[Task\] Install database system and connect to Frontend app [\#89](https://github.com/DIT112-V21/group-09/issues/89)
+- User registration and login [\#88](https://github.com/DIT112-V21/group-09/issues/88)
+- Mission terrain map [\#77](https://github.com/DIT112-V21/group-09/issues/77)
+- Mission table data processing [\#76](https://github.com/DIT112-V21/group-09/issues/76)
+- Mission preset templates [\#75](https://github.com/DIT112-V21/group-09/issues/75)
+- Mission visual feedback [\#74](https://github.com/DIT112-V21/group-09/issues/74)
+- Persistent settings page [\#64](https://github.com/DIT112-V21/group-09/issues/64)
 - Update README.md to reflect project development [\#58](https://github.com/DIT112-V21/group-09/issues/58)
+- Save and load missions [\#27](https://github.com/DIT112-V21/group-09/issues/27)
+- Retrieve data after software restart [\#26](https://github.com/DIT112-V21/group-09/issues/26)
+- Track mission progress [\#25](https://github.com/DIT112-V21/group-09/issues/25)
+- Create user stories for Sprint 4 [\#21](https://github.com/DIT112-V21/group-09/issues/21)
+- Create user stories for Sprint 3 [\#20](https://github.com/DIT112-V21/group-09/issues/20)
 
 ###
 
+- Implement mission tracking [\#122](https://github.com/DIT112-V21/group-09/pull/122)
+- Implement mission control [\#119](https://github.com/DIT112-V21/group-09/pull/119)
+- Implement restore session [\#118](https://github.com/DIT112-V21/group-09/pull/118)
+- Implement settings page [\#115](https://github.com/DIT112-V21/group-09/pull/115)
+- Implement mission templates [\#114](https://github.com/DIT112-V21/group-09/pull/114)
+- Add QR Code Feature [\#108](https://github.com/DIT112-V21/group-09/pull/108)
+- Implement mission targets [\#106](https://github.com/DIT112-V21/group-09/pull/106)
+- Add user Input into an array [\#103](https://github.com/DIT112-V21/group-09/pull/103)
+- mission-map-update [\#102](https://github.com/DIT112-V21/group-09/pull/102)
 - Update settings layout [\#96](https://github.com/DIT112-V21/group-09/pull/96)
 - Connect database with the frontend app [\#95](https://github.com/DIT112-V21/group-09/pull/95)
 - Connect the frontend with the database [\#94](https://github.com/DIT112-V21/group-09/pull/94)

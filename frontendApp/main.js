@@ -1,5 +1,6 @@
 const { app, BrowserWindow, globalShortcut } = require('electron')
 const Store = require('electron-store');
+let config = require('electron-node-config');
 
 const store = new Store({
   configName: 'user-store',
@@ -25,12 +26,11 @@ function createWindow () {
 	
 	mainWindow.menuBarVisible = false
 	
-	var loggedTime = store.get('loggedTimestamp');
-	if (loggedTime != null) {
+	if (store.has('loggedTime')) {
 		const currentDate = new Date();
 		const currentTime = currentDate.getTime();
 		var timeDiff = 	(currentTime - loggedTime)/60000;
-		if (timeDiff < 5) {
+		if (timeDiff < 5 && store.has('currentPage')) {
 			var page = store.get('currentPage');
 			mainWindow.loadFile(page);
 		} else {
@@ -40,10 +40,7 @@ function createWindow () {
 		mainWindow.loadFile('index.html');
 	}
 	
-	/*
-	
-	mainWindow.loadFile('index.html')*/
-	
+	initializeSettings(); // Initialize database settings;
 	/* Global shortcut for F5 to reload window */
 	globalShortcut.register('f5', function() {
 		mainWindow.reload()
@@ -78,3 +75,44 @@ app.on('will-quit', () => {
 	// Unregister all shortcuts.
 	globalShortcut.unregisterAll()
 })
+
+function initializeSettings() {
+	let dbConfig = config.get('database.dbConfig');
+	let mqttConfig = config.get('mqtt.brokerConfig');
+	
+	if (!store.has('localDbSettings')) {
+		
+		localDbSettings = {
+    		"user": dbConfig.dbUser,
+    		"host": dbConfig.host,
+    		"database": dbConfig.dbName,
+    		"password": dbConfig.dbPassword,
+    		"port": dbConfig.port,
+			"local": true
+  		};
+		
+		store.set('localDbSettings', localDbSettings);
+		console.log('Local DB settings set ...');
+	} else if (dbConfig == null || dbConfig == undefined) {
+		console.log('DB settings missing ...');
+		systemToast('Database default settings missing.<br />Please check Settings page.');
+	}
+	
+	if (!store.has('localMqttSettings')) {
+		localMqttSettings = {
+			"connectUrl": mqttConfig.connectUrl,
+			"host": mqttConfig.host,
+			"port": mqttConfig.port,
+			"username": mqttConfig.username,
+  			"password": mqttConfig.password,
+			"clientId": mqttConfig.clientId
+  		};
+		
+		store.set('localMqttSettings', localMqttSettings);
+		console.log('Local MQTT settings set ...');
+		
+	} else if (mqttConfig == null || mqttConfig == undefined) {
+		console.log('MQTT settings missing ...');
+		systemToast('MQTT default settings missing.<br />Please check Settings page.');
+	}
+}

@@ -1,6 +1,6 @@
 const mqtt = require('mqtt')
-let config = require('electron-node-config');
-let mqttConfig = config.get('mqtt.brokerConfig');
+//let mqttConfig = config.get('mqtt.brokerConfig');
+let mqttConfig = = store.get('localMqttSettings');
 const QrScanner = require('./assets/js/qr-scanner.umd.min.js');
 QrScanner.WORKER_PATH = './assets/js/qr-scanner-worker.min.js';
 
@@ -114,11 +114,11 @@ function onConnect () {
 				  var n = 0;	
 				  
 				  for (var i = 0; i < message.length; i += 3) {
-						n += 4;
 						pixels[n] = message[i];
 						pixels[n + 1] = message[i + 1];
 						pixels[n + 2] = message[i + 2];
 						pixels[n + 3] = 255;
+					  	n += 4;
 				  }
 				  const imageData = new ImageData(pixels, width, height);
 				  ctx.putImageData(imageData, 0, 0);
@@ -587,8 +587,8 @@ const showModal = (title, description, yesBtnLabel = 'Yes', noBtnLabel = 'Cancel
           <div class="modal-body">
             <p>${description}</p>
           </div>
-          <div class="modal-footer bg-light">
-            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">${noBtnLabel}</button>
+          <div class="modal-footer bg-light d-flex justify-content-center">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">${noBtnLabel}</button>
           </div>
         </div>
       </div>

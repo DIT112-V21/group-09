@@ -303,9 +303,9 @@ const missionModal = (title, description, yesBtnLabel, noBtnLabel, action) => {
           <div class="modal-body">
             <p>${description}</p>
           </div>
-          <div class="modal-footer bg-light">
-			<button id="modalYesBtn" type="button" class="btn btn-outline-success" onclick="` + action + `">${yesBtnLabel}</button>
-        	<button id="modalNoBtn" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" >${noBtnLabel}</button>
+          <div class="modal-footer bg-light d-flex justify-content-center">
+			<button id="modalYesBtn" type="button" class="btn btn-primary me-4" onclick="` + action + `">${yesBtnLabel}</button>
+        	<button id="modalNoBtn" type="button" class="btn btn-warning" data-bs-dismiss="modal" >${noBtnLabel}</button>
           </div>
         </div>
       </div>
@@ -428,14 +428,9 @@ function executeMission() {
 	document.getElementById("map-tab").classList.remove("show");
 	document.getElementById("missionTabs-stream-tab").classList.add("active");
 	document.getElementById("missionTabs-map-tab").classList.remove("active");
-	
 	switchPane('stream');
 	
-	sendMission(missionContent)
-	.catch((e) =>
-		console.log(e)
-	);
-
+	store.set('missionContent', missionContent);
 };
 
 function loadMission(missionId) {

@@ -9,5 +9,15 @@
       "password": "password",
       "clientId": "clientId_Hes24TQfz"
     }
-  }
+  },
+  "database": {
+	  	"_comment": "Database connection settings here",
+		"dbConfig": {
+			"host": "altansukh.com",
+			"port": 5432,
+			"dbUser": "altansuk_group9",
+			"dbPassword": "SmartRover",
+			"dbName": "altansuk_rover"
+		}
+  	}
 }

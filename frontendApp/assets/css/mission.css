@@ -150,8 +150,8 @@ div[id='stream-guide panel-body'] {
 .stream-button {
     position: relative;
     display: inline-block;
-	width: 80px;
-	height: 80px;
+	width: 64px;
+	height: 64px;
     margin: 0 auto;
     
     -webkit-border-radius: 10px;
@@ -249,8 +249,8 @@ div[id='stream-guide panel-body'] {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
 
     display: inline-block;
-	width: 80px;
-	height: 80px;
+	width: 64px;
+	height: 64px;
     
     color: #3A474D;
     text-transform: uppercase;
@@ -280,6 +280,10 @@ div[id='stream-guide panel-body'] {
 
 .stream-button #powerbutton {
 	color: var(--power-btn-color);
+}
+
+#missionControlPad i.fas {
+	font-size: 1.5em;
 }
 
 #streamButton .disconnected {
