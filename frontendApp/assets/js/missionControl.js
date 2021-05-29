@@ -1,6 +1,5 @@
 const mqtt = require('mqtt')
-let config = require('electron-node-config');
-let mqttConfig = = store.get('localMqttSettings');
+let mqttConfig = store.get('localMqttSettings');
 const QrScanner = require('./assets/js/qr-scanner.umd.min.js');
 QrScanner.WORKER_PATH = './assets/js/qr-scanner-worker.min.js';
 

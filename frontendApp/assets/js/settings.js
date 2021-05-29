@@ -33,9 +33,9 @@ function saveDbSettings() {
 	const newDbSettings = {
     	"host": document.getElementById("db-hostname").value,
     	"port": parseInt(document.getElementById("db-port").value),
-    	"dbUser": document.getElementById("db-username").value,
-		"dbPassword": document.getElementById("db-password").value, 
-		"dbName": document.getElementById("db-name").value,
+    	"user": document.getElementById("db-username").value,
+		"password": document.getElementById("db-password").value, 
+		"database": document.getElementById("db-name").value,
 		"local": true
 	}
 	
@@ -50,11 +50,11 @@ function saveMqttSettings() {
 	
 	var newMqttSettings = {
 			"connectUrl": connectionUrl,
-				"host": document.getElementById("mqtt-hostname").value,
-				"port": parseInt(document.getElementById("mqtt-port").value),
-				"username": document.getElementById("mqtt-username").value,
-				"password": document.getElementById("mqtt-password").value,
-				"clientId": document.getElementById("mqtt-clientid").value
+			"host": document.getElementById("mqtt-hostname").value,
+			"port": parseInt(document.getElementById("mqtt-port").value),
+			"username": document.getElementById("mqtt-username").value,
+			"password": document.getElementById("mqtt-password").value,
+			"clientId": document.getElementById("mqtt-clientid").value
   		};
 	store.set('localMqttSettings', newMqttSettings);
 	systemToast('mqttSettingsSaveSuccess');
