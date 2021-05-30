@@ -2,10 +2,27 @@
 
 ## [###](https://github.com/DIT112-V21/group-09/tree/HEAD)
 
-[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.5.0...HEAD)
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v1.0.1...HEAD)
 
 ### Enhancements
 
+- Release first v1.0.0 version [\#131](https://github.com/DIT112-V21/group-09/pull/131)
+
+## [v1.0.1](https://github.com/DIT112-V21/group-09/tree/v1.0.1) (2021-05-30)
+
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v1.0.0...v1.0.1)
+
+### Enhancements
+
+- Prepare demo YouTube video [\#113](https://github.com/DIT112-V21/group-09/issues/113)
+
+## [v1.0.0](https://github.com/DIT112-V21/group-09/tree/v1.0.0) (2021-05-30)
+
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.5.0...v1.0.0)
+
+### Enhancements
+
+- Update README.md and CHANGELOG.md [\#109](https://github.com/DIT112-V21/group-09/issues/109)
 - Manual control section documentation [\#85](https://github.com/DIT112-V21/group-09/issues/85)
 - Mission step driving [\#73](https://github.com/DIT112-V21/group-09/issues/73)
 
