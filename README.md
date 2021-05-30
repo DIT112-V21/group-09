@@ -7,6 +7,7 @@ Autonomous SmartRover that is designed to explore foreign planets, terrain and i
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Demo](#demo) 
 - [Installation](#installation)
 - [Testing](#testing)
 - [How to use](#how-to-use)
@@ -26,17 +27,21 @@ Furthermore, you have access to all source codes and files that we put our effor
 bugs, mistakes, foolishness, typos or have useful suggestions, please contact us (how? ... let's see about that) as we 
 appreciate your interest in our project.
 
+## Demo video
+[![SmartRover Demo](https://img.youtube.com/vi/RKo8-B3RKVY/0.jpg)](https://www.youtube.com/watch?v=RKo8-B3RKVY "SmartRover Demo")
+
 ## Features
 
 The system is developed such that it can perform the following tasks: 
-- Load custom Martian terrain mod for improved realism
-- Connect to the SmartRover and manually drive
-- Send console commands to drive the rover
-- Connect and receive live camera stream
+- Robust [Frontend app](https://github.com/DIT112-V21/group-09/wiki/Front-end-website) built on Electron JS
+- Load custom [Martian terrain and rover mod](https://github.com/DIT112-V21/group-09/wiki/Emulator-UI-modification) for improved realism
+- Connect to the SmartRover and [manually drive](https://github.com/DIT112-V21/group-09/wiki/Manual-control-of-the-Rover)
+- Send console commands to drive the SmartRover
+- Connect and receive [live camera stream](https://github.com/DIT112-V21/group-09/wiki/Retrieve-emulator-feedback)
 - Autonomous driving with obstacle avoidance logic built-in
-- Build and execute missions by defining each step parameters
-- Create user account and login with unique profile
-- Save and load user missions
+- Build and execute [the Missions](https://github.com/DIT112-V21/group-09/wiki/Mission-control-frontend) by defining each step parameters
+- Create [user account](https://github.com/DIT112-V21/group-09/wiki/User-management-and-data-persistence) and login with unique profile
+- Save and load [user missions](https://github.com/DIT112-V21/group-09/wiki/User-management-and-data-persistence)
 
 ## Installation
 Detailed installation instructions are provided on the wiki page.

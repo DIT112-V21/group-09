@@ -68,7 +68,7 @@ function onConnect() {
 			document.getElementById("streamButton").style.setProperty('color', 'red', 'important');
 	  	})
 		client.on('message', (topic, message) => {
-			if (topic.includes("mission/status")) {
+			if (topic.includes("marsOrbiter/status")) {
 				addTextToSerial(message);
 			} else if (topic.includes("mission/step")) {
 				addTextToSerial(message);
@@ -98,7 +98,7 @@ function onConnect() {
 				  
 				frameCount++;
 				  
-				if (frameCount > 20) {
+				if (frameCount > 15) {
 					var scanData = canvas.toDataURL('image/bmp');
 					QrScanner.scanImage(scanData)
 						.then(result => {
@@ -247,6 +247,7 @@ function endMission() {
 				qos: 2,
 				retain: false
 		})
+		onUnsub();
 		var missionEndDesc = "Mission had completed. We have reached a target area and detected target code.<br /><br />Congratulations!";
 		saveModal('Mission complete', missionEndDesc, 'Close');	
 	}

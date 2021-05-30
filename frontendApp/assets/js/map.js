@@ -74,9 +74,9 @@ function loadMap() {
 	
 	// Target areas
 	var ta1 = [xy(280,50),	 xy(280,150),  xy(160,150),  xy(160,50)];
-	var ta2 = [xy(420,1850), xy(420,1950), xy(300,1950), xy(300,1850)];
-	var ta3 = [xy(1680,1850),xy(1680,1950),xy(1560,1950),xy(1560,1850)];
-	var ta4 = [xy(3080,1750),xy(3080,1850),xy(2960,1850),xy(2960,1750)];
+	var ta2 = [xy(540,1758), xy(540,1858), xy(420,1858), xy(420,1758)];
+	var ta3 = [xy(1690,1715),xy(1690,1815),xy(1570,1815),xy(1570,1715)];
+	var ta4 = [xy(2931,1510),xy(2931,1610),xy(2811,1610),xy(2811,1510)];
 	var ta5 = [xy(3180,300), xy(3180,400), xy(3060,400), xy(3060,300)];
 	
 	var sierra = L.polygon(ta1, targetStyle).bindPopup(sierraPopup).addTo(targetAreas);
@@ -120,11 +120,6 @@ function loadMap() {
 	map.attributionControl.setPrefix("Mars map © 2021");
 	map.attributionControl.addAttribution("Group-09");
 
-	L.control.scale({
-		maxWidth: 100,
-  		imperial: false
-	}).addTo(map);
-	
 	var bounds = [[0,0], xy(3328,2048)];
 	var image = L.imageOverlay('assets/map/map.png', bounds).addTo(map);
 
@@ -205,30 +200,29 @@ function centerLeafletMapOnMarker(map, marker) {
 function plotRoute() {
 	var routeSelected = routeSelector.value;
 	var routeSpawn = [690,770];
-	var sierraPoint = [100,220];
+	var sierraPoint = [168,257];
 	var steigerwaldRoute = [
 		[690,770],
 		[1221.33,1080.00],
 		[1520.00,824.00],
 		[1734.67,781.33],
-		[1900, 360]
+		[1808, 481]
 	];
 	var gascogneRoute = [
 		[690,770],
 		[722.67,1390.67],
 		[901.33,1930.67],
 		[1408.00,1944.00],
-		[1689.33,1800.00],
-		[1900, 1620]
+		[1753.67, 1611]
 	];
 	var timanRoute 	= [
 		[690,770],
 		[710.67,1346.67],
 		[858.67,1920.00],
 		[960.00,2597.33],
-		[1022.67,3056.00],
-		[1436.00,2896.00],
-		[1800, 3020]
+		[1007,2948.67],
+		[1290.00,2851],
+		[1572,2866.58]
 	];
 	var katmaiRoute = [
 		[690,770],
@@ -418,7 +412,7 @@ function executeMission() {
 				step: i,
 				parameters: {
 					heading: brng,
-					speed: 30,
+					speed: 60,
 					distance: distance
 				}
 		}

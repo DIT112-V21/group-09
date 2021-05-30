@@ -1,8 +1,35 @@
 #
 
+## [###](https://github.com/DIT112-V21/group-09/tree/HEAD)
+
+[Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.5.0...HEAD)
+
+### Enhancements
+
+- Manual control section documentation [\#85](https://github.com/DIT112-V21/group-09/issues/85)
+- Mission step driving [\#73](https://github.com/DIT112-V21/group-09/issues/73)
+
+### Bug fixes
+
+- \[BUGFIX\] Update map heading conversion [\#128](https://github.com/DIT112-V21/group-09/issues/128)
+- Update map heading conversion [\#129](https://github.com/DIT112-V21/group-09/pull/129)
+- Update release build [\#127](https://github.com/DIT112-V21/group-09/pull/127)
+
+### Documentation
+
+- Update Wiki pages [\#110](https://github.com/DIT112-V21/group-09/issues/110)
+
+###
+
+- Drive mission steps  [\#130](https://github.com/DIT112-V21/group-09/pull/130)
+
 ## [v0.5.0](https://github.com/DIT112-V21/group-09/tree/v0.5.0) (2021-05-29)
 
 [Full Changelog](https://github.com/DIT112-V21/group-09/compare/v0.4.6...v0.5.0)
+
+### Bug fixes
+
+- \[BUGFIX\] Database settings and MQTT error [\#124](https://github.com/DIT112-V21/group-09/issues/124)
 
 ## [v0.4.6](https://github.com/DIT112-V21/group-09/tree/v0.4.6) (2021-05-29)
 
