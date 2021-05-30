@@ -28,7 +28,7 @@ const auto pulsesPerMeter = 600;
 // Rover mission variables
 signed int turnAngle = 0;
 signed int throttle = 0;
-int currentStep = 0;
+unsigned int currentStep = 0;
 int rotationSpeed = 10; // Speed for rotating rover on the spot
 boolean missionHasStarted = false;
 boolean targetHasReached = false;
@@ -36,7 +36,7 @@ boolean contentReceived = false;
 String statusMessage = "No updates ...";
 double initialDistance = 0;
 std::vector<String> missionContent;
-int missionSteps = 0;
+unsigned int missionSteps = 0;
 
 enum DrivingMode {
   STARTUP,
@@ -145,9 +145,8 @@ void loop() {
     mqtt.loop();
     currentTime = millis();
 #ifdef __SMCE__
-
     static auto previousFrame = 0UL;
-    if (currentTime - previousFrame >= 65) {
+    if (currentTime - previousFrame >= 50) {
       previousFrame = currentTime;
       Camera.readFrame(frameBuffer.data());
       int bufferSize = (int) frameBuffer.size();
@@ -155,16 +154,14 @@ void loop() {
     }
 #endif
     static auto previousTransmission = 0UL;
-    currentTime = millis();
-    if (currentTime - previousTransmission >= fiveSeconds) {
-      previousPrintout = currentTime;
+    if (currentTime - previousTransmission >= threeSeconds) {
+      previousTransmission = currentTime;
       mqtt.publish("marsOrbiter/status", statusMessage);
-      // mqtt.publish("marsOrbiter/status", reportStatus());
     }
 
 #ifdef __SMCE__
     // Avoid over-using the CPU if we are running in the emulator
-    delay(50);
+    delay(35);
 #endif
   }
   
@@ -250,7 +247,7 @@ void drive() //source: smartcar_shield/examples/Car/automatedMovements/automated
   // Ensure the speed is towards the correct direction
   throttle = smartcarlib::utils::getAbsolute(throttle) * ((throttle < 0) ? -1 : 1);
   car.setAngle(turnAngle);
-  car.setSpeed(throttle);
+  car.setSpeed((float) throttle);
 
   car.update();
   double currentDistance   = getMedianDistance();
@@ -258,7 +255,7 @@ void drive() //source: smartcar_shield/examples/Car/automatedMovements/automated
   statusMessage = "Step " + String(currentStep+1) + " in progress.";
   
   if (traveledDistance >= stepDistance) {
-       car.setSpeed(0);
+       car.setSpeed((float) 0);
        statusMessage = "Step " + String(currentStep+1) + " has completed.";
 
       if (currentStep == (missionSteps-1)) {
@@ -273,10 +270,11 @@ void drive() //source: smartcar_shield/examples/Car/automatedMovements/automated
 void startup()
 {
   if (missionHasStarted) {
-    statusMessage = "Message received. Mission is starting ...";
+    statusMessage = "Mission tasks processed. Mission is starting ...";
     currentMode = ROTATE;
   } else {
     statusMessage = "Rover is ready. Waiting for a mission ...";
+    delay(100);
   }
 }
 
@@ -288,31 +286,29 @@ void splitStringToVector(String msg) {
       j = i+1;
     }
   }
-  missionContent.push_back(msg.substring(j,msg.length()));
-  missionSteps = missionContent.size()/4;
+  missionContent.push_back(msg.substring(j, (int) msg.length()));
+  missionSteps = ((int)missionContent.size())/4;
   
   missionHasStarted = true;
   statusMessage = "Mission content received!";
-
+  Serial.println("Verifying mission content");
+  delay(500);
 
   for (int i =0; i < missionContent.size(); i+=4) {
-    Serial.println("Verifying mission content");
-    delay(500);
     Serial.print("Step: ");
     Serial.println(missionContent[i]);
-    delay(1000);
+    delay(500);
     Serial.print("Heading: ");
     Serial.println(missionContent[i+1]);
-    delay(1000);
+    delay(500);
     Serial.print("Speed: ");
     Serial.println(missionContent[i+2]);
-    delay(1000);
+    delay(500);
     Serial.print("Distance: ");
     Serial.println(missionContent[i+3]);
-    delay(1000);
+    delay(500);
   }
-
-  delay(5000);
+  delay(2000);
 }
 
 void rotate()
@@ -320,30 +316,23 @@ void rotate()
   int targetHeading = getTargetHeading();
   gyroscope.update();
   int currentHeading = gyroscope.getHeading();
-  Serial.print("Current heading: ");
-  Serial.println(currentHeading);
   signed int degrees2Turn = currentHeading - targetHeading;
   rotationSpeed = smartcarlib::utils::getAbsolute(rotationSpeed);
 
-  if (degrees2Turn > 0)
-    { // positive value means we should rotate clockwise
-        car.overrideMotorSpeed(rotationSpeed,
-                               -rotationSpeed);
-    }
-    else
-    { // rotate counter clockwise
-        car.overrideMotorSpeed(-rotationSpeed,
-                               rotationSpeed);
+  if (degrees2Turn > 0) {
+        car.overrideMotorSpeed(rotationSpeed, -rotationSpeed);
+  } else {
+        car.overrideMotorSpeed(-rotationSpeed, rotationSpeed);
     }
   if (targetHeading == currentHeading) {
-    car.setSpeed(0);
+    car.setSpeed((float) 0);
     initialDistance = getMedianDistance();
-    currentMode = DRIVE;  
+    currentMode = DRIVE;
   }
 }
 
 void endMission() {
-    car.setSpeed(0);
+    car.setSpeed((float) 0);
     car.setAngle(0);
     statusMessage = "Mission has ended. Please reset and restart everything to start a new mission.";
 }
