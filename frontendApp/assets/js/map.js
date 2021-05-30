@@ -205,7 +205,7 @@ function centerLeafletMapOnMarker(map, marker) {
 function plotRoute() {
 	var routeSelected = routeSelector.value;
 	var routeSpawn = [690,770];
-	var sierraPoint = [100,769];
+	var sierraPoint = [100,220];
 	var steigerwaldRoute = [
 		[690,770],
 		[1221.33,1080.00],
@@ -402,7 +402,10 @@ function executeMission() {
     	var theta = Math.atan2(b1 - a1, a2 - b2);
     	if (theta < 0)
         	theta += twoPi;
-    	var brng = Math.round(RAD2DEG * theta);
+    	var brng = Math.round(RAD2DEG * theta); 
+		if (brng >= 360) {
+			brng = 0;
+		}
 		
 		// distance
 		var sq1 = Math.pow(b2-a2,2);
