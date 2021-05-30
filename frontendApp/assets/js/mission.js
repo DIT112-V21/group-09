@@ -38,7 +38,7 @@ function addRow() {
     heading.value = "0";
     heading.step = "5";
     heading.min = "0";
-    heading.max = "360";
+    heading.max = "359";
     heading.name = "txtbox[]";
     heading.className = "data-cell";
     headingCell.appendChild(heading);
@@ -284,7 +284,7 @@ function loadTable(missionId) {
 						var step = i + 1;
 						content += '<tr id="row' + step + '">';
 						content += '<td class="number">' + step + '</td>';
-						content += '<td id="heading"><input type="number" value="'+ json[i].heading +'" step="5" min="0" max="360" class="data-cell" /></td>';
+						content += '<td id="heading"><input type="number" value="'+ json[i].heading +'" step="5" min="0" max="359" class="data-cell" /></td>';
 						content += '<td id="speed"><input type="number" value="' + json[i].speed + '" step="10" min="-100" max="100" class="data-cell" /></td>';
 						content += '<td id="distance"><input type="number" value="' + json[i].distance + '" step="100" class="data-cell" min="0" /></td>';
 						content += '<td><button onclick="deleteRow(this)" type="button" class="btn btn-danger btn-sm px-3"><i class="fas fa-times"></i></button></td>';
