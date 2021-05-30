@@ -15,6 +15,10 @@
 - Update map heading conversion [\#129](https://github.com/DIT112-V21/group-09/pull/129)
 - Update release build [\#127](https://github.com/DIT112-V21/group-09/pull/127)
 
+### Documentation
+
+- Update Wiki pages [\#110](https://github.com/DIT112-V21/group-09/issues/110)
+
 ###
 
 - Drive mission steps  [\#130](https://github.com/DIT112-V21/group-09/pull/130)
