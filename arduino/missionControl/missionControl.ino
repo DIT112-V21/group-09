@@ -2,8 +2,6 @@
 #include <MQTT.h>
 #include <WiFi.h>
 
-//#include <vector>
-
 #ifdef __SMCE__
 #include <OV767X.h>
 #include <vector>
@@ -13,53 +11,45 @@
 #include "secrets.hpp"
 #endif
 
+// Environment variables
+unsigned long currentTime = millis();
 const auto oneSecond = 1000UL;
 const auto threeSeconds = 3000UL;
-const auto fixSeconds = 5000UL;
+const auto fiveSeconds = 5000UL;
 const unsigned long PRINT_INTERVAL = 1000;
-const unsigned long DETECT_INTERVAL_MED = 5000;
 const unsigned long DETECT_INTERVAL_SHORT = 2000;
+const unsigned long DETECT_INTERVAL_MED = 5000;
 unsigned long previousPrintout = 0;
 unsigned long detectionTime = 0;
 unsigned long detectionTime2 = 0;
 unsigned long detectionTimeReverse = 0;
 const auto pulsesPerMeter = 600;
+
+// Rover mission variables
 signed int turnAngle = 0;
-signed int throttle = 30;
-boolean initialTurn = false;
-boolean cruiseControl = false;
-
-//mission variables
-unsigned long currentTime = millis();
-const int steps = 99; //this need to be const which is problematic. we could have a max step num
-const int columns = 4;
+signed int throttle = 0;
 int currentStep = 0;
-int steps_num = 0;
-int mission[steps][columns] = {};
-String content;
-
+int rotationSpeed = 10; // Speed for rotating rover on the spot
 boolean missionHasStarted = false;
 boolean targetHasReached = false;
-boolean contentRecieved = false;
+boolean contentReceived = false;
+String statusMessage = "No updates ...";
+double initialDistance = 0;
+std::vector<String> missionContent;
+int missionSteps = 0;
 
 enum DrivingMode {
-  OBSTACLE_AVOIDANCE,
-  UNSTUCK,
+  STARTUP,
   DRIVE,
   ROTATE,
+  OBSTACLE_AVOIDANCE,
+  ENDMISSION,
+  UNSTUCK,
   SLOW,
   AVOIDFRONT,
   AVOIDRIGHT,
   AVOIDLEFT,
   REVERSE
-};
-
-enum Status {
-  MISSION_COMPLETE,
-  MISSION_START,
-  STEP_COMPLETE,
-  STEP_START,
-  TARGET_REACHED
 };
 
 enum CarSensor {
@@ -70,11 +60,8 @@ enum CarSensor {
   RIGHTIR
 };
 
-Status status;
-DrivingMode currentMode = ROTATE;
+DrivingMode currentMode = STARTUP;
 CarSensor sensor = FRONTUS;
-
-
 
 ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
@@ -111,40 +98,44 @@ WiFiClient net;
 
 SmartCar car(arduinoRuntime, control, gyroscope, leftOdometer, rightOdometer);
 void setup() {
+  
+  Serial.begin(9600);
+  #ifdef __SMCE__
+    Camera.begin(VGA, RGB888, 30);
+    frameBuffer.resize(Camera.width() * Camera.height() * Camera.bytesPerPixel());
+    mqtt.setKeepAlive(30);
+    mqtt.begin(host, port, WiFi);
+  #else
+    mqtt.begin(net);
+  #endif
+  
   if (mqtt.connect(clientId, username, password)) {
-    mqtt.subscribe("smartRover/#", 2);
+    mqtt.subscribe("mission/#", 2);
 
     mqtt.onMessage(+[](String topic, String message) {
       String messageReceived = message + " on topic: " + topic;
       Serial.println(messageReceived);
-
       if (topic == "mission/content") {
-        detectionTime = currentTime;
-        content = message;
-        contentRecieved = true;
-        Serial.println("Message recieved!");
-        saveContentToArray(content);
-        turnAngle = getTargetHeading();
-        missionHasStarted = true;
-       
-      } else if (topic == "mission/steps") {
-        steps_num = message.toInt();
-
-        detectionTime = currentTime;
-
-      } else if (topic == "mission/qrcode1") {
+        if (!missionHasStarted) {
+          detectionTime = currentTime;
+          contentReceived = true;
+          splitStringToVector(message);
+          statusMessage = "Mission content received.";
+        }
+      } else if (topic == "mission/qrcode") {
         throttle = 0;
+        turnAngle = 0;
         targetHasReached = true;
+        currentMode = ENDMISSION;
+        statusMessage = "QR Code detected. Mission accomplished.";
       }
     });
   }
-  // content = "1;10;30;100;2;42;50;100;3;10;99;300;4;12;50;400;5;12;100;500;6;3;100;600;7;4;100;700";
-  content = "1;15;80;400 ;2;42;60;900;3;40;99;300;4;52;10;400;5;12;100;500;6;3;100;1600;7;40;100;1300";
-  saveContentToArray(content);
-  //  drive();
-
-
-
+  gyroscope.update();
+  int startHeading = gyroscope.getHeading();
+  Serial.print("start heading: ");
+  Serial.println(startHeading);
+  delay(2000);
 }
 
 void loop() {
@@ -164,57 +155,36 @@ void loop() {
     }
 #endif
     static auto previousTransmission = 0UL;
-    
-       /* while (!contentRecieved){
-        String msg = "Rover is ready!";
-         mqtt.publish("marsOrbiter/rover/ready", msg);
-      }
-
-    if (missionHasStarted && currentTime - previousTransmission >= threeSeconds ) {
-        previousTransmission = currentTime;
-
-        mqtt.publish("marsOrbiter/status", reportStatus());
-        mqtt.publish("marsOrbiter/stepStatus", reportStepStatus());
-      }*/
-    if (contentRecieved && currentTime - previousTransmission >= oneSecond) {
-      previousPrintout = currentTime;
-      String msg = "mission content recieved!";
-      mqtt.publish("marsOrbiter/status", msg);
-    }
-
     currentTime = millis();
-    if (currentTime >= previousPrintout + PRINT_INTERVAL)
-    {
+    if (currentTime - previousTransmission >= fiveSeconds) {
       previousPrintout = currentTime;
-
+      mqtt.publish("marsOrbiter/status", statusMessage);
+      // mqtt.publish("marsOrbiter/status", reportStatus());
     }
-
 
 #ifdef __SMCE__
     // Avoid over-using the CPU if we are running in the emulator
     delay(50);
 #endif
   }
-
-  Serial.print(getTargetHeading());
   
-
-  while(!targetHasReached){
-    
-
   switch (currentMode)
   {
+    case STARTUP:
+      startup();
+      break;
     case DRIVE:
       drive();
-      currentMode = monitorDriveMode();
       break;
     case ROTATE:
       rotate();
-      currentMode = DRIVE;
+      break;
+    case ENDMISSION:
+      endMission();
       break;
     case SLOW:
       moveSlow();
-      currentMode =  monitorSlowForward();
+      // currentMode =  monitorSlowForward();
       break;
     case REVERSE:
       moveBackward();
@@ -240,154 +210,155 @@ void loop() {
       currentMode =  monitorSlowForward();
       break;
   }
- }
-
 }
 
+int getTargetHeading() {
+  int stepIndex = currentStep * 4;
+  String tHeading = missionContent[stepIndex+1];
+  int targetHeading = tHeading.toInt();
+  
+  return targetHeading;
+}
 
+int getTargetSpeed() {
+  int stepIndex = currentStep * 4;
+  String tSpeed = missionContent[stepIndex+2];
+  int targetSpeed = tSpeed.toInt();
+  
+  return targetSpeed;
+}
 
 int getTargetDistance() {
-
-  return mission[currentStep][3]; //distance is at the third column
-}
-int getTargetSpeed() {
-
-  return mission[currentStep][2];
-}
-int getTargetHeading() {
-
-  return mission[currentStep][1];
+  int stepIndex = currentStep * 4;
+  String tDistance = missionContent[stepIndex+3];
+  int targetDistance = tDistance.toInt();
+  
+  return targetDistance;
 }
 
 void drive() //source: smartcar_shield/examples/Car/automatedMovements/automatedMovements.ino
 {
+  throttle = getTargetSpeed();
+  int stepDistance = getTargetDistance();
+  Serial.print("Step distance: ");
+  Serial.println(stepDistance);  
 
-  float stepSpeed = getTargetSpeed();
-  long stepDistance = getTargetDistance();
-
+  Serial.print("Step speed: ");
+  Serial.println(throttle);  
   
-  if (stepDistance == 0)
-    {
-    currentStep++;
-    }
+  delay(3000);
   // Ensure the speed is towards the correct direction
-  stepSpeed = smartcarlib::utils::getAbsolute(stepSpeed) * ((stepDistance < 0) ? -1 : 1);
-  car.setAngle(0);
-  car.setSpeed(stepSpeed);
+  throttle = smartcarlib::utils::getAbsolute(throttle) * ((throttle < 0) ? -1 : 1);
+  car.setAngle(turnAngle);
+  car.setSpeed(throttle);
 
-  double initialDistance  = getMedianDistance();
-  bool hasReachedTargetDistance = false;
-  status = STEP_START;
-  while (!hasReachedTargetDistance)
-  {
-    car.update();
-    auto currentDistance   = getMedianDistance();
-    auto travelledDistance = initialDistance > currentDistance
-                             ? initialDistance - currentDistance
-                             : currentDistance - initialDistance;
-    hasReachedTargetDistance = travelledDistance >= smartcarlib::utils::getAbsolute(getTargetDistance());
-
-
-  }
-  status = STEP_COMPLETE;
-  currentStep++;
-  //Serial.print("drive()");
-  //car.setSpeed(0);
-
+  car.update();
+  double currentDistance   = getMedianDistance();
+  double traveledDistance = currentDistance - initialDistance;
+  statusMessage = "Step " + String(currentStep+1) + " in progress.";
   
+  if (traveledDistance >= stepDistance) {
+       car.setSpeed(0);
+       statusMessage = "Step " + String(currentStep+1) + " has completed.";
+
+      if (currentStep == (missionSteps-1)) {
+        endMission();
+      } else {
+        currentStep++;
+        currentMode = ROTATE; 
+      }
+  } 
 }
 
-DrivingMode monitorDriveMode() {
-  detectionTime2 = currentTime;
-  float currentSpeed = getSpeedData();
-
-  if (status = STEP_COMPLETE) {
-     rotate();
-     currentMode = DRIVE;
-
+void startup()
+{
+  if (missionHasStarted) {
+    statusMessage = "Message received. Mission is starting ...";
+    currentMode = ROTATE;
+  } else {
+    statusMessage = "Rover is ready. Waiting for a mission ...";
   }
-  if (currentSpeed >= 0 && currentSpeed < 0.025) {
-    currentMode = UNSTUCK;
-    unstuckBack();
-  }
-  
-
-  return currentMode;
-
 }
-void saveContentToArray(String content) { //called when content is recieved
-  for ( int i = 0; i < steps; i++) {
-    for ( int j = 0; j < columns; j++) {
-      String value = getValue(content, ';', (j + (4 * i)));
-      mission[i][j] = (value).toInt();
 
+void splitStringToVector(String msg) {
+  int j=0;
+  for(int i =0; i < msg.length(); i++){
+    if(msg.charAt(i) == ';'){
+      missionContent.push_back(msg.substring(j,i));
+      j = i+1;
     }
   }
+  missionContent.push_back(msg.substring(j,msg.length()));
+  missionSteps = missionContent.size()/4;
+  
+  missionHasStarted = true;
+  statusMessage = "Mission content received!";
+
+
+  for (int i =0; i < missionContent.size(); i+=4) {
+    Serial.println("Verifying mission content");
+    delay(500);
+    Serial.print("Step: ");
+    Serial.println(missionContent[i]);
+    delay(1000);
+    Serial.print("Heading: ");
+    Serial.println(missionContent[i+1]);
+    delay(1000);
+    Serial.print("Speed: ");
+    Serial.println(missionContent[i+2]);
+    delay(1000);
+    Serial.print("Distance: ");
+    Serial.println(missionContent[i+3]);
+    delay(1000);
+  }
+
+  delay(5000);
 }
 
-void rotate() //to find the right angle (smartCar_shield)
+void rotate()
 {
-
-  int degrees = getTargetHeading();
-  
+  int targetHeading = getTargetHeading();
   gyroscope.update();
-  const auto initialHeading    = gyroscope.getHeading();
-  bool hasReachedTargetHeading = false;
-  while (!hasReachedTargetHeading)
-  {    
-    car.setSpeed(25);
-    if (degrees >initialHeading ){
-      car.setAngle(10);
+  int currentHeading = gyroscope.getHeading();
+  Serial.print("Current heading: ");
+  Serial.println(currentHeading);
+  signed int degrees2Turn = currentHeading - targetHeading;
+  rotationSpeed = smartcarlib::utils::getAbsolute(rotationSpeed);
+
+  if (degrees2Turn > 0)
+    { // positive value means we should rotate clockwise
+        car.overrideMotorSpeed(rotationSpeed,
+                               -rotationSpeed);
     }
-    else{
-      car.setAngle(-10);
-      
+    else
+    { // rotate counter clockwise
+        car.overrideMotorSpeed(-rotationSpeed,
+                               rotationSpeed);
     }
-    
-    
-    car.update();
-    gyroscope.update();
-    auto currentHeading = gyroscope.getHeading();   
-    int degreesTurnedSoFar  = initialHeading - currentHeading;
-    hasReachedTargetHeading = smartcarlib::utils::getAbsolute(degreesTurnedSoFar)
-                              >= smartcarlib::utils::getAbsolute(degrees);
+  if (targetHeading == currentHeading) {
+    car.setSpeed(0);
+    initialDistance = getMedianDistance();
+    currentMode = DRIVE;  
   }
-
-  car.setAngle(0);
-  currentMode = DRIVE;
-  
-
 }
 
-boolean isConnected()
-{
+void endMission() {
+    car.setSpeed(0);
+    car.setAngle(0);
+    statusMessage = "Mission has ended. Please reset and restart everything to start a new mission.";
+}
+
+boolean isConnected() {
   return mqtt.connected();
 }
-double getMedianDistance() {
 
+double getMedianDistance() {
   leftOdometer.update();
   rightOdometer.update();
-
   long distanceLeft = leftOdometer.getDistance();
   long distanceRight = rightOdometer.getDistance();
 
   return (distanceLeft + distanceRight) / 2;
-}
-
-String getValue(String data, char separator, int index)
-{
-  int found = 0;
-  int strIndex[] = { 0, -1 };
-  int maxIndex = data.length() - 1;
-
-  for (int i = 0; i <= maxIndex && found <= index; i++) {
-    if (data.charAt(i) == separator || i == maxIndex) {
-      found++;
-      strIndex[0] = strIndex[1] + 1;
-      strIndex[1] = (i == maxIndex) ? i + 1 : i;
-    }
-  }
-  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
 
 void moveSlow()
@@ -420,46 +391,6 @@ void unstuckBack() {
     currentMode = SLOW;
   }
 }
-
-String reportStepStatus() {
-  String sStatus;
-
-  switch (status)
-  {
-    case STEP_START:
-      sStatus = "Step 1 started";
-      break;
-    // case STEP_COMPLETE:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       :
-    // sStatus = "Step 1 started";
-    //break;
-    default:
-      sStatus = "Unknown";
-      break;
-  }
-  return sStatus;
-}
-
-String reportStatus() {
-  String mStatus;
-
-  switch (status)
-  {
-    case MISSION_START:
-      mStatus = "Mission Started!";
-      break;
-    case  MISSION_COMPLETE:
-      mStatus = "Mission Ended!";
-      break;
-    case TARGET_REACHED:
-      mStatus = "Target reached!";
-      break;
-    default:
-      mStatus  = "Unknown";
-      break;
-  }
-  return mStatus;
-}
-
 
 int getSensorData(CarSensor sensorName) {
   int detectedDistance;
