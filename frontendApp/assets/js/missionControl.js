@@ -203,18 +203,23 @@ function sendMission() {
     		var desc = "The <strong>SmartRover</strong> is not powered up!<br />Please turn on Rover by pressing Power button.<br />Also please connect to &quot;Mars Orbiter&quot; satellite for updates.<br /><br />Once everything is ready, click &quot;Send mession&quot; button." 
 			saveModal("Rover power", desc, noBtnLabel = 'Close', false); 
 	} else {
-		
-		var messageContent = store.get('missionContent');
-		if (messageContent == null) {
+		if (!store.has('missionContent')) {
 			var descNoContent = "Cannot load mission content. Please make sure your mission is properly setup either on the map or table. Once ready, click &quot;Execute mission&quot; to process and send mission content."
 			saveModal("Mission setup", descNoContent, noBtnLabel = 'Close', false);
 		} else {
-			var missionSteps = messageContent.content.steps.length;
+			var missionContent = store.get('missionContent');
+			var messageContent = "";
+			var limit = ";"
+			var missionSteps = missionContent.steps.length;
+			
 			for (var i = 0; i < missionSteps; i++) {
-				var step = 	String(i) + ';' + 
-							String(content.steps[i].parameters.heading) + ';' + 
-							String(content.steps[i].parameters.speed) + ';' + 
-							String(content.steps[i].parameters.distance) + ';' 
+				var step = 	String(i) + limit +
+							String(missionContent.steps[i].parameters.heading) + limit + 
+							String(missionContent.steps[i].parameters.speed) + limit + 
+							String(missionContent.steps[i].parameters.distance)
+				if (i != (missionSteps-1)) {
+					step += limit;
+				}
 				messageContent += step;
 			}
 
@@ -242,7 +247,6 @@ function endMission() {
 				qos: 2,
 				retain: false
 		})
-	
 		var missionEndDesc = "Mission had completed. We have reached a target area and detected target code.<br /><br />Congratulations!";
 		saveModal('Mission complete', missionEndDesc, 'Close');	
 	}

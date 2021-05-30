@@ -402,7 +402,7 @@ function executeMission() {
     	var theta = Math.atan2(b1 - a1, a2 - b2);
     	if (theta < 0)
         	theta += twoPi;
-    	var brng = Math.round(360 - (RAD2DEG * theta));
+    	var brng = Math.round(RAD2DEG * theta);
 		
 		// distance
 		var sq1 = Math.pow(b2-a2,2);
