@@ -1,5 +1,3 @@
-const config = require('electron-node-config');
-
 const mqttSaveBtn = document.getElementById('mqttSaveBtn')
 const mqttReloadBtn = document.getElementById('mqttReloadBtn')
 const dbSaveBtn = document.getElementById('dbSaveBtn')
@@ -13,99 +11,51 @@ dbSaveBtn.addEventListener('click', function(){ saveDbSettings(); }, false)
 dbReloadBtn.addEventListener('click', function(){ loadDbSettings(); }, false)
 
 function loadMqttSettings() {
-	let mqttConfig = config.get('mqtt.brokerConfig');
-	
-	document.getElementById("mqtt-hostname").value = mqttConfig.host;
-	document.getElementById("mqtt-port").value = mqttConfig.port;
-	document.getElementById("mqtt-username").value = mqttConfig.username;
-	document.getElementById("mqtt-password").value = mqttConfig.password;
-	document.getElementById("mqtt-clientid").value = mqttConfig.clientId;
+	var localMqttSettings = store.get('localMqttSettings');
+	document.getElementById("mqtt-hostname").value = localMqttSettings.host;
+	document.getElementById("mqtt-port").value = localMqttSettings.port;
+	document.getElementById("mqtt-username").value = localMqttSettings.username;
+	document.getElementById("mqtt-password").value = localMqttSettings.password;
+	document.getElementById("mqtt-clientid").value = localMqttSettings.clientId;
 }
 
 function loadDbSettings() {
-	let fs = require('fs');
-	var db = null;
-	try {
-		const jsonString = fs.readFileSync("./config/dbConfig.json");
-		db = JSON.parse(jsonString);
-		document.getElementById('settings-msg').style.display = "block";
-		document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully loaded.</span>";
-		
-		document.getElementById("db-hostname").value = db.host;
-		document.getElementById("db-port").value = db.port;
-		document.getElementById("db-username").value = db.dbUser;
-		document.getElementById("db-password").value = db.dbPassword;
-		document.getElementById("db-name").value = db.dbName;
-		
-	} catch (err) {
-		document.getElementById('settings-msg').style.display = "block";
-		document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error loading settings</span>";
-		return;
-	}
-
-	setTimeout(function(){
-				document.getElementById('settings-msg').style.display = "none";
-			}, 5000);
+	var localDbSettings = store.get('localDbSettings');
+	document.getElementById("db-hostname").value = localDbSettings.host;
+	document.getElementById("db-port").value = localDbSettings.port;
+	document.getElementById("db-username").value = localDbSettings.user;
+	document.getElementById("db-password").value = localDbSettings.password;
+	document.getElementById("db-name").value = localDbSettings.database;
 }
 
 function saveDbSettings() {
-	let fs = require('fs');
 	updateTimestamp();
 	const newDbSettings = {
-    	host: document.getElementById("db-hostname").value,
-    	port: parseInt(document.getElementById("db-port").value),
-    	dbUser: document.getElementById("db-username").value,
-		dbPassword: document.getElementById("db-password").value, 
-		dbName: document.getElementById("db-name").value
+    	"host": document.getElementById("db-hostname").value,
+    	"port": parseInt(document.getElementById("db-port").value),
+    	"user": document.getElementById("db-username").value,
+		"password": document.getElementById("db-password").value, 
+		"database": document.getElementById("db-name").value,
+		"local": true
 	}
-	const jsonString = JSON.stringify(newDbSettings, null, 2)
-	fs.writeFile("./config/dbConfig.json", jsonString, err => {
-    	if (err) {
-			document.getElementById('settings-msg').style.display = "block";
-			document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error updating settings</span>";
-		} else {
-			/*document.getElementById('settings-msg').style.display = "block";
-			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";*/
-			systemToast('dbSettingsSaveSuccess');
-		}
-		setTimeout(function(){
-				document.getElementById('settings-msg').style.display = "none";
-			}, 5000);
-	})
+	
+	store.set('localDbSettings', newDbSettings);
+	systemToast('dbSettingsSaveSuccess');
 }
 
 function saveMqttSettings() {
-	let fs = require('fs');
 	updateTimestamp();
 	var connectionUrl = "mqtt://" + document.getElementById("mqtt-hostname").value 
 						+ ":" + document.getElementById("mqtt-port").value;
-		
-	const newMqttSettings = {
-		"mqtt": {
-			"_comment": "MQTT Broker connection settings here",
-			"brokerConfig": {
-				"connectUrl": connectionUrl,
-				"host": document.getElementById("mqtt-hostname").value,
-				"port": parseInt(document.getElementById("mqtt-port").value),
-				"username": document.getElementById("mqtt-username").value,
-				"password": document.getElementById("mqtt-password").value,
-				"clientId": document.getElementById("mqtt-clientid").value
-    		}
-		}
-	}
-
-	const jsonString = JSON.stringify(newMqttSettings, null, 2)
-	fs.writeFile("./config/default.json", jsonString, err => {
-    	if (err) {
-			document.getElementById('settings-msg').style.display = "block";
-			document.getElementById("settings-msg").innerHTML="<span class='text-danger'>Error updating settings</span>";
-		} else {
-			/*document.getElementById('settings-msg').style.display = "block";
-			document.getElementById("settings-msg").innerHTML="<span class='text-success'>Settings successfully saved.</span>";*/
-			systemToast('mqttSettingsSaveSuccess');
-		}
-		setTimeout(function(){
-				document.getElementById('settings-msg').style.display = "none";
-			}, 5000);
-	})
+	
+	var newMqttSettings = {
+			"connectUrl": connectionUrl,
+			"host": document.getElementById("mqtt-hostname").value,
+			"port": parseInt(document.getElementById("mqtt-port").value),
+			"username": document.getElementById("mqtt-username").value,
+			"password": document.getElementById("mqtt-password").value,
+			"clientId": document.getElementById("mqtt-clientid").value
+  		};
+	store.set('localMqttSettings', newMqttSettings);
+	systemToast('mqttSettingsSaveSuccess');
 }

@@ -1,25 +1,50 @@
 const { Client } = require('pg');
 const Store = require('electron-store');
-const fs = require('fs');
-
+let config = require('electron-node-config');
 const store = new Store({
   configName: 'user-store'
 });
 
-const jsonString = fs.readFileSync("./config/dbConfig.json");
-	db = JSON.parse(jsonString);
-
-const clientConfig = {
-    	user: db.dbUser,
-    	host: db.host,
-    	database: db.dbName,
-    	password: db.dbPassword,
-    	port: db.port
-  	};
+var clientConfig = {};
 
 document.addEventListener("DOMContentLoaded", function() { initializeUser()}, false);
 
+function validateDBSettings() {
+	initializeSettings();
+	const client = new Client(clientConfig);
+	client.connect()
+	client
+  		.query('SELECT NOW()')
+  		.then(result => {
+			return true;
+		})
+  		.catch(e => {
+			console.error(e.stack);
+			systemToast('dbError');
+			return false;
+		})
+  		.then(() => client.end());
+}
+
+function initializeSettings() {
+	var localDbSettings = store.get('localDbSettings');
+	if (localDbSettings.local) {
+		clientConfig = {
+    		user: localDbSettings.user,
+    		host: localDbSettings.host,
+    		database: localDbSettings.database,
+    		password: localDbSettings.password,
+    		port: localDbSettings.port
+  		};
+	} else {
+		console.log('DB settings missing ...');
+		systemToast('Database settings missing.<br />Please check Settings page.');
+	}
+}
+
 function initializeUser() {
+	validateDBSettings();
+	
 	var loggedTime = store.get('loggedTimestamp');
 	if (loggedTime != null) {
 		console.log("Checking time diff ...")
@@ -99,8 +124,8 @@ function userModal(type) {
 
 								</div>
 								<div class="modal-footer d-flex justify-content-center">
-									<button type="button" id="loginSubmitBtn" class="btn btn-outline-success" onClick="validateForm('login')">Log In</button>
-									<button type="button" id="modalNoBtn" class="btn btn-outline-danger" data-bs-dismiss="modal" >Cancel</button>
+									<button type="button" id="loginSubmitBtn" class="btn btn-primary me-4" onClick="validateForm('login')">&nbsp;&nbsp;Log In&nbsp;&nbsp;</button>
+									<button type="button" id="modalNoBtn" class="btn btn-warning" data-bs-dismiss="modal" >Cancel</button>
 								</div>
 							</form>
 						</div>
@@ -149,8 +174,8 @@ function userModal(type) {
 							<div id="formMessage" class="form-message"></div>
 						</div>
 						<div class="modal-footer d-flex justify-content-center">
-							<button id="registerBtn" type="button" class="btn btn-outline-success me-4" onClick="validateForm('register')"> Register </button>
-							<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> Cancel </button>
+							<button id="registerBtn" type="button" class="btn btn-primary me-4" onClick="validateForm('register')">&nbsp;&nbsp;Register&nbsp;&nbsp;</button>
+							<button type="button" class="btn btn-warning" data-bs-dismiss="modal">&nbsp;Cancel&nbsp;</button>
 						</div>
 					</form>
 				</div>
@@ -420,9 +445,9 @@ function loadMissionList() {
 										<div id="formMessage" class="form-message"></div>
 									</div>
 									<div class="modal-footer d-flex justify-content-center">
-										<button id="loadMissionBtn" type="button" class="btn btn-outline-success me-5" onClick="processMission('load')"> Load </button>
-										<button id="loadMissionBtn" type="button" class="btn btn-outline-danger me-5" onClick="processMission('delete')"> Delete </button>
-										<button type="button" class="btn btn-outline-info" data-bs-dismiss="modal"> Cancel </button>
+										<button id="loadMissionBtn" type="button" class="btn btn-primary me-4" onClick="processMission('load')">&nbsp;&nbsp;Load&nbsp;&nbsp;</button>
+										<button id="loadMissionBtn" type="button" class="btn btn-warning me-4" onClick="processMission('delete')">&nbsp;&nbsp;Delete&nbsp;&nbsp;</button>
+										<button type="button" class="btn btn-light" data-bs-dismiss="modal">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button>
 									</div>
 								</form>
 							</div>
@@ -496,7 +521,7 @@ const saveModal = (title, description, closeBtnLabel) => {
   }
   modalWrap = document.createElement('div');
   modalWrap.innerHTML = `
-    <div class="modal fade" id="saveWarning">
+    <div class="modal fade" id="warningPower">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-warning">
@@ -507,7 +532,7 @@ const saveModal = (title, description, closeBtnLabel) => {
             <p>${description}</p>
           </div>
           <div class="modal-footer bg-light d-flex justify-content-center">
-        	<button id="modalNoBtn" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">${closeBtnLabel}</button>
+        	<button id="modalNoBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">${closeBtnLabel}</button>
           </div>
         </div>
       </div>

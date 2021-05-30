@@ -1,3 +1,7 @@
+var executeTableBtn = document.getElementById('executeTableBtn');
+var executeTableDesc = "It is highly recommended to save your mission before executing it. There is a good chance of loosing your mission details due to communication errors or other unforeseen errors. Also it is useful to save if you would like to revise it and execute again. Any unsaved missions would be reset after mission completion.<br /><br /><strong>Are you sure to execute the mission now?</strong>";
+executeTableBtn.addEventListener('click',function () { missionModal('Execute mission', executeTableDesc, 'Execute', 'Cancel', 'executeMissionTable()')}, false);
+
 //commandsTable
 function addRow() {
     var table = document.getElementById('commandTable');
@@ -34,7 +38,7 @@ function addRow() {
     heading.value = "0";
     heading.step = "5";
     heading.min = "0";
-    heading.max = "360";
+    heading.max = "359";
     heading.name = "txtbox[]";
     heading.className = "data-cell";
     headingCell.appendChild(heading);
@@ -111,7 +115,6 @@ function saveMissionTable() {
 			
 			missionContent.waypoints.push(wp);
         }
-		
 				
 		const saveTableQuery = {
 			name: 'save-mission-plot',
@@ -135,6 +138,42 @@ function saveMissionTable() {
 		var desc = 'You need to login in order to save your mission.'
 		saveModal('Save mission', desc, 'OK')
 	}
+}
+
+function executeMissionTable() {
+	hideModal('missionWarning');
+	var missionContent = {};	
+	var steps;
+
+	var table = document.getElementById('commandTable');
+	steps = table.rows.length - 1;
+	missionContent.steps = [];
+
+	for (var i = 0; i < steps; i++) {
+		var row = table.rows[i+1];
+		let cell2 = row.cells[0];
+
+		var step = {
+				step: i,
+				parameters: {
+					heading: row.cells[1].getElementsByTagName('input')[0].value,
+					speed: row.cells[2].getElementsByTagName('input')[0].value,
+					distance: row.cells[3].getElementsByTagName('input')[0].value
+				}
+			}
+
+		missionContent.steps.push(step);
+	}
+	
+	document.getElementById("stream-tab").classList.add("active");
+	document.getElementById("stream-tab").classList.add("show");
+	document.getElementById("table-tab").classList.remove("active");
+	document.getElementById("table-tab").classList.remove("show");
+	document.getElementById("missionTabs-stream-tab").classList.add("active");
+	document.getElementById("missionTabs-table-tab").classList.remove("active");
+	switchPane('stream');
+	
+	store.set('missionContent', missionContent);
 }
 
 function switchPane(pane) {
@@ -245,7 +284,7 @@ function loadTable(missionId) {
 						var step = i + 1;
 						content += '<tr id="row' + step + '">';
 						content += '<td class="number">' + step + '</td>';
-						content += '<td id="heading"><input type="number" value="'+ json[i].heading +'" step="5" min="0" max="360" class="data-cell" /></td>';
+						content += '<td id="heading"><input type="number" value="'+ json[i].heading +'" step="5" min="0" max="359" class="data-cell" /></td>';
 						content += '<td id="speed"><input type="number" value="' + json[i].speed + '" step="10" min="-100" max="100" class="data-cell" /></td>';
 						content += '<td id="distance"><input type="number" value="' + json[i].distance + '" step="100" class="data-cell" min="0" /></td>';
 						content += '<td><button onclick="deleteRow(this)" type="button" class="btn btn-danger btn-sm px-3"><i class="fas fa-times"></i></button></td>';

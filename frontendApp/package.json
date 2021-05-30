@@ -1,7 +1,11 @@
 {
   "name": "SmartRover",
-  "version": "0.4.0",
-  "author": "Group 9",
+  "version": "0.5.0",
+  "author": {
+    "name": "Group 9",
+    "email": "altansukh@altansukh.com",
+    "url": "https://github.com/DIT112-V21/group-09"
+  },
   "description": "Your gateway to take control of the SmartRover to explore Mars",
   "license": "MIT",
   "homepage": "https://github.com/DIT112-V21/group-09#readme",
@@ -11,35 +15,73 @@
   },
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "test": "mocha",
     "lint": "eslint .",
-    "start": "electron ."
+    "dist": "electron-builder -p always",
+    "postinstall": "electron-builder install-app-deps",
+    "release": "electron-builder",
+    "build": "electron-builder --mac --windows --linux",
+    "publish": "build -p always"
+  },
+  "build": {
+    "appId": "com.group9.smartrover",
+    "productName": "SmartRover",
+    "publish": {
+      "provider": "github",
+      "owner": "DIT112-V21",
+      "repo": "group-09"
+    },
+    "dmg": {
+      "icon": "build/icon.png",
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "maintainer": "Group 9",
+      "icon": "build/icon.png"
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.png"
+    }
   },
   "dependencies": {
     "@electron/remote": "^1.1.0",
     "@fortawesome/fontawesome-free": "^5.15.3",
-    "electron": "^12.0.7",
-    "electron-chromedriver": "^12.0.0",
     "electron-node-config": "^1.1.0",
     "electron-store": "^8.0.0",
-    "eslint": "^7.24.0",
     "jquery": "^3.6.0",
-    "mocha": "^8.3.2",
     "mqtt": "^4.2.6",
     "node-client": "^0.1.17",
-    "pg": "^8.6.0",
-    "spectron": "^14.0.0"
+    "pg": "^8.6.0"
   },
   "bugs": {
     "url": "https://github.com/DIT112-V21/group-09/issues"
-  },
-  "directories": {
-    "test": "test"
   },
   "keywords": [],
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
+    "electron": "^12.0.7",
+    "electron-builder": "^22.10.5",
+    "electron-chromedriver": "^12.0.0",
+    "eslint": "^7.24.0",
+    "mocha": "^8.3.2",
     "spectron": "^14.0.0"
   }
 }
